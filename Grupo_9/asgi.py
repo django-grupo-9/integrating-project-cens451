@@ -1,5 +1,5 @@
 """
-ASGI config for Grupo_9 project.
+ASGI config for grupo_9 project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

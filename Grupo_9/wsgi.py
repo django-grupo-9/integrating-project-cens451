@@ -1,5 +1,5 @@
 """
-WSGI config for Grupo_9 project.
+WSGI config for grupo_9 project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
