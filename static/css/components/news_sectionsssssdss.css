@@ -1,0 +1,30 @@
+.news {
+    grid-column: 3/11;
+    display: flex;
+    flex-direction: column;
+    height: 330px;
+}
+
+.container-title {
+    padding: 15px 20px;
+    width: 100%;
+}
+
+.container-body {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 15px 20px;
+}
+
+.container-image {
+    width: 256px;
+    background-color: gray;
+
+}
+.container-description{
+    width: 70%;
+}
+
