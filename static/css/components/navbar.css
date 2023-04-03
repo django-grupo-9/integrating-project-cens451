@@ -1,11 +1,11 @@
 
 header {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--main-dark-color);
   z-index: 99;
   width: 100%;
   position: fixed;
   transition: 0.5s ease all;
-  color: #fff;
+  color: var(--main-white-color);
 }
 
 nav {
@@ -20,7 +20,7 @@ nav {
 
 .navigation, .navigation > li a {
   font-weight: 500;
-  color: #fff;
+  color: var(--main-white-color);
   list-style: none;
   text-decoration: none;
 }
@@ -43,7 +43,7 @@ nav {
 }
 
 .navigation a {
-  color: rgba(255, 255, 255, 0.73);
+  color: var(--main-light-color);
   font-size: 14px;
   transition: 0.5s ease all;
   padding-bottom: 6px;
@@ -51,13 +51,13 @@ nav {
 }
 
 .navigation .router-link-active {
-  color: #fff;
+  color: var(--main-white-color);
 }
 
 
 .navigation a:hover {
-  color: #00afea;
-  border-bottom: 1px solid #00afea;
+  color: var(--link-hover-blue-color);
+  border-bottom: 1px solid var(--link-hover-blue-color);
 }
 
 .branding {
@@ -68,7 +68,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  color:#fff;
+  color: var(--main-white-color);
   text-decoration: none;
 
 }
@@ -126,7 +126,7 @@ nav .iconNavbar svg {
   width: 100%;
   max-width: 250px;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--main-white-color);
   top: 0;
   left: 0px;
 }
@@ -138,11 +138,11 @@ nav .iconNavbar svg {
 }
 
 .dropdown-nav li a {
-  color: #000;
+  color: var(--main-dark-color);
 }
 
 .scrolled-nav {
-  background-color: #000;
+  background-color: var(--main-black-color);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
