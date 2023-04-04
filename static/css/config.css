@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+:root {
+    --main-white-color: #FFFFFF;
+    --main-black-color: #000000;
+    --main-light-color: rgba(255, 255, 255, 0.73);
+    --main-dark-color: rgba(0, 0, 0, 0.8);
+    --link-hover-blue-color: #00AFEA;
+
+}
