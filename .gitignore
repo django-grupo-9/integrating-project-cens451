@@ -133,7 +133,7 @@ celerybeat.pid
 
 # Environments
 .idea
-.env
+grupo_9/.env
 .venv
 idea/
 env/
