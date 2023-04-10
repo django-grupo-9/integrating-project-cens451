@@ -4,7 +4,7 @@ Django==3.2.18
 django-bootstrap-datepicker-plus==5.0.3
 django-bootstrap-v5==1.0.11
 django-environ==0.10.0
-fontawesomefree==6.4.0
+fontawesomefree==6.2.1
 Jinja2==3.1.2
 MarkupSafe==2.1.2
 pycodestyle==2.10.0
