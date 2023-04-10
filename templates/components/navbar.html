@@ -3,16 +3,16 @@
 
     <nav>
       <div class="branding">
-        {% comment %} <a href="{% url 'home' %}"> {% endcomment %}
+        <a href="{% url 'home' %}">
           <img src="{% static 'img/logo.png' %}" alt="CENS 451">
           <p class="name_branding">CENS 451</p>
         </a>
       </div>
 
       <ul id="navId" class="navigation">
-        {% comment %} <li><a href="{% url 'home' %}">Inicio</a></li> {% endcomment %}
+        <li><a href="{% url 'home' %}">Inicio</a></li>
         <li><a href="{% url 'fines' %}">Plan Fines</a></li>
-        {% comment %} <li><a href="{% url 'docentes' %}">Docentes</a></li> {% endcomment %}
+        <li><a href="{% url 'docentes' %}">Docentes</a></li>
       </ul>
 
       <div id="iconNavId" class="iconNavbar">
@@ -22,9 +22,9 @@
 
       <div>
         <ul id="mobileNavId" class="dropdown-nav mobile-nav-leave-active mobile-nav-leave-to" >
-          {% comment %} <li><a class="link" href="{% url 'home' %}">Inicio</a></li> {% endcomment %}
+          <li><a class="link" href="{% url 'home' %}">Inicio</a></li>
           <li><a class="link" href="{% url 'fines' %}">Plan Fines</a></li>
-          {% comment %} <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li> {% endcomment %}
+          <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
         </ul>
       </div>
 
