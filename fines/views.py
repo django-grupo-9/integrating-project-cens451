@@ -9,7 +9,7 @@ def index(request):
 
 
 def fines(request):
-    return render(request, "fines.html", {"title": "Plan Fines"})
+    return render(request, "fines/fines.html", {"title": "Plan Fines"})
 
 
 def home(request):
