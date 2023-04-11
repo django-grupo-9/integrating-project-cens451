@@ -12,5 +12,9 @@ def fines(request):
     return render(request, "fines/fines.html", {"title": "Plan Fines"})
 
 
+def sign(request):
+    return render(request, 'sign.html')
+
+
 def docentes(request):
     return HttpResponse("<h1>Solución temporal!!</h1>")
