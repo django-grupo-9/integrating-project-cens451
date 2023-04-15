@@ -9,22 +9,36 @@
         </a>
       </div>
 
+      {% comment %} links desktop {% endcomment %}
+
       <ul id="navId" class="navigation">
         <li><a href="{% url 'index' %}">Inicio</a></li>
         <li><a href="{% url 'fines' %}">Plan Fines</a></li>
         <li><a href="{% url 'docentes' %}">Docentes</a></li>
+        <li>
+          <a href="{% url 'sign' %}">
+            <button type="button" class="btn btn-primary">Ingresar</button>
+          </a>
+        </li>
+
       </ul>
+
+      {% comment %} responsive mobile {% endcomment %}
 
       <div id="iconNavId" class="iconNavbar">
           <i  class="fa-solid fa-bars" ></i>
       </div>
-
 
       <div>
         <ul id="mobileNavId" class="dropdown-nav mobile-nav-leave-active mobile-nav-leave-to" >
           <li><a class="link" href="{% url 'index' %}">Inicio</a></li>
           <li><a class="link" href="{% url 'fines' %}">Plan Fines</a></li>
           <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
+          <li>
+            <a href="{% url 'sign' %}">
+              <button type="button" class="btn btn-primary">Ingresar</button>
+            </a>
+          </li>
         </ul>
       </div>
 
