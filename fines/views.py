@@ -33,7 +33,8 @@ def materias(request, carrera, curso):
     <h1>Carrera: {carrera}. Curso: {curso}</h1>
     <h2>Materias obligatorias:</h2>
     <ul>
-        <li>Analisis Matematico I</li>
-        <li>Sociedad y Estado</li>
-        <li>Algebra I</li>
+        <li>Matematica</li>
+        <li>Sociedad</li>
+        <li>Algebra</li>
+    </ul>    
     """)
