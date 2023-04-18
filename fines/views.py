@@ -15,12 +15,5 @@ def materias(request, carrera, curso):
         carrera = carrera.replace('_', ' ')
     if underscore in curso:
         curso = curso.replace('_', ' ')
-    return HttpResponse(f"""
-    <h1>Carrera: {carrera}. Curso: {curso}</h1>
-    <h2>Materias obligatorias:</h2>
-    <ul>
-        <li>Analisis Matematico I</li>
-        <li>Sociedad y Estado</li>
-        <li>Algebra I</li>
-    </ul>    
-    """)
+    
+    return render(request, "pages/materias.html", {"title": carrera, "carrera": carrera, "curso" : curso} )
