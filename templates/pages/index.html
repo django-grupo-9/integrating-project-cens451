@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ <title>CENS 451 | Inicio </title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+    {% include 'components/banner.html' %}
+{% endblock %}
+
+
+{% block main %}
+    <main class="container-fluid">
+
+        <div class="row p-3">
+
+            <section class="col offset-md-3 col-md-6">
+                <div class="row ">
+                      <h1>¿Que es un CENS</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="" alt="img-news">
+                    </div>
+                    <div class="col-md-8">
+                        Las instituciones educativas del nivel secundario de la Dirección de Educación de Adultos están integradas por los Centros Educativos de Nivel Secundario (CENS).
+
+                        La propuesta de los CENS se organiza en un ciclo de tres etapas que se dividen por año, con un diseño curricular prescriptivo que asume la educación en directa conexión con los procesos educativos vinculados al desarrollo local, cultural, económico y productivo de las personas en comunidad.
+
+                        Los CENS, son instituciones destinadas a acompañar y otorgar el espacio propicio para que jóvenes, adultos y adultos mayores, alcancen la terminalidad de sus estudios secundarios, a través de una propuesta educativa, que promueva un espacio social y cultural dentro de la comunidad en la cual están insertos y atendiendo a los derechos sociales de aquellos y aquellas que lo transiten. Es también el camino para la continuidad con otras ofertas educativas que se abren al finalizar la educación secundaria, como los niveles superiores, terciarios y /o universitarios, validando la trayectoria de los estudiantes con la acreditación y certificación correspondiente al nivel.
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+    
+    
+{% endblock %}

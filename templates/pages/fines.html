@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ <title>CENS 451 | Fines </title>
+{% endblock %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+    {% include 'components/banner.html' %}
+{% endblock %}
+
+
+{% block main %}
+    {% comment %} <a href="{% url 'inscription' %}">Inscripciones</a> {% endcomment %}
+    <main class="container-fluid">
+
+        <div class="row p-3">
+
+            <section class="col offset-md-3 col-md-6">
+                <div class="row ">
+                      <h1>¿Que es el Plan Fines?</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="" alt="img-news">
+                    </div>
+                    <div class="col-md-8">
+                        FinEs es un programa nacional, que convoca a jóvenes y adultos desde sus propios lugares de trabajo, o de participación, y para ello posee alianzas y articula esfuerzos con provincias, municipios, cámaras empresarias, sindicatos y organizaciones sociales, entre otros. El programa surge como respuesta a la necesidad de aquellos ciudadanos que no alcanzaron a completar su formación inicial. En un principio complementó el sistema formal, y en la actualidad se percibe como alternativa al circuito educativo establecido, ya que ofrece una opción para la población mayor de 18 años que no cumplimentó la obligatoriedad escolar. El programa de perfil socio-educativo, se caracteriza por su flexibilidad y adaptación; modalidad que posibilita la contención a los diferentes sectores que por múltiples razones no llegan al circuito formal educativo.
+
+                        El plan de estudios se conforma por tres ciclos (1°, 2° y 3°), con dos tramos cada uno. De esta manera, la duración de las asignaturas es cuatrimestral y cada ciclo se compone de dos tramos consecutivos. El trayecto completo son 30 materias que se realizan en 6 cuatrimestres (3 años), pero como el Plan reconoce estudios anteriores, en definitiva, dependerá del máximo nivel alcanzado anteriormente por el estudiante la duración final del trayecto.
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+{% endblock %}
