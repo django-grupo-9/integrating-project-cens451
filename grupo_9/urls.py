@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
-from fines import views
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('sign/', views.sign, name='sign'),
     path('fines/', include('fines.urls')),
+    path('docentes/', views.docentes, name='docentes'), # Solución temporal para error en navbar!
+    path('contacto', views.contacto, name='contacto'),
+    path('sign/', views.sign, name='sign'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
