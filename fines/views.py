@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def fines(request):
-    return render(request, "fines/fines.html", {"title": "Plan Fines"})
+    return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
 def materias(request, carrera, curso):
     # Acá buscaría en la base de datos
