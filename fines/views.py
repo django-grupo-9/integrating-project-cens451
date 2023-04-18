@@ -13,8 +13,10 @@ def fines(request):
 
 
 def sign(request):
-    return render(request, 'sign.html')
+    return render(request, 'sign.html',{"title": "Ingresar"})
 
+def contacto(request):
+    return render(request, 'contacto.html',{"title": "CONTACTO"})
 
 def docentes(request):
     return HttpResponse("<h1>Solución temporal!!</h1>")
