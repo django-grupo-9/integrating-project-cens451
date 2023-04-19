@@ -39,25 +39,22 @@
                             </div>
                           </div>
                       </form>
-                    <form action="/signup" method="POST">
+                    <form action="{% url 'sign' %}" method="POST">
                         {% csrf_token %}  
                         <div class="sign-up-htm">
                             <div class="group">
-                                <input placeholder="Usuario" id="user" type="text" class="input" minlength="8" required>
+                                {{form2.user}}
                             </div>
         
                             <div class="group">
-                                <input placeholder="Email" id="email" type="email" class="input" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
-                                title="Por favor, ingrese un correo electrónico válido (ejemplo@dominio.com)">
+                                {{form2.email}}
                             </div>
         
                             <div class="group">
-                                <input placeholder="Contraseña" id="password" type="password" class="input" data-type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                                title="La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.">
+                                {{form2.password}}
                             </div>
                             <div class="group">
-                                <input placeholder="Repetir constraseña" id="pass" type="password" class="input" data-type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                                title="La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.">
+                                {{form2.pass_repeat}}
                             </div>
         
                             <div class="group">
