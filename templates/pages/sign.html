@@ -21,26 +21,24 @@
                 <input id="item-1" type="radio" name="item" class="sign-in" checked><label for="item-1" class="item">Ingresar</label>
                 <input id="item-2" type="radio" name="item" class="sign-up"><label for="item-2" class="item">Registrate</label>
                 <div class="login-form">
-                    <form action="/signin" method="POST"> 
-                        {% csrf_token %}   
-                        <div class="sign-in-htm">
+                    <form method="POST" action="{% url 'sign' %}">
+                        {% csrf_token %}
+                          <div class="sign-in-htm">
                             <div class="group">
-                                <input placeholder="Usuario" id="user" type="text" class="input" minlength="8" required>
+                              {{ form.user }}
                             </div>
                             <div class="group">
-                                <input placeholder="Contraseña" id="password" type="password" class="input" data-type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                                title="La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.">
+                              {{ form.password }}
                             </div>
-        
                             <div class="group">
                                 <input type="submit" class="button" value="Sign In" action="/signup" method="POST" onsubmit="return validateForm()">
                             </div>
                             <div class="hr"></div>
                             <div class="footer">
-                                <a href="#forgot">Olvidaste la contraseña?</a>
+                              <a href="#forgot">Olvidaste la contraseña?</a>
                             </div>
-                        </div>
-                    </form>
+                          </div>
+                      </form>
                     <form action="/signup" method="POST">
                         {% csrf_token %}  
                         <div class="sign-up-htm">
