@@ -91,3 +91,11 @@ class SignUpForm(forms.Form):
         )
     )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        pass_repeat = cleaned_data.get('pass_repeat')
+
+        if password and pass_repeat and password != pass_repeat:
+            self.add_error('password', 'Las contraseñas no coinciden.')
+            self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
