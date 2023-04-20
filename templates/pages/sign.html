@@ -44,17 +44,21 @@
                         <div class="sign-up-htm">
                             <div class="group">
                                 {{form2.user}}
+                                <p class= 'errors'>{{ form.user.errors }}</p>
                             </div>
         
                             <div class="group">
                                 {{form2.email}}
+                                <p class= 'errors'>{{ form.email.errors }}</p>
                             </div>
         
                             <div class="group">
                                 {{form2.password}}
+                                <p class= 'errors'>{{ form.password.errors }}</p>
                             </div>
                             <div class="group">
                                 {{form2.pass_repeat}}
+                                <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
                             </div>
         
                             <div class="group">
