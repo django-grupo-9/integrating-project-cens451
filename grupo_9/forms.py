@@ -2,9 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
-from django import forms
-
-
 class LoginForm(forms.Form):
     user = forms.CharField(
         min_length=8,
