@@ -19,9 +19,6 @@ def sign(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         form2 = SignUpForm(request.POST)
-        if form.is_valid():
-            # Hacer algo si el login es válido
-            pass
         if form2.is_valid():
             # Validar registro form
             errors = form2.validate_data()
@@ -30,7 +27,10 @@ def sign(request):
                 pass
             else:
                 # Subir al modelo los datos si el registro es válido
-                pass            
+                pass    
+        elif form.is_valid():
+            # Hacer algo si el login es válido
+            pass        
     else:
         form = LoginForm()
         form2 = SignUpForm()
