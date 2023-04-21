@@ -21,6 +21,14 @@
                 <input id="item-1" type="radio" name="item" class="sign-in" checked><label for="item-1" class="item">Ingresar</label>
                 <input id="item-2" type="radio" name="item" class="sign-up"><label for="item-2" class="item">Registrate</label>
                 <div class="login-form">
+                    {% if messages %}
+                    <div class="messages">
+                      <p{% if message.tags %} class="{{message.tags}}" {% endif %}>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Importante: {% endif %}
+                        {{ message }}
+                      </p>  
+                    </div>
+                    {% endif %}
                     <form method="POST" action="{% url 'sign' %}">
                         {% csrf_token %}
                           <div class="sign-in-htm">
@@ -37,8 +45,16 @@
                             <div class="footer">
                               <a href="#forgot">Olvidaste la contraseña?</a>
                             </div>
-                          </div>
-                      </form>
+                        </div>
+                    </form>
+                    {% if messages %}
+                    <div class="messages">
+                        <p{% if message.tags %} class="{{message.tags}}" {% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Importante: {% endif %}
+                            {{ message }}
+                        </p>  
+                    </div>
+                    {% endif %}
                     <form action="{% url 'sign' %}" method="POST">
                         {% csrf_token %}  
                         <div class="sign-up-htm">
