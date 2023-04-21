@@ -24,11 +24,11 @@
                     {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                        <li{% if messages.tags %} class="{{messages.tags}}" {% endif %}>
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
                             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-                            {{ messages }}
-                        </li> 
-                        {% endfor %} 
+                            {{ message }}
+                        </li>
+                        {% endfor %}
                     </ul>
                     {% endif %}
                     <form method="POST" action="{% url 'sign' %}">
