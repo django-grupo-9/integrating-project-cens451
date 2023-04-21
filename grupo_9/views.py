@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm
+from django.contrib import messages
 
 
 def index(request):
@@ -11,7 +12,7 @@ def docentes(request):
     return render(request, "pages/docentes.html", {"title": "DOCENTES"})
 
 
-def contacto(request):    
+def contacto(request):
     return render(request, 'pages/contacto.html', {"title": "CONTACTO"})
 
 
@@ -21,16 +22,10 @@ def sign(request):
         form2 = SignUpForm(request.POST)
         if form2.is_valid():
             # Validar registro form
-            errors = form2.validate_data()
-            if errors:
-                # Manejar errores en caso de haberlos
-                pass
-            else:
-                # Subir al modelo los datos si el registro es válido
-                pass    
+            messages.success(request, 'Formulario cargado con éxito')
         elif form.is_valid():
             # Hacer algo si el login es válido
-            pass        
+            messages.success(request, "Formulario cargado con éxito")
     else:
         form = LoginForm()
         form2 = SignUpForm()
