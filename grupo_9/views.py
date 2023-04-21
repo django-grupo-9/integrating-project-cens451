@@ -20,13 +20,18 @@ def sign(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         form2 = SignUpForm(request.POST)
-        if form2.is_valid():
-            # Validar registro form
-            messages.success(request, 'Formulario cargado con éxito')
-        elif form.is_valid():
-            # Hacer algo si el login es válido
-            messages.success(request, "Formulario cargado con éxito")
+        if form2.is_bound and form2.is_valid():
+            # Do something if sign up form is valid
+            messages.success(request, 'Registro exitoso.')
+        elif form.is_bound and form.is_valid():
+            # Do something if login form is valid
+            messages.success(request, 'Inicio de sesión exitosa.')
+        else:
+            # If neither form is valid, display error message
+            messages.error(request, 'Por favor introduzca datos válidos')
+
     else:
         form = LoginForm()
         form2 = SignUpForm()
+
     return render(request, 'pages/sign.html', {"title": "Ingresar", 'form': form, 'form2': form2})
