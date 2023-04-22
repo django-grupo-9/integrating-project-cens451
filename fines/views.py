@@ -5,15 +5,15 @@ from django.http import HttpResponse
 def fines(request):
     return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
-def materias(request, carrera, curso):
+def materias(request, orientacion, materia):
     # Acá buscaría en la base de datos
     # if carrera in BBDD and curso in BBDD:
     # return render(...)
     # else return redirect(render(code404))
     underscore = '_'
-    if underscore in carrera:
-        carrera = carrera.replace('_', ' ')
-    if underscore in curso:
-        curso = curso.replace('_', ' ')
+    if underscore in orientacion:
+        orientacion = orientacion.replace('_', ' ')
+    if underscore in materia:
+        materia = materia.replace('_', ' ')
     
-    return render(request, "pages/materias.html", {"title": carrera, "carrera": carrera, "curso" : curso} )
+    return render(request, "pages/materias.html", {"title": orientacion, "orientacion": orientacion, "materia" : materia} )

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ <title>CENS 451 | {{ orientacion | upper }} </title>
+{% endblock %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+    {% include 'components/banner.html' %}
+{% endblock %}
+
+
+{% block main %}
+<main>
+    <div>
+        <h3>Orientación: {{ orientacion }}</h3>
+        <h4>Materia: {{ materia }}</h4>
+    </div>
+
+</main>   
+
+    
+
+{% endblock %}
