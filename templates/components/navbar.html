@@ -1,3 +1,4 @@
+
 {% load static %}
 <header>
 
@@ -17,8 +18,7 @@
         <li><a href="{% url 'docentes' %}">Docentes</a></li>
         <li><a href="{% url 'contacto' %}">Contacto</a></li>
         <li>
-          <a href="{% url 'sign' %}">
-            <button type="button" class="btn btn-primary">Ingresar</button>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Ingresar</button>
           </a>
         </li>
 
@@ -37,12 +37,38 @@
           <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
           <li><a class="link" href="{% url 'contacto' %}">Contacto</a></li>
           <li>
-            <a href="{% url 'sign' %}">
-              <button type="button" class="btn btn-primary">Ingresar</button>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Ingresar</button>
             </a>
           </li>
         </ul>
       </div>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="/static/img/logo.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Usuario</b></label>
+      <input type="text" placeholder="Ingrese Usuario" name="uname" required>
+
+      <label for="psw"><b>Contraseña</b></label>
+      <input type="password" placeholder="Contraseña" name="psw" required>
+        
+      <button type="submit" >Ingresar</button>
+      <div>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Recordarme
+      </label>
+      <span class="psw"> <a href="#">¿Olvidaste tu cuenta?</a></span>
+      </div>
+    </div>
+
+  </form>
+</div>
 
     </nav>
   </header>
