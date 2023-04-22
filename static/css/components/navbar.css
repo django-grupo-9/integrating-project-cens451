@@ -16,6 +16,7 @@ nav {
   transition: 0.5s ease all;
   width: 90%;
   margin: 2px auto;
+  height: 65px;
 }
 
 .navigation, .navigation > li a {
@@ -33,7 +34,6 @@ nav {
 
 .navigationHidden {
   visibility: hidden;
-
 }
 
 .navigation > li {
@@ -48,6 +48,7 @@ nav {
   transition: 0.5s ease all;
   padding-bottom: 6px;
   border-bottom: 1px solid transparent;
+  
 }
 
 .navigation .router-link-active {
@@ -70,7 +71,6 @@ nav {
   justify-content: center;
   color: var(--main-white-color);
   text-decoration: none;
-
 }
 
 
@@ -80,7 +80,6 @@ nav {
 }
 
 .branding p {
-
   padding: 0;
   margin: 0 16px;
   font-size: 21px;
@@ -118,27 +117,50 @@ nav .iconNavbar svg {
   transform: rotate(180deg);
 }
 
+#mobileNavId div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+}
+
 .dropdown-nav {
+  margin-top: 69px;
   padding: 0;
   display: flex;
   flex-direction: column;
   position: fixed;
   width: 100%;
-  max-width: 250px;
   height: 100%;
-  background-color: var(--main-white-color);
+  max-width: 40vw; 
+  background-color: var(--main-black-color);
   top: 0;
   left: 0px;
 }
 
 
 .dropdown-nav li {
-  margin-left:0;
   display: flex;
+  align-items: center;
+  width: 100%;
+  height: 15%;
+  font-weight: 500;
+  color: var(--main-white-color);
+  list-style: none;
+  text-transform: uppercase;
+  border-bottom: 10px white;
 }
 
 .dropdown-nav li a {
-  color: var(--main-dark-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: var(--main-light-color);
+  font-size: 16px;
+  transition: 0.5s ease all;
+  padding-bottom: 6px;
+  text-decoration: none;
 }
 
 .scrolled-nav {
@@ -160,7 +182,7 @@ header .mobile-nav-enter-active, header .mobile-nav-leave-active {
 }
 
 .mobile-nav-enter-from, .mobile-nav-leave-to {
-  transform: translateX(-250px);
+  transform: translateX(-70vh);
 }
 
 .mobile-nav-enter-to {
