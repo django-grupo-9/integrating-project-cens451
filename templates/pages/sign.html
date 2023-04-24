@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/components/sign.css' %}?v={% now 'U' %}">
+    <title>Sign in/up</title>
+</head>
+<body>
+    <div class="logo">
+        <div class="logo-container">
+            <a href="{% url 'index' %}"><img src={% static "img/logo.png" %} alt="Logo CENS 451"></a>
+        </div>
+    </div>
+    <div class="container">
+            <div class="login-container">
+                <input id="item-1" type="radio" name="item" class="sign-in" checked><label for="item-1" class="item">Ingresar</label>
+                <input id="item-2" type="radio" name="item" class="sign-up"><label for="item-2" class="item">Registrate</label>
+                <div class="login-form">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+                            {{ message }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form method="POST" action="{% url 'sign' %}">
+                        {% csrf_token %}
+                          <div class="sign-in-htm">
+                            <div class="group">
+                              {{ login_form.user }}
+                            </div>
+                            <div class="group">
+                              {{ login_form.password }}
+                            </div>
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign In" action="/signup" method="POST" onsubmit="return validateForm()", name="login">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="footer">
+                              <a href="#forgot">Olvidaste la contraseña?</a>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="{% url 'sign' %}" method="POST">
+                        {% csrf_token %}  
+                        <div class="sign-up-htm">
+                            <div class="group">
+                                {{form2.user}}
+                                <p class= 'errors'>{{ form.user.errors }}</p>
+                            </div>
+        
+                            <div class="group">
+                                {{form2.email}}
+                                <p class= 'errors'>{{ form.email.errors }}</p>
+                            </div>
+        
+                            <div class="group">
+                                {{form2.password}}
+                                <p class= 'errors'>{{ form.password.errors }}</p>
+                            </div>
+                            <div class="group">
+                                {{form2.pass_repeat}}
+                                <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
+                            </div>
+        
+                            <div class="group">
+                                <input type="submit" class="button" value="Sign Up", name="register">
+                            </div>
+                            <div class="hr"></div>
+                            <div class="footer">
+                                <label for="item-1">Ya tenés una cuenta?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

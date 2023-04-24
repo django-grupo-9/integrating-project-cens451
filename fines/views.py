@@ -2,21 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 # Create your views here.
-
-
-def index(request):
-    return render(request, "index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
-
-
 def fines(request):
-    return render(request, "fines/fines.html", {"title": "Plan Fines"})
+    return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
-
-def sign(request):
-    return render(request, 'sign.html',{"title": "Ingresar"})
-
-def contacto(request):
-    return render(request, 'contacto.html',{"title": "CONTACTO"})
-
-def docentes(request):
-    return HttpResponse("<h1>Solución temporal!!</h1>")
+def materias(request, orientacion, materia):
+    # Acá buscaría en la base de datos
+    # if carrera in BBDD and curso in BBDD:
+    # return render(...)
+    # else return redirect(render(code404))
+    underscore = '_'
+    if underscore in orientacion:
+        orientacion = orientacion.replace('_', ' ')
+    if underscore in materia:
+        materia = materia.replace('_', ' ')
+    
+    return render(request, "pages/materias.html", {"title": orientacion, "orientacion": orientacion, "materia" : materia} )
