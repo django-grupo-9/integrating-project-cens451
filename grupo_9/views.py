@@ -18,20 +18,26 @@ def contacto(request):
 
 def sign(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        form2 = SignUpForm(request.POST)
-        if form2.is_bound and form2.is_valid():
-            # Do something if sign up form is valid
-            messages.success(request, 'Registro exitoso.')
-        elif form.is_bound and form.is_valid():
-            # Do something if login form is valid
-            messages.success(request, 'Inicio de sesión exitosa.')
-        else:
-            # If neither form is valid, display error message
-            messages.error(request, 'Por favor introduzca datos válidos')
-
+        if 'login' in request.POST:
+            login_form = LoginForm(request.POST)
+            if login_form.is_valid():
+                messages.info(request, 'Inicio de sesión exitoso.')
+                context = {'login_form': login_form, 'form2': SignUpForm()}
+                return render(request, 'pages/sign.html', context)
+            else:
+                messages.error(request, 'Por favor introduzca datos válidos')
+                context = {'login_form': login_form, 'form2': SignUpForm()}
+                return render(request, 'pages/sign.html', context)
+        elif 'register' in request.POST:
+            form2 = SignUpForm(request.POST)
+            if form2.is_valid():
+                messages.info(request, 'Registro exitoso.')
+                context = {'login_form': LoginForm(), 'form2': form2}
+                return render(request, 'pages/sign.html', context)
+            else:
+                messages.error(request, 'Por favor introduzca datos válidos')
+                context = {'login_form': LoginForm(), 'form2': form2}
+                return render(request, 'pages/sign.html', context)
     else:
-        form = LoginForm()
-        form2 = SignUpForm()
-
-    return render(request, 'pages/sign.html', {"title": "Ingresar", 'form': form, 'form2': form2})
+        context = {'login_form': LoginForm(), 'form2': SignUpForm()}
+        return render(request, 'pages/sign.html', context)
