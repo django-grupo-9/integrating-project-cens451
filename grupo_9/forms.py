@@ -97,5 +97,6 @@ class SignUpForm(forms.Form):
         pass_repeat = cleaned_data.get('pass_repeat')
 
         if password and pass_repeat and password != pass_repeat:
-            self.add_error('password', 'Las contraseñas no coinciden.')
-            self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
+            # self.add_error('password', 'Las contraseñas no coinciden.')
+            # self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
+            raise ValidationError("Las contraseñas no coinciden")
