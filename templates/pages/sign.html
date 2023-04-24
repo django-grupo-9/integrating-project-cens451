@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href={% static "css/components/sign.css" %}>
+    <link rel="stylesheet" href="{% static 'css/components/sign.css' %}?v={% now 'U' %}">
     <title>Sign in/up</title>
 </head>
 <body>
@@ -25,7 +25,7 @@
                     <ul class="messages">
                         {% for message in messages %}
                         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
                             {{ message }}
                         </li>
                         {% endfor %}
@@ -35,13 +35,13 @@
                         {% csrf_token %}
                           <div class="sign-in-htm">
                             <div class="group">
-                              {{ form.user }}
+                              {{ login_form.user }}
                             </div>
                             <div class="group">
-                              {{ form.password }}
+                              {{ login_form.password }}
                             </div>
                             <div class="group">
-                                <input type="submit" class="button" value="Sign In" action="/signup" method="POST" onsubmit="return validateForm()">
+                                <input type="submit" class="button" value="Sign In" action="/signup" method="POST" onsubmit="return validateForm()", name="login">
                             </div>
                             <div class="hr"></div>
                             <div class="footer">
@@ -72,7 +72,7 @@
                             </div>
         
                             <div class="group">
-                                <input type="submit" class="button" value="Sign Up">
+                                <input type="submit" class="button" value="Sign Up", name="register">
                             </div>
                             <div class="hr"></div>
                             <div class="footer">
