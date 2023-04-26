@@ -187,3 +187,14 @@ a {
     width: 75px;
     height: 75px
 }
+
+.login-form ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.login-form li {
+    text-align: center;
+	margin: 0px;
+    color:#943459;
+}

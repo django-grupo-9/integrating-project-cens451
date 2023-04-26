@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('fines/', include('fines.urls')),
-    path('docentes/', views.docentes, name='docentes'), # Solución temporal para error en navbar!
+    path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
     path('contacto', views.contacto, name='contacto'),
     path('sign/', views.sign, name='sign'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,9 +2,6 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
-from django import forms
-
-
 class LoginForm(forms.Form):
     user = forms.CharField(
         min_length=8,
@@ -94,3 +91,12 @@ class SignUpForm(forms.Form):
         )
     )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        pass_repeat = cleaned_data.get('pass_repeat')
+
+        if password and pass_repeat and password != pass_repeat:
+            # self.add_error('password', 'Las contraseñas no coinciden.')
+            # self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
+            raise ValidationError("Las contraseñas no coinciden")
