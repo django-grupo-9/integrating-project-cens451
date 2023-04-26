@@ -30,19 +30,17 @@
           <i  class="fa-solid fa-bars" ></i>
       </div>
 
-      <div >
-        <ul id="mobileNavId" class="dropdown-nav mobile-nav-leave-active mobile-nav-leave-to" >
-          <div>
+      <div id="navMobileId">
+        <ul>
             <li><a class="link" href="{% url 'index' %}">Inicio</a></li>
             <li><a class="link" href="{% url 'fines' %}">Plan Fines</a></li>
             <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
             <li><a class="link" href="{% url 'contacto' %}">Contacto</a></li>
-            <li>
-              <a href="{% url 'sign' %}">
-                <button type="button" class="btn btn-primary">Ingresar</button>
-              </a>
-            </li>
-          </div>
+            
+            <a href="{% url 'sign' %}">
+              <button type="button" class="btn btn-primary">Ingresar</button>
+            </a>
+            
         </ul>
       </div>
 
