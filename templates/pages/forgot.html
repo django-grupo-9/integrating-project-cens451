@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'css/components/sign.css' %}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'css/components/forgot.css' %}?v={% now 'U' %}">
     <title>Sign in/up</title>
 </head>
 <body>
@@ -18,49 +18,50 @@
     </div>
     <div class="container">
         <div class="login-container">
-                <p class='title-1'>Recuperar contraseña</p>
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
-                        {{ message }}
-                    </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <form action="{% url 'sign' %}" method="POST">
-                {% csrf_token %}  
-                <div class="sign-up-htm">
-                    <div class="group">
-                        {{form2.user}}
-                        <p class= 'errors'>{{ form.user.errors }}</p>
+            <p class='title-1'>Recuperar contraseña</p>
+            <div class="login-form">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="{% url 'forgot' %}" method="POST">
+                    {% csrf_token %}  
+                    <div class="sign-in-htm">
+                        <div class="group">
+                            {{forgot_form.user}}
+                            <p class= 'errors'>{{ form.user.errors }}</p>
+                        </div>
+            
+                        <div class="group">
+                            {{forgot_form.email}}
+                            <p class= 'errors'>{{ form.email.errors }}</p>
+                        </div>
+            
+                        <div class="group">
+                            {{form2.password}}
+                            <p class= 'errors'>{{ form.password.errors }}</p>
+                        </div>
+                        <div class="group">
+                            {{form2.pass_repeat}}
+                            <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
+                        </div>
+            
+                        <div class="group">
+                            <input type="submit" class="button" value="Enviar código" name="send_code">
+                        </div>
+                        <div class="hr"></div>
+                        <div class="footer">
+                            <label for="item-1">Ya tenés una cuenta?</a>
+                        </div>
                     </div>
-        
-                    <div class="group">
-                        {{form2.email}}
-                        <p class= 'errors'>{{ form.email.errors }}</p>
-                    </div>
-        
-                    <div class="group">
-                        {{form2.password}}
-                        <p class= 'errors'>{{ form.password.errors }}</p>
-                    </div>
-                    <div class="group">
-                        {{form2.pass_repeat}}
-                        <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
-                    </div>
-        
-                    <div class="group">
-                        <input type="submit" class="button" value="Sign Up", name="register">
-                    </div>
-                    <div class="hr"></div>
-                    <div class="footer">
-                        <label for="item-1">Ya tenés una cuenta?</a>
-                    </div>
-                </div>
-            </form>
-                
+                </form>
+            </div>    
         </div>
     </div>
 </body>
