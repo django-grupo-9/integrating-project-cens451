@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+import re
 
 
 class LoginForm(forms.Form):
@@ -100,7 +101,20 @@ class SignUpForm(forms.Form):
             # self.add_error('password', 'Las contraseñas no coinciden.')
             # self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
             raise ValidationError("Las contraseñas no coinciden")
-        
+
+
+HARDCODED_DDBB = {
+    'user': 'Usuario123',
+    'pass': 'Password123',
+    'email': 'email@prueba.com'
+}
+
+
+def check_email(value):
+    email_regex = r'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+    if not re.match(email_regex, value):
+        raise ValidationError('Correo electrónico inválido.')
+
 
 class ForgotPass(forms.Form):
     user = forms.CharField(
@@ -116,6 +130,7 @@ class ForgotPass(forms.Form):
     )
 
     email = forms.EmailField(
+        validators=(check_email,),
         widget=forms.EmailInput(
             attrs={
                 'id': 'forgot_email',
@@ -127,3 +142,18 @@ class ForgotPass(forms.Form):
             }
         )
     )
+
+
+class VerifyCodeForm(forms.Form):
+    code = forms.CharField(
+        max_length=4,
+        widget=forms.TextInput(
+            attrs={
+                'id': 'code',
+                'class': 'forgot_input',
+                'placeholder': 'Código',
+                'required': True,
+            }
+        )
+    )
+
