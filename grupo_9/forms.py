@@ -107,7 +107,7 @@ class ForgotPass(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'id': 'forgot_user',
-                'class': 'forgor_input',
+                'class': 'forgot_input',
                 'placeholder': 'Usuario',
                 'minlength': '8',
                 'required': True,
