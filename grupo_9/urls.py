@@ -26,4 +26,5 @@ urlpatterns = [
     path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
     path('contacto', views.contacto, name='contacto'),
     path('sign/', views.sign, name='sign'),
+    path('forgot/', views.forgot, name='forgot')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
