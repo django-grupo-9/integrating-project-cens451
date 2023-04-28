@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import LoginForm, SignUpForm, ForgotPass
+from .forms import LoginForm, SignUpForm, ForgotPass, VerifyCodeForm
 from django.contrib import messages
+import random
+import string
 
 
 def index(request):
@@ -43,6 +45,41 @@ def sign(request):
         return render(request, 'pages/sign.html', context)
 
 
+def generate_code():
+    letters = string.ascii_uppercase + string.digits
+    code = ''.join(random.choice(letters) for i in range(4))
+    return code
+
+
 def forgot(request):
-    context = {'forgot_form': ForgotPass()}
-    return render(request, 'pages/forgot.html', context)
+    if request.method == 'POST':
+        forgot_form = ForgotPass(request.POST)
+        if forgot_form.is_valid():
+            random_code = generate_code()
+            request.session['forgot_code'] = random_code
+            return redirect('verify_code')
+    else:
+        context = {'forgot_form': ForgotPass()}
+        return render(request, 'pages/forgot.html', context)
+
+
+def verify_code(request):
+    if not request.session.get('forgot_code'):
+        return redirect('forgot')
+
+    if request.method == 'POST':
+        verify_code_form = VerifyCodeForm(request.POST)
+        if verify_code_form.is_valid():
+            if request.session.get('forgot_code') == verify_code_form.cleaned_data['code']:
+                del request.session['forgot_code']
+                # Redireccionar a un template que tenga un 
+                # Django form que permita actualizar el password
+                return redirect('new_password')
+            else:
+                messages.error(request, 'El código ingresado es inválido.')
+    else:
+        verify_code_form = VerifyCodeForm()
+
+    context = {'verify_code_form': verify_code_form}
+    return render(request, 'pages/verify_code.html', context)
+
