@@ -41,3 +41,7 @@ def sign(request):
     else:
         context = {'login_form': LoginForm(), 'form2': SignUpForm()}
         return render(request, 'pages/sign.html', context)
+
+
+def forgot(request):
+    return render(request, 'pages/forgot.html')
