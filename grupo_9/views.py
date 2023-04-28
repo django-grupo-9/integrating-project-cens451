@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, ForgotPass
 from django.contrib import messages
 
 
@@ -44,4 +44,5 @@ def sign(request):
 
 
 def forgot(request):
-    return render(request, 'pages/forgot.html')
+    context = {'forgot_form': ForgotPass()}
+    return render(request, 'pages/forgot.html', context)
