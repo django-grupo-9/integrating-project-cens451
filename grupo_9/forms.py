@@ -100,3 +100,30 @@ class SignUpForm(forms.Form):
             # self.add_error('password', 'Las contraseñas no coinciden.')
             # self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
             raise ValidationError("Las contraseñas no coinciden")
+        
+
+class ForgotPass(forms.Form):
+    user = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'id': 'forgot_user',
+                'class': 'forgor_input',
+                'placeholder': 'Usuario',
+                'minlength': '8',
+                'required': True,
+            }
+        )
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'id': 'forgot_email',
+                'class': 'forgot_input',
+                'placeholder': 'Email de recuperación',
+                'required': True,
+                'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$',
+                'title': 'Por favor, ingrese un correo electrónico válido (ejemplo@dominio.com)',
+            }
+        )
+    )
