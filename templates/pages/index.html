@@ -7,7 +7,6 @@
 
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="">
 {% endblock %}
 
 {% block header %}
@@ -28,26 +27,36 @@
                     </h2></div>
                     <div class="col-lg-8">
                         <div class="row gx-5 row-cols-1 row-cols-md-2">
-                            <div class="col mb-5 h-100">
+                            <a class="col mb-5 h-100 tag-offers" href="{% url 'cens'%}" >
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-school"></i></div>
                                 <h2 class="h5">Modalidad CENS</h2>
                                 <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                            </div>
-                            <div class="col mb-5 h-100">
+                            </a>
+                            {% comment %} <div class="col mb-5 h-100">
+                                
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building-fill"></i></div>
                                 <h2 class="h5">Plan Fines</h2>
                                 <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                            </div>
-                            <div class="col h-100">
+                                
+                            </div> {% endcomment %}
+                            <a class="col mb-5 h-100 tag-offers" href="{% url 'fines'%}">
+                                
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building-fill"></i></div>
+                                <h2 class="h5">Plan Fines</h2>
+                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                                
+                            </a> 
+
+                            <a class="col h-100 tag-offers"  href="">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-laptop"></i></div>
                                 <h2 class="h5">Educación a distancia</h2>
                                 <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                            </div>
-                            <div class="col mb-5 mb-md-0 h-100">
+                            </a>
+                            <a class="col mb-5 mb-md-0 h-100 tag-offers" href="">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-graduation-cap"></i></div>
                                 <h2 class="h5">Deudores de materias</h2>
                                 <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
-                            </div>
+                            </a>
 
                         </div>
                     </div>
