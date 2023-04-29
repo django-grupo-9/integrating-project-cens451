@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
     path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
     path('contacto', views.contacto, name='contacto'),
