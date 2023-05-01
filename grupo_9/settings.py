@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'bootstrap5',
     'fines',
+    'cens'
 ]
 
 MIDDLEWARE = [
