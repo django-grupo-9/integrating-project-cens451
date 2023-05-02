@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'css/components/contacto.css' %}">	
+    <link rel="stylesheet" href="{% static 'css/components/contacto.css' %}?v={% now 'U' %}">
 {% endblock %}
 
 {% block header %}
@@ -21,22 +21,24 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="contact-info">
-				<img src="../static/img/mail.png" alt="image"/>
+				<i class="bi bi-envelope-paper-fill"></i>
+				{% comment "" %}<img src="../static/img/mail2.png" alt="image"/>{% endcomment %}
 				<h2>¡Contáctanos!</h2>
 				<h4>Te invitamos a compartirnos tu duda, pregunta o solicitud a continuación y con mucho gusto te responderemos.</h4>
 			</div>
 		</div>
 		<div class="col-md-9">
+			{% comment "" %}
 			<form action="/contact" method="POST">
 				{% csrf_token %}
 				<div class="contact-form">
 					<div class="form-group">
-					<div class="col-sm-10">          
+					<div class="col-sm-10">
 						<input type="text" class="form-control" id="fname" placeholder="Nombre y Apellido" name="fname" required>
 					</div>
 					</div>
 					<div class="form-group">
-					<div class="col-sm-10">          
+					<div class="col-sm-10">
 						<input type="text" class="form-control" id="lname" placeholder="Teléfono" name="lname">
 					</div>
 					</div>
@@ -59,9 +61,32 @@
 					</div>
 				</div>
 			</form>
+			{% endcomment %}
+			{% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+			<form action="{% url 'contacto' %}" method="POST" novalidate>
+				{% csrf_token %}
+				<div class="row">
+					{% for campo in contacto_form %}
+						<div class="form-group">
+							<div class=class="col-sm-10">
+								<label for="name" class="">{{ campo.label }}</label>
+                                {{campo}}
+							</div>
+							<div class="msg_error">{{campo.errors}}</div>
+							<br>
+						</div>
+					{% endfor %}
+				</div>
+				<div>
+					<button class="btn btn-primary" type="submit">Enviar</button>
+				</div>
+			</form>
 		</div>
-		<br><br><br><br><br><br><br><br><br><br><br>
-		
+		<br><br><br><br><br><br>
 	</div>
 </div>
 {% endblock %}

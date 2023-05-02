@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import LoginForm, SignUpForm, ForgotPass, VerifyCodeForm
 from django.contrib import messages
+from grupo_9.forms import ContactoForm
 import random
 import string
 
@@ -15,7 +16,19 @@ def docentes(request):
 
 
 def contacto(request):
-    return render(request, 'pages/contacto.html', {"title": "CONTACTO"})
+    if(request.method=='POST'):
+        contacto_form = ContactoForm(request.POST)
+        if(contacto_form.is_valid()):
+            messages.success(request,'Hemos recibido tus datos. Te contáctaremos a la brevedad!')
+        else:
+            messages.warning(request,'Por favor revisa los datos')
+    else:
+        contacto_form = ContactoForm()
+    context= {
+            "title": "CONTACTO",
+            'contacto_form':contacto_form
+        }
+    return render(request,'pages/contacto.html', context)
 
 
 def sign(request):

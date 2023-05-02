@@ -25,7 +25,7 @@ urlpatterns = [
     path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
     path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
-    path('contacto', views.contacto, name='contacto'),
+    path('contacto/', views.contacto, name='contacto'),
     path('sign/', views.sign, name='sign'),
     path('forgot/', views.forgot, name='forgot'),
     path('verify_code/', views.verify_code, name='verify_code')

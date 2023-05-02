@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import ValidationError
 import re
 
 
@@ -157,3 +158,82 @@ class VerifyCodeForm(forms.Form):
         )
     )
 
+# Formulario de Contacto
+
+def solo_caracteres(value):
+    if any(char.isdigit() for char in value):
+        raise ValidationError('El nombre no puede contener números - %(valor)s',
+                            code='Invalid',
+                            params={'valor':value})
+
+def validate_email(value):
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, value):
+        raise ValidationError('Por favor, ingresa un correo electrónico válido (ejemplo@dominio.com)')
+    return value
+
+#def validate_telefono(value):
+    #if value.lenght < 10:
+        #raise ValidationError('Revisa el teléfono ingresado - %(valor)s',
+                            #params={'valor':value})
+
+class ContactoForm(forms.Form):
+    nombre_apellido = forms.CharField(
+            label='Nombre y Apellido',
+            max_length=50,
+            validators=(solo_caracteres,),
+            error_messages={
+                    'required': 'Escribe tu Nombre y Apellido'
+                },
+            widget=forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Solo letras'
+                }
+            )
+        )
+    email = forms.EmailField(
+            label='Email',
+            max_length=100,
+            validators=(validate_email,),
+            error_messages={
+                    'required': 'Ingresa un correo'
+                },
+            widget=forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'type':'email',
+                    'placeholder': 'ejemplo@dominio.com'
+                }
+            )
+        )
+    telefono = forms.CharField(
+            label='Telefono',
+            min_length=10,
+            max_length=20,
+            #validators=(validate_telefono,),
+            error_messages={
+                    'required': 'Ingresa un teléfono'
+                },
+            widget=forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                    'type':'number',
+                    'placeholder': 'Sin espacios, ni símbolos'
+                }
+            )
+        )
+    consulta = forms.CharField(
+        label='Consulta',
+        max_length=500,
+        error_messages={
+                    'required': 'Escribe una consulta'
+                },
+        widget=forms.Textarea(
+            attrs={
+                'rows': 5,
+                'class':'form-control',
+                'placeholder': 'Escribe una consulta'
+            }
+        )
+    )
