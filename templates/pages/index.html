@@ -7,6 +7,7 @@
 
 {% block link %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="">
 {% endblock %}
 
 {% block header %}
@@ -18,27 +19,94 @@
 {% block main %}
     <main class="container-fluid">
 
-        <div class="row p-3">
+        {% comment %} Educative offers {% endcomment %}
+        <section class="py-5" id="features">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">
+                        Te acompañamos en la finalización de tus estudios secundarios 
+                    </h2></div>
+                    <div class="col-lg-8">
+                        <div class="row gx-5 row-cols-1 row-cols-md-2">
+                            <div class="col mb-5 h-100">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-school"></i></div>
+                                <h2 class="h5">Modalidad CENS</h2>
+                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building-fill"></i></div>
+                                <h2 class="h5">Plan Fines</h2>
+                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                            </div>
+                            <div class="col h-100">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-laptop"></i></div>
+                                <h2 class="h5">Educación a distancia</h2>
+                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                            </div>
+                            <div class="col mb-5 mb-md-0 h-100">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="fa-solid fa-graduation-cap"></i></div>
+                                <h2 class="h5">Deudores de materias</h2>
+                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here is just a bit more text.</p>
+                            </div>
 
-            <section class="col offset-md-3 col-md-6">
-                <div class="row ">
-                      <h1>¿Que es un CENS</h1>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="" alt="img-news">
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        Las instituciones educativas del nivel secundario de la Dirección de Educación de Adultos están integradas por los Centros Educativos de Nivel Secundario (CENS).
+                </div>
+            </div>
+        </section>
 
-                        La propuesta de los CENS se organiza en un ciclo de tres etapas que se dividen por año, con un diseño curricular prescriptivo que asume la educación en directa conexión con los procesos educativos vinculados al desarrollo local, cultural, económico y productivo de las personas en comunidad.
-
-                        Los CENS, son instituciones destinadas a acompañar y otorgar el espacio propicio para que jóvenes, adultos y adultos mayores, alcancen la terminalidad de sus estudios secundarios, a través de una propuesta educativa, que promueva un espacio social y cultural dentro de la comunidad en la cual están insertos y atendiendo a los derechos sociales de aquellos y aquellas que lo transiten. Es también el camino para la continuidad con otras ofertas educativas que se abren al finalizar la educación secundaria, como los niveles superiores, terciarios y /o universitarios, validando la trayectoria de los estudiantes con la acreditación y certificación correspondiente al nivel.
+        {% comment %} Blog news section {% endcomment %}
+        <section class="py-5 bg-light">
+            <div class="container px-5 my-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <div class="text-center">
+                            <h2 class="fw-bolder">Noticias</h2>
+                            <p class="lead fw-normal text-muted mb-5">Aquí podrás leer las nuevas
+                                noticias y novedades 
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </section>
+                {% comment %} Cards {% endcomment %}
+                <div class="row gx-5">
+                    {% include 'components/card.html' %}
+                    {% include 'components/card.html' %}
+                    {% include 'components/card.html' %}
+                </div>
+            </div>
+        </section>
 
-        </div>
+        {% comment %}  Sede {% endcomment %}
+        <section class="py-5" id="scroll-target">
+            <div class="container px-5 my-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    <div class="col-lg-6">
+                        <h2 class="fw-bolder">Sede principal</h2>
+                        <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% comment %} Anexo {% endcomment %}
+        <section class="py-5 bg-light">
+            <div class="container px-5 my-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    <div class="col-lg-6">
+                        <h2 class="fw-bolder">Anexo - El Gauchito</h2>
+                        <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
+
+        
 
     </main>
     
