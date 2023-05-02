@@ -5,6 +5,7 @@ from django.contrib import messages
 from grupo_9.forms import ContactoForm
 import random
 import string
+from django.core.mail import send_mail
 
 
 def index(request):
@@ -16,19 +17,19 @@ def docentes(request):
 
 
 def contacto(request):
-    if(request.method=='POST'):
+    if (request.method == 'POST'):
         contacto_form = ContactoForm(request.POST)
-        if(contacto_form.is_valid()):
-            messages.success(request,'Hemos recibido tus datos. Te contáctaremos a la brevedad!')
+        if (contacto_form.is_valid()):
+            messages.success(request, 'Hemos recibido tus datos. Te contáctaremos a la brevedad!')
         else:
-            messages.warning(request,'Por favor revisa los datos')
+            messages.warning(request, 'Por favor revisa los datos')
     else:
         contacto_form = ContactoForm()
-    context= {
+    context = {
             "title": "CONTACTO",
-            'contacto_form':contacto_form
+            'contacto_form': contacto_form
         }
-    return render(request,'pages/contacto.html', context)
+    return render(request, 'pages/contacto.html', context)
 
 
 def sign(request):
@@ -70,6 +71,14 @@ def forgot(request):
         if forgot_form.is_valid():
             random_code = generate_code()
             request.session['forgot_code'] = random_code
+            user = forgot_form.cleaned_data['user']
+            email = forgot_form.cleaned_data['email']
+            subject = 'Reseteo de contraseña'
+            message = f'Hola {user}!\nTu codigo para resetear la contraseña es: {random_code}.\nNo lo compartas con nadie.'
+            from_email = 'programacion101200@gmail.com'
+            recipient_list = [email]
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
             return redirect('verify_code')
     else:
         context = {'forgot_form': ForgotPass()}
@@ -95,4 +104,8 @@ def verify_code(request):
 
     context = {'verify_code_form': verify_code_form}
     return render(request, 'pages/verify_code.html', context)
+
+
+def new_password(request):
+    return HttpResponse('Acá iría un django form para restaurar la contraseña')
 
