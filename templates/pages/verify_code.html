@@ -18,7 +18,8 @@
     </div>
     <div class="container">
         <div class="login-container">
-            <p class='title-1'>Verificar código</p>
+            <p class='title-1' style='margin-left:22%;'>Verificar código</p>
+            <p>Por favor revise su mail y verifique el código de autenticación.</p>
             <div class="login-form">
                 {% if messages %}
                 <ul class="messages">
@@ -38,11 +39,11 @@
                             <p class="errors">{{ verify_code_form.code.errors }}</p>
                         </div>
                         <div class="group">
-                            <input type="submit" class="button" value="Enviar" name="submit">
+                            <input type="submit" class="button" value="Verificar" name="submit">
                         </div>
                         <div class="hr"></div>
                         <div class="footer">
-                            <label for="item-1">Ya tenés una cuenta?</a>
+                            <label for="item-1"><a href="{% url 'sign' %}">Ya tenés una cuenta?</a>
                         </div>
                     </div>
                 </form>
