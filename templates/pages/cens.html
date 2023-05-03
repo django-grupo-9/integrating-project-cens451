@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>CENS 451 | CENS </title>
+{% endblock title %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/cens.css' %}">
+{% endblock %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+    {% include 'components/banner.html' %}
+{% endblock %}
