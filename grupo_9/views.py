@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import LoginForm, SignUpForm, ForgotPass, VerifyCodeForm
+from .forms import LoginForm, SignUpForm, ForgotPass, VerifyCodeForm, NewPassForm
 from django.contrib import messages
 from grupo_9.forms import ContactoForm
 import random
@@ -51,7 +51,7 @@ def sign(request):
                 context = {'login_form': LoginForm(), 'form2': form2}
                 return render(request, 'pages/sign.html', context)
             else:
-                messages.error(request, 'Por favor introduzca datos válidos')
+                messages.error(request, 'Las contraseñas no coinciden')
                 context = {'login_form': LoginForm(), 'form2': form2}
                 return render(request, 'pages/sign.html', context)
     else:
@@ -107,5 +107,18 @@ def verify_code(request):
 
 
 def new_password(request):
-    return HttpResponse('Acá iría un django form para restaurar la contraseña')
-
+    if request.method == 'POST':
+        new_form = NewPassForm(request.POST)
+        if new_form.is_valid():
+            context = {'new_form': new_form}
+            return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
+        else:
+            messages.error(request, 'Por favor introduzca datos válidos')
+            context = {'new_form': new_form}
+            return render(request, 'pages/new_password.html', context)
+    else:
+        if request.method == 'GET':
+            context = {'new_form': NewPassForm()}
+            return render(request, 'pages/new_password.html', context)
+    context = {'new_form': NewPassForm()}
+    return render(request, 'pages/new_password.html', context)
