@@ -99,16 +99,9 @@ class SignUpForm(forms.Form):
         pass_repeat = cleaned_data.get('pass_repeat')
 
         if password and pass_repeat and password != pass_repeat:
-            # self.add_error('password', 'Las contraseñas no coinciden.')
-            # self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
+            self.add_error('password', 'Las contraseñas no coinciden.')
+            self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
             raise ValidationError("Las contraseñas no coinciden")
-
-
-HARDCODED_DDBB = {
-    'user': 'Usuario123',
-    'pass': 'Password123',
-    'email': 'email@prueba.com'
-}
 
 
 def check_email(value):
@@ -160,11 +153,13 @@ class VerifyCodeForm(forms.Form):
 
 # Formulario de Contacto
 
+
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
         raise ValidationError('El nombre no puede contener números - %(valor)s',
                             code='Invalid',
-                            params={'valor':value})
+                            params={'valor': value})
+
 
 def validate_email(value):
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -172,10 +167,6 @@ def validate_email(value):
         raise ValidationError('Por favor, ingresa un correo electrónico válido (ejemplo@dominio.com)')
     return value
 
-#def validate_telefono(value):
-    #if value.lenght < 10:
-        #raise ValidationError('Revisa el teléfono ingresado - %(valor)s',
-                            #params={'valor':value})
 
 class ContactoForm(forms.Form):
     nombre_apellido = forms.CharField(
@@ -187,8 +178,8 @@ class ContactoForm(forms.Form):
                 },
             widget=forms.TextInput(
                 attrs={
-                    'class':'form-control',
-                    'placeholder':'Solo letras'
+                    'class': 'form-control',
+                    'placeholder': 'Solo letras'
                 }
             )
         )
@@ -201,8 +192,8 @@ class ContactoForm(forms.Form):
                 },
             widget=forms.TextInput(
                 attrs={
-                    'class':'form-control',
-                    'type':'email',
+                    'class': 'form-control',
+                    'type': 'email',
                     'placeholder': 'ejemplo@dominio.com'
                 }
             )
@@ -211,14 +202,13 @@ class ContactoForm(forms.Form):
             label='Telefono',
             min_length=10,
             max_length=20,
-            #validators=(validate_telefono,),
             error_messages={
                     'required': 'Ingresa un teléfono'
                 },
             widget=forms.NumberInput(
                 attrs={
-                    'class':'form-control',
-                    'type':'number',
+                    'class': 'form-control',
+                    'type': 'number',
                     'placeholder': 'Sin espacios, ni símbolos'
                 }
             )
@@ -232,8 +222,61 @@ class ContactoForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'rows': 5,
-                'class':'form-control',
+                'class': 'form-control',
                 'placeholder': 'Escribe una consulta'
             }
         )
     )
+
+
+
+def validate_pass(value):
+    if len(value) < 8:
+        raise ValidationError('La contraseña debe tener al menos 8 caracteres')
+    if not any(c.isupper() for c in value):
+        raise ValidationError('La contraseña debe tener al menos una letra mayúscula')
+    if not any(c.islower() for c in value):
+        raise ValidationError('La contraseña debe tener al menos una letra minúscula')
+    if not any(c.isdigit() for c in value):
+        raise ValidationError('La contraseña debe tener al menos un número')
+    return value
+
+
+class NewPassForm(forms.Form):
+    new_pass = forms.CharField(
+        validators=(validate_pass,),
+        widget=forms.PasswordInput(
+            attrs={
+                'id': 'pass',
+                'class': 'forgot_input',
+                'placeholder': 'Contraseña',
+                'required': True,
+                'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}',
+                'title': 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.',
+            }
+        )
+    )
+
+    pass_confirm = forms.CharField(
+        validators=(validate_pass,),
+        widget=forms.PasswordInput(
+            attrs={
+                'id': 'pass_confirm',
+                'class': 'forgot_input',
+                'placeholder': 'Repetir contraseña',
+                'required': True,
+                'pattern': '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}',
+                'title': 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.',
+            }
+        )
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_pass = cleaned_data.get('new_pass')
+        pass_confirm = cleaned_data.get('pass_confirm')
+
+        if new_pass and pass_confirm and new_pass != pass_confirm:
+            self.add_error('new_pass', 'Las contraseñas no coinciden.')
+            self.add_error('pass_confirm', 'Las contraseñas no coinciden.')
+            raise ValidationError("Las contraseñas no coinciden")
