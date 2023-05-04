@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'grupo_9.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("CENS_DB"),
-        'USER': env("postgres"),
-        'PASSWORD': env("master"),
-        'HOST': env("localhost"),
-        'PORT': env("5432"),
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
 
