@@ -19,6 +19,7 @@
     <div class="container">
         <div class="login-container">
             <p class='title-1'>Recuperar contraseña</p>
+            <p style='text-align:center;'>Introduzca su email de recuperación</p>
             <div class="login-form">
                 {% if messages %}
                 <ul class="messages">
@@ -48,7 +49,8 @@
                         </div>
                         <div class="hr"></div>
                         <div class="footer">
-                            <label for="item-1">Ya tenés una cuenta?</a>
+                            
+                            <label for="item-1"><a href="{% url 'sign' %}">Ya tenés una cuenta?</a>
                         </div>
                     </div>
                 </form>
