@@ -5,6 +5,9 @@ from django.http import HttpResponse
 def fines(request):
     return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
+def preinscripcion(request):
+    return render(request, "pages/fines_preinscripcion.html")
+
 def materias(request, orientacion, materia):
     # Acá buscaría en la base de datos
     # if carrera in BBDD and curso in BBDD:
