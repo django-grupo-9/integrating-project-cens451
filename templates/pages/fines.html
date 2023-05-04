@@ -16,12 +16,11 @@
     {% comment %} <a href="{% url 'inscription' %}">Inscripciones</a> {% endcomment %}
     <main class="container-fluid">
         <section class="py-5" id="scroll-target">
-            <div class="container px-5 my-5">
+            <div class="container px-5">
                 <div class="row gx-5 ">
-                    
                     <div class="col-lg-8">
-                        <h2 class="fw-bolder">¿Que es el Plan Fines?</h2>
-                        <p class="lead fw-normal text-muted mb-0">
+                        <h2 class="display-5 py-3">¿Qué es el Plan Fines?</h2>
+                        <p class="mb-0">
                             FinEs es un programa nacional, que convoca a jóvenes y adultos desde sus propios lugares de trabajo, o de participación, y para ello posee alianzas y articula esfuerzos con provincias, municipios, cámaras empresarias, sindicatos y organizaciones sociales, entre otros. El programa surge como respuesta a la necesidad de aquellos ciudadanos que no alcanzaron a completar su formación inicial. En un principio complementó el sistema formal, y en la actualidad se percibe como alternativa al circuito educativo establecido, ya que ofrece una opción para la población mayor de 18 años que no cumplimentó la obligatoriedad escolar. El programa de perfil socio-educativo, se caracteriza por su flexibilidad y adaptación; modalidad que posibilita la contención a los diferentes sectores que por múltiples razones no llegan al circuito formal educativo.
 
                             El plan de estudios se conforma por tres ciclos (1°, 2° y 3°), con dos tramos cada uno. De esta manera, la duración de las asignaturas es cuatrimestral y cada ciclo se compone de dos tramos consecutivos. El trayecto completo son 30 materias que se realizan en 6 cuatrimestres (3 años), pero como el Plan reconoce estudios anteriores, en definitiva, dependerá del máximo nivel alcanzado anteriormente por el estudiante la duración final del trayecto.
@@ -32,8 +31,8 @@
                             <img class="card-img-top my-5 px-2" src="{% static 'img/fines_logo.png'%}" alt="Card image cap">
                             <div class="card-body">
                               <h5 class="card-title ">Preinscripción</h5>
-                              <p class="card-text fw-normal">Para terminar tu secundario podés hacerlo preinscribiendote en este formulario.</p>
-                              <a href="#" class="btn btn-primary">Quiero estudiar!</a>
+                              <p class="card-text fw-normal text-muted">Para terminar tu secundario podés hacerlo preinscribiendote en este formulario.</p>
+                              <a href="{% url 'fines_preinscripcion'%}" class="btn btn-primary">Quiero estudiar!</a>
                             </div>
                           </div>
                     </div>

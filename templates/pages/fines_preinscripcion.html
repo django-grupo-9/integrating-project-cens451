@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock header %}
+
+{% block main %}
+
+<div class="desplacement-down" style="margin: 80px">
+
+  
+    <section class="container pt-4 bg-light border border-1 rounded">
+      <h1 class="text-center">Preinscripción Plan Fines</h1>
+      <div class="d-flex justify-content-center ">
+        <p class="w-75 bg-success px-4 py-2 text-white rounded">
+          Una vez que completes el formulario, te llegará un mail de confirmación con los datos que completaste. Para finalizar la inscripción deberás presentarte en el CENS 451 los días lunes y miércoles de 18:30 a 20:30 con la documentación requerida, para así validar los datos informados.
+          Si ya sos alumnos y aprobaste todo el cuatrimestre pasado no debes inscribirte nuevamente. Caso contrario debes ir a la sede del CENS los días de atención a consultar como debes seguir y luego completar este formulario.
+          Por favor lee atentamente al momento de completar el formulario.
+        
+        </p>
+      </div>
+    </section>
+</div>
+
+{% endblock main %}
