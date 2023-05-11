@@ -11,9 +11,7 @@
 
 {% block main %}
 <div class="desplacement-down" style="margin: 80px">
-  <section
-    class="container pt-4 bg-light border border-1 rounded"
-  >
+  <section class="container pt-4 bg-light border border-1 rounded">
     <h1 class="text-center">
       Preinscripción Plan Fines
     </h1>
@@ -38,254 +36,109 @@
       <div class="row">
         <div class="col-md-6 d-flex flex-column justify-content-between">
           <div>
-            <div class="mb-3 fs-4">Datos personales</div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                Nombre/s
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                id="id_nombres"
-                name="nombres"
-                required=""
-                autocapitalize="characters"
-              
-              />
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+            <div class="mb-3 fs-4">
+              Datos personales
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text">
-                Apellido/s
-              </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                id="id_apellidos"
-                name="apellidos"
-                required=""
-                autocapitalize="characters"
-              
-              />
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text"> DNI </span>
-              <input
-                type="text"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Número de DNI sin puntos"
-                maxlength="8"
-                id="id_dni"
-                name="dni"
-                required=""
-              
-              />
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+                <label class="input-group-text">
+                  {{form.nombres.label}}
+                </label>
+                  {{form.nombres}}
+              <div class="invalid-feedback" style="display: none">
+              </div>
             </div>
             <div class="input-group mb-3">
               <label class="input-group-text">
-                Nacionalidad
+                {{form.apellidos.label}}
               </label>
-              <select
-                id="id_nacionalidad"
-                name="nacionalidad"
-                required=""
-                class="form-select"
-              
-              >
-                <option value="">
-                  Seleccione su nacionalidad
-                </option>
-                <option value="Argentina">Argentina</option>
-                <option value="Boliviana">Boliviana</option>
-                <option value="Brasileña">Brasileña</option>
-                <option value="Chilena">Chilena</option>
-                <option value="Colombiana">
-                  Colombiana
-                </option>
-                <option value="Ecuatoriana">
-                  Ecuatoriana
-                </option>
-                <option value="Paraguaya">Paraguaya</option>
-                <option value="Peruana">Peruana</option>
-                <option value="Uruguaya">Uruguaya</option>
-                <option value="Venezolana">
-                  Venezolana
-                </option>
-                <option value="Otro">Otro</option>
-              </select>
+                {{form.apellidos}}
+              <div class="invalid-feedback" style="display: none">
+              </div>
             </div>
             <div class="input-group mb-3">
               <label class="input-group-text">
-                Género
+                {{form.dni.label}} 
               </label>
-              <select
-                id="id_genero"
-                name="genero"
-                required=""
-                class="form-select"
-              
-              >
-                <option value="">
-                  Seleccione su género
-                </option>
-                <option value="Femenino">Femenino</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Otro">Otro</option>
-              </select>
+              {{form.dni}}
+              <div class="invalid-feedback" style="display: none">
+              </div>
             </div>
             <div class="input-group mb-3">
-              <label for="" class="input-group-text"
-                >Fecha de Nacimiento</label
-              ><input
-                type="date"
-                name="fechaNacimiento"
-                id="id_fechaNacimiento"
-                class="form-control"
-              
-              />
+              <label class="input-group-text">
+                {{form.nacionalidad.label}}
+              </label>
+                {{form.nacionalidad}}
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text">Domicilio</span
-              ><input
-                type="text"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Calle y altura en la que vivis actualmente"
-                id="id_domicilio"
-                name="domicilio"
-                required=""
-              
-              />
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+              <label class="input-group-text">
+                {{form.genero.label}}
+              </label>
+                {{form.genero}}
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text"
-                >Localidad / Barrio</span
-              ><select
-                class="form-select"
-                name="localidad"
-                required=""
-                id="id_localidad"
-              
-              >
-                <option value="---">---</option>
-                <option value="Avellaneda">
-                  Avellaneda
-                </option>
-                <option value="Caraza">Caraza</option>
-                <option value="C.A.B.A.">C.A.B.A.</option>
-                <option value="Gerli">Gerli</option>
-                <option value="Fiorito">Fiorito</option>
-                <option value="Lanús Este">
-                  Lanús Este
-                </option>
-                <option value="Lanús Oeste">
-                  Lanús Oeste
-                </option>
-                <option value="L. de Zamora">
-                  L. de Zamora
-                </option>
-                <option value="Valentín Alsina">
-                  Valentín Alsina
-                </option>
-                <option value="V. Jardín">V. Jardín</option>
-                <option value="V. Diamante">
-                  V. Diamante
-                </option>
-              </select>
+              <label for="" class="input-group-text">
+                {{form.nacimiento.label}}
+              </label>
+                {{form.nacimiento}}
+            </div>
+            <div class="input-group mb-3">
+              <label class="input-group-text">
+                {{form.domicilio.label}}
+              </label>
+                {{form.domicilio}}
+              <div class="invalid-feedback" style="display: none">
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <label class="input-group-text">
+                {{form.barrio.label}}
+              </label>
+                {{form.barrio}}
             </div>
           </div>
           <div>
-            <div class="mb-3 fs-4">Datos de contacto</div>
-            <div class="input-group mb-3">
-              <span class="input-group-text"
-                >Correo Electrónico</span
-              ><input
-                type="email"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="ejemplo@gmail.com"
-                id="id_email"
-                name="email"
-                required=""
-              
-              />
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+            <div class="mb-3 fs-4">
+              Datos de contacto
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text">Celular 1</span
-              ><input
-                type="tel"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Celular sin agregar 0 ni 15"
-                maxlength="10"
-                id="id_celular1"
-                name="celular1"
-                required=""
-              
-              />
+              <label class="input-group-text">
+                {{form.email.label}}
+              </label>
+                {{form.email}}
               <div
                 class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+                style="display: none">
+              </div>
             </div>
             <div class="input-group mb-3">
-              <span class="input-group-text">Celular 2</span
-              ><input
-                type="tel"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                maxlength="10"
-                id="id_celular2"
-                name="celular2"
-                placeholder="Opcional"
-              
-              />
+              <label class="input-group-text">
+                {{form.celular_1.label}}
+              </label>
+                {{form.celular_1}}
+              <div
+                class="invalid-feedback"
+                style="display: none">
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <label class="input-group-text">
+                {{form.celular_2.label}}
+              </label>
+                {{form.celular_2}}
             </div>
           </div>
         </div>
         <div id="datos-academicos" class="col-md-6">
-          <div class="mb-3 fs-4">Datos Académicos</div>
+          <div class="mb-3 fs-4">
+            Datos Académicos
+          </div>
           <div class="form-check">
-            <label class="form-check-label"
-              ><input
-                type="checkbox"
-                class="form-check-input"
-                name="ex_alumno"
-                id="id_ex_alumno"
-              
-              />
+            <label class="form-check-label">
+                {{form.ex_alumno}}
               <h5>
-                Fui alumno/a de fines en el CENS 451 de Lanús en años anteriores
-              </h5></label
-            >
+                {{form.ex_alumno.label}}
+              </h5>
+            </label>
           </div>
           <div id='change_display'>
             <label class="mb-3" align="start">
@@ -295,121 +148,22 @@
               materias, por favor selecciona el año anterior.
             </label>
             <div class="input-group mb-3">
-              <label class="input-group-text">Estudios</label
-              ><select
-                id="id_estudios"
-                name="estudios"
-                class="form-control form-select"
-              
-              >
-                <option value="">
-                  Seleccione maximo nivel alcanzado
-                </option>
-                <option value="primaria completa">
-                  Primaria 6to o 7mo grado completo
-                </option>
-                <option value="1ro / 6 años">
-                  1ro secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="2do / 6 años">
-                  2do secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="3ro / 6 años">
-                  3ro secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="4to / 6 años">
-                  4to secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="5to / 6 años">
-                  5to secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="6to / 6 años">
-                  6to secundaria común de 6 años o Técnica de 7 años
-                </option>
-                <option value="1ro comun o técnica">
-                  1ro secundaria común de 5 años o Técnica de 6 años
-                </option>
-                <option value="2do comun o técnica">
-                  2do secundaria común de 5 años o Técnica de 6 años
-                </option>
-                <option value="3ro comun o técnica">
-                  3ro secundaria común de 5 años o Técnica de 6 años
-                </option>
-                <option value="4to comun o técnica">
-                  4to secundaria común de 5 años o Técnica de 6 años
-                </option>
-                <option value="5to comun o técnica">
-                  5to secundaria común de 5 años o Técnica de 6 años
-                </option>
-                <option value="7mo">7mo año EGB</option>
-                <option value="8vo">8vo año EGB</option>
-                <option value="9no">9no año EGB</option>
-                <option value="9no Adultos">
-                  9no año/3er ciclo EGB Adultos
-                </option>
-                <option value="1ro polimodal">
-                  1ro polimodal
-                </option>
-                <option value="2do polimodal">
-                  2do polimodal
-                </option>
-                <option value="3ro polimodal">
-                  3ro polimodal
-                </option>
-                <option value="1ro ESB">
-                  1ro secundaria básica ESB
-                </option>
-                <option value="2do ESB">
-                  2do secundaria básica ESB
-                </option>
-                <option value="3ro ESB">
-                  3ro secundaria básica ESB
-                </option>
-                <option value="1ro fines">
-                  1ro de Plan Fines o CENS
-                </option>
-                <option value="2do fines">
-                  2do de Plan Fines o CENS
-                </option>
-                <option value="3ro fines">
-                  3ro de Plan Fines o CENS
-                </option>
-                <option value="1ro fines">
-                  1ro de BAOT/BAO
-                </option>
-                <option value="2do fines">
-                  2do de BAOT/BAO
-                </option>
-                <option value="3ro fines">
-                  3ro de BAOT/BAO
-                </option>
-                <option value="Otro">Otro</option>
-              </select>
-              <div
-                class="invalid-feedback"
-              
-                style="display: none"
-              ></div>
+              <label class="input-group-text">
+                {{form.estudios.label}}
+              </label>
+                {{form.estudios}}
+              <div class="invalid-feedback" style="display: none">
+              </div>
             </div>
             <label class="mb-1" align="start">
               Si no aparece el máximo nivel alcanzado en el listado podés
               indicarlo en el siguiente campo:
             </label>
             <div class="input-group mb-3">
-              <label
-                for="otrosEstudios"
-                class="input-group-text"
-              
-                >Otro</label
-              ><input
-                type="text"
-                id="id_otrosEstudios"
-                name="otrosEstudios"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Opcional"
-              
-              />
+              <label class='input-group-text'>
+                {{form.otros_estudios.label}}
+              </label>
+                {{form.otros_estudios}}
             </div>
             <label class="mb-1" align="start">
               Si debés materias del último año que cursaste o de años previos,
@@ -417,199 +171,72 @@
               deber ninguna materia por favor completa con el texto "Ninguna"
             </label>
             <div class="input-group mb-3">
-              <label
-                for="materiasAdeudadas"
-                class="input-group-text"
-              
-                >Materias adeudadas</label
-              ><textarea
-                id="id_materiasAdeudadas"
-                name="materiasAdeudadas"
-                class="form-control"
-                aria-describedby="basic-addon1"
-                placeholder="Opcional"
-              
-              ></textarea>
+              <label class='input-group-text'>
+                {{form.materias_adeudadas.label}}
+              </label>
+                {{form.materias_adeudadas}}
             </div>
             <div class="input-group mb-3">
-              <label for="colegio" class="input-group-text"
-                >Colegio</label
-              ><input
-                type="text"
-                id="id_colegio"
-                name="colegio"
-                class="form-control"
-                placeholder="Nombre de la escuela de procedencia"
-                aria-describedby="basic-addon1"
-              
-              />
+              <label for="colegio" class="input-group-text">
+                {{form.colegio.label}}
+              </label>
+                {{form.colegio}}
             </div>
             <div class="input-group mb-3">
               <label
                 for="paisColegio"
-                class="input-group-text"
-              
-                >Pais</label
-              ><select
-                id="id_paisColegio"
-                name="paisColegio"
-                class="form-select"
-              
-              >
-                <option value="">Seleccione pais</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Bolivia">Bolivia</option>
-                <option value="Brasil">Brasil</option>
-                <option value="Chile">Chile</option>
-                <option value="Colombia">Colombia</option>
-                <option value="Ecuador">Ecuador</option>
-                <option value="Paraguay">Paraguay</option>
-                <option value="Perú">Perú</option>
-                <option value="Uruguay">Uruguay</option>
-                <option value="Venezuela">Venezuela</option>
-                <option value="Otro">Otro</option>
-              </select>
+                class="input-group-text">
+                {{form.pais.label}}
+              </label>
+                {{form.pais}}
             </div>
             <div class="input-group mb-3">
-              <label
-                for="provinciaColegio"
-                class="input-group-text"
-              
-                >Provincia</label
-              ><select
-                id="id_provinciaColegio"
-                name="provinciaColegio"
-                class="form-select"
-              
-              >
-                <option value="">
-                  Seleccione provincia
-                </option>
-                <option value="Buenos Aires">
-                  Buenos Aires
-                </option>
-                <option value="Catamarca">Catamarca</option>
-                <option value="Chaco">Chaco</option>
-                <option value="Chubut">Chubut</option>
-                <option value="Cordoba">Cordoba</option>
-                <option value="Corrientes">
-                  Corrientes
-                </option>
-                <option value="Entre Rios">
-                  Entre Rios
-                </option>
-                <option value="Formosa">Formosa</option>
-                <option value="Jujuy">Jujuy</option>
-                <option value="La Pampa">La Pampa</option>
-                <option value="La Rioja">La Rioja</option>
-                <option value="Mendoza">Mendoza</option>
-                <option value="Misiones">Misiones</option>
-                <option value="Neuquen">Neuquen</option>
-                <option value="Rio Negro">Rio Negro</option>
-                <option value="TDF">Tierra del Fuego</option>
-              </select>
+              <label class='input-group-text'>
+                {{form.provincia.label}}
+              </label>
+                {{form.provincia}}
             </div>
             <div class="input-group mb-3">
-              <label
-                for="distritoColegio"
-                class="input-group-text"
-              
-                >Localidad</label
-              ><input
-                type="text"
-                name="localidadColegio"
-                class="form-control"
-                placeholder="Localidad a la que pertenece la institución"
-                aria-describedby="basic-addon1"
-              
-              />
+              <label for="distritoColegio" class="input-group-text">
+                {{form.localidad.label}}
+              </label>
+                {{form.localidad}}
             </div>
           </div>
           <div id="validador" class="row">
             <div class="mb-2 fs-5">
               Selecciona los horarios para cursar
             </div>
-            <div
-              class="mb-1 text-danger small"
-            
-              style="display: none"
-            ></div>
+            <div class="mb-1 text-danger small" style="display: none">
+            </div>
             <div class="form-check mx-3">
-              <input
-                type="checkbox"
-                id="id_turnoManana"
-                name="turnoManana"
-                class="form-check-input"
-              
-              /><label
-                for="id_turnoManana"
-                class="form-check-label"
-              
-              >
-                Turno mañana 8 a 12hs aprox.
+                {{form.turno_manana}}
+              <label for="id_turnoManana" class="form-check-label">
+                {{form.turno_manana.label}}
               </label>
             </div>
             <div class="form-check mx-3">
-              <input
-                type="checkbox"
-                id="id_turnoTarde"
-                name="turnoTarde"
-                class="form-check-input"
-                value="Si"
-              
-              /><label
-                for="id_turnoTarde"
-                class="form-check-label"
-              
-              >
-                Turno tarde 14 a 18hs aprox.
+                {{form.turno_tarde}}
+              <label for="id_turnoTarde" class="form-check-label">
+                {{form.turno_tarde.label}}
               </label>
             </div>
             <div class="form-check mx-3">
-              <input
-                type="checkbox"
-                id="id_turnoNoche"
-                name="turnoNoche"
-                class="form-check-input"
-                value="Si"
-              
-              /><label
-                for="id_turnoNoche"
-                class="form-check-label"
-              
-              >
-                Turno Noche 18 a 22hs aprox.
+                {{form.turno_noche}}
+              <label for="id_turnoNoche" class="form-check-label">
+                {{form.turno_noche.label}}
               </label>
             </div>
             <div class="input-group mb-3">
-              <label
-                for="sedeDePreferencia"
-                class="input-group-text"
-              
-                >Sede</label
-              ><input
-                type="text"
-                id="id_sedeDePreferencia"
-                name="sedeDePreferencia"
-                class="form-control"
-                placeholder="Indicá aquí si tenes una sede de preferencia"
-                aria-describedby="basic-addon1"
-              
-              />
+              <label for="sedeDePreferencia" class="input-group-text">
+                {{form.sede.label}}
+              </label>
+                {{form.sede}}
             </div>
           </div>
         </div>
-        <div
-          class="container row mx-auto justify-content-center"
-          id="button-submit"
-        
-        >
-          <button
-            type="button"
-            class="btn btn-primary col-md-2 mt-4 mb-3"
-            name="submit"
-          
-          >
+        <div class="container row mx-auto justify-content-center" id="button-submit">
+          <button type="button" class="btn btn-primary col-md-2 mt-4 mb-3" name="submit">
             Enviar
           </button>
         </div>
