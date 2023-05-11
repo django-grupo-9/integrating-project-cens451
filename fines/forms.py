@@ -275,6 +275,7 @@ class PreinscriptionForm(forms.Form):
     )
 
     materiasAdeudadas = forms.CharField(
+        label='Materias adeudadas',
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Opcional',
@@ -288,4 +289,130 @@ class PreinscriptionForm(forms.Form):
         }
     )
 
-    # SEGUIR DESDE COLEGIO
+    colegio = forms.CharField(
+        label='Colegio',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'id_colegio',
+            'name': 'colegio',
+            'placeholder': 'Nombre de la escuela de procedencia',
+            'aria-describedby': 'basic-addon1'
+        }),
+        label_attr={
+            'class': 'input-group-text'
+        }
+    )
+
+    PAIS_CHOICES = (
+        ('', 'Seleccione pais'),
+        ('Argentina', 'Argentina'),
+        ('Bolivia', 'Bolivia'),
+        ('Brasil', 'Brasil'),
+        ('Chile', 'Chile'),
+        ('Colombia', 'Colombia'),
+        ('Ecuador', 'Ecuador'),
+        ('Paraguay', 'Paraguay'),
+        ('Perú', 'Perú'),
+        ('Uruguay', 'Uruguay'),
+        ('Venezuela', 'Venezuela'),
+        ('Otro', 'Otro')
+    )
+
+    pais = forms.ChoiceField(
+        label='País',
+        choices=PAIS_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-select',
+            'id': 'id_estudios',
+        }),
+        label_attr={
+            'class': 'input-group-text'
+        }
+    )
+
+    PROVINCIA_CHOICES = (
+        ("", "Seleccione provincia"),
+        ("Buenos Aires", "Buenos Aires"),
+        ("Catamarca", "Catamarca"),
+        ("Chaco", "Chaco"),
+        ("Chubut", "Chubut"),
+        ("Cordoba", "Cordoba"),
+        ("Corrientes", "Corrientes"),
+        ("Entre Rios", "Entre Rios"),
+        ("Formosa", "Formosa"),
+        ("Jujuy", "Jujuy"),
+        ("La Pampa", "La Pampa"),
+        ("La Rioja", "La Rioja"),
+        ("Mendoza", "Mendoza"),
+        ("Misiones", "Misiones"),
+        ("Neuquen", "Neuquen"),
+        ("Rio Negro", "Rio Negro"),
+        ("TDF", "Tierra del Fuego")
+    )
+
+    provincia = forms.ChoiceField(
+        label='Provincia',
+        choices=PAIS_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-select',
+            'id': 'id_provinciaColegio'
+        }),
+        label_attr={
+            'class': 'input-group-text'
+        }
+    )
+
+    localidad = forms.CharField(
+        label='Localidad',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Localidad a la que pertenece la institución',
+            'aria-describedby': 'basic-addon1'
+        }),
+        label_attr={
+            'class': 'input-group-text'
+        }
+    )
+
+    turno_manana = forms.BooleanField(
+        required=False,
+        label='Turno mañana 8 a 12hs aprox.',
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        label_attr={
+            'class': 'form-check-label'
+        }
+    )
+
+    turno_tarde = forms.BooleanField(
+        required=False,
+        label='Turno tarde 14 a 18hs aprox.',
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        label_attr={
+            'class': 'form-check-label'
+        }
+    )
+
+    turno_noche = forms.BooleanField(
+        required=False,
+        label='Turno noche 18 a 22hs aprox.',
+        widget=forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        }),
+        label_attr={
+            'class': 'form-check-label'
+        }
+    )
+
+    sede = forms.CharField(
+        label='Sede',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'id_sedeDePreferencia',
+            'placeholder': 'Indicá aquí si tenes una sede de preferencia',
+            'aria-describedby': 'basic-addon1'
+        })
+    )
