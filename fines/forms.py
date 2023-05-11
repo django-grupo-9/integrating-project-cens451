@@ -13,11 +13,9 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'autocapitalize': 'characters',
             'aria-describedby': 'basic-addon1',
-            'name': 'nombres'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+            'name': 'nombres',
+            'placeholder': 'Nombre/s'
+        })
     )
 
     apellidos = forms.CharField(
@@ -28,11 +26,9 @@ class PreinscriptionForm(forms.Form):
             'autocapitalize': 'characters',
             'aria-describedby': 'basic-addon1',
             'required': True,
-            'name': 'apellidos'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+            'name': 'apellidos',
+            'placeholder': 'Apellido/s'
+        })
     )
 
     dni = forms.IntegerField(
@@ -45,10 +41,7 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'dni'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     NACIONALIDADES_CHOICES = (
@@ -72,14 +65,11 @@ class PreinscriptionForm(forms.Form):
             'id': 'id_nacionalidad',
             'required': True,
             'class': 'form-select'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     GENEROS_CHOICES = (
-        ('', 'Seleccione su nacionalidad'),
+        ('', 'Seleccione su género'),
         ('Femenino', 'Femenino'),
         ('Masculino', 'Masculino'),
         ('Otro', 'Otro')
@@ -87,28 +77,22 @@ class PreinscriptionForm(forms.Form):
 
     genero = forms.ChoiceField(
         label='Género',
-        choiches=GENEROS_CHOICES,
+        choices=GENEROS_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_genero',
             'name': 'genero',
             'required': True,
             'class': 'form-select'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     nacimiento = forms.DateField(
         label='Fecha de Nacimiento',
-        widget=forms.DateInput(attrs={
+        widget=forms.TextInput(attrs={
             'id': 'id_fechaNacimiento',
-            'required': False,
-            'class': 'form-control'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+            'class': 'form-control',
+            'placeholder': 'dd/mm/yyyy'
+        })
     )
 
     domicilio = forms.CharField(
@@ -120,10 +104,7 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'domicilio'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     BARRIOS_CHOICES = (
@@ -133,8 +114,8 @@ class PreinscriptionForm(forms.Form):
         ('C.A.B.A', 'C.A.B.A'),
         ('Gerli', 'Gerli'),
         ('Fiorito', 'Fiorito'),
-        ('Lanús Este', 'Lanús Este')
-        ('Lanús Oeste', 'Lanús Oeste')
+        ('Lanús Este', 'Lanús Este'),
+        ('Lanús Oeste', 'Lanús Oeste'),
         ('Lomas de Zamora', 'Lomas de Zamora'),
         ('Valentín Alsina', 'Valentín Alsina'),
         ('V. Jardín', 'V. Jardín'),
@@ -143,16 +124,13 @@ class PreinscriptionForm(forms.Form):
 
     barrio = forms.ChoiceField(
         label='Localidad / Barrio',
-        choiches=BARRIOS_CHOICES,
+        choices=BARRIOS_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_localidad',
             'name': 'localidad',
             'required': True,
             'class': 'form-select'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     email = forms.EmailField(
@@ -164,10 +142,7 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'email'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     celular_1 = forms.CharField(
@@ -179,10 +154,7 @@ class PreinscriptionForm(forms.Form):
             'maxlength': '10',
             'required': True,
             'type': 'tel',
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     celular_2 = forms.CharField(
@@ -194,10 +166,7 @@ class PreinscriptionForm(forms.Form):
             'maxlength': '10',
             'required': False,
             'type': 'tel',
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     ex_alumno = forms.BooleanField(
@@ -207,10 +176,7 @@ class PreinscriptionForm(forms.Form):
             'class': 'form-check-input',
             'id': 'id_ex_alumno',
             'name': 'ex_alumno',
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     ESTUDIOS_CHOICES = (
@@ -253,10 +219,7 @@ class PreinscriptionForm(forms.Form):
             'class': 'form-control form-select',
             'id': 'id_estudios',
             'name': 'estudios'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     otros_estudios = forms.CharField(
@@ -268,13 +231,10 @@ class PreinscriptionForm(forms.Form):
             'placeholder': 'Opcional',
             'required': False,
             'aria-describedby': 'basic-addon1',
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
-    materiasAdeudadas = forms.CharField(
+    materias_adeudadas = forms.CharField(
         label='Materias adeudadas',
         widget=forms.Textarea(attrs={
             'class': 'form-control',
@@ -282,11 +242,9 @@ class PreinscriptionForm(forms.Form):
             'required': False,
             'aria-describedby': 'basic-addon1',
             'name': 'materiasAdeudadas',
-            'id': 'id_materiasAdeudadas'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+            'id': 'id_materiasAdeudadas',
+            'style': 'height: 24px;'
+        })
     )
 
     colegio = forms.CharField(
@@ -297,10 +255,7 @@ class PreinscriptionForm(forms.Form):
             'name': 'colegio',
             'placeholder': 'Nombre de la escuela de procedencia',
             'aria-describedby': 'basic-addon1'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     PAIS_CHOICES = (
@@ -324,10 +279,7 @@ class PreinscriptionForm(forms.Form):
         widget=forms.Select(attrs={
             'class': 'form-select',
             'id': 'id_estudios',
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     PROVINCIA_CHOICES = (
@@ -356,10 +308,7 @@ class PreinscriptionForm(forms.Form):
         widget=forms.Select(attrs={
             'class': 'form-select',
             'id': 'id_provinciaColegio'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     localidad = forms.CharField(
@@ -368,10 +317,7 @@ class PreinscriptionForm(forms.Form):
             'class': 'form-control',
             'placeholder': 'Localidad a la que pertenece la institución',
             'aria-describedby': 'basic-addon1'
-        }),
-        label_attr={
-            'class': 'input-group-text'
-        }
+        })
     )
 
     turno_manana = forms.BooleanField(
@@ -379,10 +325,7 @@ class PreinscriptionForm(forms.Form):
         label='Turno mañana 8 a 12hs aprox.',
         widget=forms.CheckboxInput(attrs={
             'class': 'form-check-input'
-        }),
-        label_attr={
-            'class': 'form-check-label'
-        }
+        })
     )
 
     turno_tarde = forms.BooleanField(
@@ -390,10 +333,7 @@ class PreinscriptionForm(forms.Form):
         label='Turno tarde 14 a 18hs aprox.',
         widget=forms.CheckboxInput(attrs={
             'class': 'form-check-input'
-        }),
-        label_attr={
-            'class': 'form-check-label'
-        }
+        })
     )
 
     turno_noche = forms.BooleanField(
@@ -401,10 +341,7 @@ class PreinscriptionForm(forms.Form):
         label='Turno noche 18 a 22hs aprox.',
         widget=forms.CheckboxInput(attrs={
             'class': 'form-check-input'
-        }),
-        label_attr={
-            'class': 'form-check-label'
-        }
+        })
     )
 
     sede = forms.CharField(
@@ -416,3 +353,29 @@ class PreinscriptionForm(forms.Form):
             'aria-describedby': 'basic-addon1'
         })
     )
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['nombres'].label = self.fields['nombres'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['apellidos'].label = self.fields['apellidos'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['dni'].label = self.fields['dni'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['nacionalidad'].label = self.fields['nacionalidad'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['genero'].label = self.fields['genero'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['nacimiento'].label = self.fields['nacimiento'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['domicilio'].label = self.fields['domicilio'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['barrio'].label = self.fields['barrio'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['email'].label = self.fields['email'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['celular_1'].label = self.fields['celular_1'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['celular_2'].label = self.fields['celular_2'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['ex_alumno'].label = self.fields['ex_alumno'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['estudios'].label = self.fields['estudios'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['otros_estudios'].label = self.fields['otros_estudios'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['materias_adeudadas'].label = self.fields['materias_adeudadas'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['colegio'].label = self.fields['colegio'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['pais'].label = self.fields['pais'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['provincia'].label = self.fields['provincia'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['localidad'].label = self.fields['localidad'].label_tag(attrs={'class': 'input-group-text'})
+    #     self.fields['turno_manana'].label = self.fields['turno_manana'].label_tag(attrs={'class': 'form-check-label'})
+    #     self.fields['turno_tarde'].label = self.fields['turno_tarde'].label_tag(attrs={'class': 'form-check-label'})
+    #     self.fields['turno_noche'].label = self.fields['turno_noche'].label_tag(attrs={'class': 'form-check-label'})
+    #     self.fields['sede'].label = self.fields['sede'].label_tag(attrs={'class': 'input-group-text'})
