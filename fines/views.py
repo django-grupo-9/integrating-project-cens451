@@ -1,12 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import PreinscriptionForm
+
 
 # Create your views here.
 def fines(request):
     return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
+
 def preinscripcion(request):
-    return render(request, "pages/fines_preinscripcion.html")
+    form = PreinscriptionForm()
+    context = {
+        'form': form
+    }
+    return render(request, "pages/fines_preinscripcion.html", context)
+
 
 def materias(request, orientacion, materia):
     # Acá buscaría en la base de datos
@@ -18,5 +26,5 @@ def materias(request, orientacion, materia):
         orientacion = orientacion.replace('_', ' ')
     if underscore in materia:
         materia = materia.replace('_', ' ')
-    
-    return render(request, "pages/materias.html", {"title": orientacion, "orientacion": orientacion, "materia" : materia} )
+
+    return render(request, "pages/materias.html", {"title": orientacion, "orientacion": orientacion, "materia": materia})
