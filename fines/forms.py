@@ -2,7 +2,67 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ValidationError
 import re
+from datetime import datetime, date, timedelta
 
+
+def validate_nombres(value):
+    """Valida si el input 'nombres' tiene mínimo cuatro letras, máximo 30 letras y, si efectivamente son letras."""
+    if len(value) < 4:
+        raise ValidationError('El nombre debe tener al menos 4 caracteres')
+    if len(value) > 30:
+        raise ValidationError('El nombre no puede tener más de 30 caracteres')
+    if not value.isalpha():
+        raise ValidationError('El nombre solo debe contener letras')
+
+
+def validate_apellidos(value):
+    if len(value) < 4:
+        raise ValidationError('El apellido debe tener al menos 4 caracteres')
+    if len(value) > 45:
+        raise ValidationError('El apellido no puede tener más de 45 caracteres')
+    if not value.isalpha():
+        raise ValidationError('El apellido solo debe contener letras')
+
+
+def validate_dni(value):
+    if len(value) < 4:
+        raise ValidationError('El DNI debe tener al menos 4 números')
+    if len(value) > 8:
+        raise ValidationError('El DNI puede tener hasta 8 números')
+    if not value.isdigit():
+        raise ValidationError('El DNI contiene sólo números')
+    
+
+def validate_nacionalidad(value):
+    if value == '':
+        raise ValidationError('Por favor seleccione una nacionalidad')
+    
+
+def validate_genero(value):
+    if value == '':
+        raise ValidationError('Por favor seleccione un género')
+    
+
+def validate_nacimiento(value):
+    if value.year < 1900:
+        raise ValidationError('La fecha de nacimiento no puede ser anterior a 1900')
+    
+    today = date.today()
+    edad_minima = timedelta(days=13*365)
+    fecha_minima = today - edad_minima
+    if value > fecha_minima:
+        raise ValidationError('Debe tener al menos 13 años para registrarse')
+    
+    try:
+        datetime.strptime(value.strftime('%d/%m/%Y'), '%d/%m/%Y')
+    except ValueError:
+        raise ValidationError('La fecha debe tener el formato dd/mm/yyyy')
+    
+
+def validate_barrio(value):
+    if value == '':
+        raise ValidationError('Por favor seleccione un barrio')
+ 
 
 class PreinscriptionForm(forms.Form):
     nombres = forms.CharField(
@@ -15,8 +75,9 @@ class PreinscriptionForm(forms.Form):
             'aria-describedby': 'basic-addon1',
             'name': 'nombres',
             'placeholder': 'Nombre/s'
-        })
-    )
+        }),
+        validators=[validate_nombres]
+    )    
 
     apellidos = forms.CharField(
         label='Apellido/s',
@@ -28,7 +89,8 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'name': 'apellidos',
             'placeholder': 'Apellido/s'
-        })
+        }),
+        validators=[validate_apellidos]
     )
 
     dni = forms.IntegerField(
@@ -41,7 +103,8 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'dni'
-        })
+        }),
+        validators=[validate_dni]
     )
 
     NACIONALIDADES_CHOICES = (
@@ -65,7 +128,8 @@ class PreinscriptionForm(forms.Form):
             'id': 'id_nacionalidad',
             'required': True,
             'class': 'form-select'
-        })
+        }),
+        validators=[validate_nacionalidad]
     )
 
     GENEROS_CHOICES = (
@@ -83,7 +147,8 @@ class PreinscriptionForm(forms.Form):
             'name': 'genero',
             'required': True,
             'class': 'form-select'
-        })
+        }),
+        validators=[validate_genero]
     )
 
     nacimiento = forms.DateField(
@@ -92,7 +157,8 @@ class PreinscriptionForm(forms.Form):
             'id': 'id_fechaNacimiento',
             'class': 'form-control',
             'placeholder': 'dd/mm/yyyy'
-        })
+        }),
+        validators=[validate_nacimiento]
     )
 
     domicilio = forms.CharField(
