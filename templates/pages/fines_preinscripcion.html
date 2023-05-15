@@ -32,100 +32,173 @@
         formulario.
       </p>
     </div>
-    <form class="container-fluid needs-validation" method="POST" name="google-sheet" novalidate="">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form class="container-fluid needs-validation" method="POST" name="google-sheet" novalidate>
+      {% csrf_token %}
       <div class="row">
         <div class="col-md-6 d-flex flex-column justify-content-between">
-          <div>
-            <div class="mb-3 fs-4">
-              Datos personales
-            </div>
-            <div class="input-group mb-3">
-                <label class="input-group-text">
-                  {{form.nombres.label}}
-                </label>
-                  {{form.nombres}}
-              <div class="invalid-feedback" style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.apellidos.label}}
-              </label>
-                {{form.apellidos}}
-              <div class="invalid-feedback" style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.dni.label}} 
-              </label>
-              {{form.dni}}
-              <div class="invalid-feedback" style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.nacionalidad.label}}
-              </label>
-                {{form.nacionalidad}}
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.genero.label}}
-              </label>
-                {{form.genero}}
-            </div>
-            <div class="input-group mb-3">
-              <label for="" class="input-group-text">
-                {{form.nacimiento.label}}
-              </label>
-                {{form.nacimiento}}
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.domicilio.label}}
-              </label>
-                {{form.domicilio}}
-              <div class="invalid-feedback" style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.barrio.label}}
-              </label>
-                {{form.barrio}}
-            </div>
+          <div class="mb-3 fs-4">
+            Datos personales
+          </div>          
+          {% if form.nombres.errors %}
+          <div class="text-danger">
+              {% for error in form.nombres.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
           </div>
-          <div>
-            <div class="mb-3 fs-4">
-              Datos de contacto
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.email.label}}
-              </label>
-                {{form.email}}
-              <div
-                class="invalid-feedback"
-                style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.celular_1.label}}
-              </label>
-                {{form.celular_1}}
-              <div
-                class="invalid-feedback"
-                style="display: none">
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <label class="input-group-text">
-                {{form.celular_2.label}}
-              </label>
-                {{form.celular_2}}
-            </div>
+          {% endif %}
+          {% comment %} {% if form.nombres.errors %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.nombres.label}}
+            </label>
+              {{form.nombres}}          
+            <script>
+              var nombres = document.getElementById('id_nombres');
+              nombres.classList.add('invalid-feedback');
+            </script>
+          </div>
+          {% else %} {% endcomment %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.nombres.label}}
+            </label>
+              {{form.nombres}}
+          </div>
+          {% if form.apellidos.errors %}
+          <div class="text-danger">
+              {% for error in form.apellidos.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.apellidos.label}}
+            </label>
+              {{form.apellidos}}
+          </div>
+          {% if form.dni.errors %}
+          <div class="text-danger">
+              {% for error in form.dni.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.dni.label}} 
+            </label>
+              {{form.dni}}
+          </div>
+          {% if form.nacionalidad.errors %}
+          <div class="text-danger">
+              {% for error in form.nacionalidad.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.nacionalidad.label}}
+            </label>
+              {{form.nacionalidad}}
+          </div>
+          {% if form.genero.errors %}
+          <div class="text-danger">
+              {% for error in form.genero.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.genero.label}}
+            </label>
+              {{form.genero}}
+          </div>
+          {% if form.nacimiento.errors %}
+          <div class="text-danger">
+              {% for error in form.nacimiento.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label for="" class="input-group-text">
+              {{form.nacimiento.label}}
+            </label>
+              {{form.nacimiento}}
+          </div>
+          {% if form.domicilio.errors %}
+          <div class="text-danger">
+              {% for error in form.domicilio.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.domicilio.label}}
+            </label>
+              {{form.domicilio}}
+          </div>
+          {% if form.barrio.errors %}
+          <div class="text-danger">
+              {% for error in form.barrio.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.barrio.label}}
+            </label>
+              {{form.barrio}}
+          </div>
+          <div class="mb-3 fs-4">
+            Datos de contacto
+          </div>
+          {% if form.email.errors %}
+          <div class="text-danger">
+              {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}        
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.email.label}}
+            </label>
+              {{form.email}}
+          </div>
+          {% if form.celular_1.errors %}
+          <div class="text-danger">
+              {% for error in form.celular_1.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.celular_1.label}}
+            </label>
+              {{form.celular_1}}
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.celular_2.label}}
+            </label>
+              {{form.celular_2}}
           </div>
         </div>
         <div id="datos-academicos" class="col-md-6">
@@ -147,13 +220,18 @@
               alcanzado. Si en dicho nivel en el que abandonaste debes mas de 3
               materias, por favor selecciona el año anterior.
             </label>
+            {% if form.estudios.errors %}
+            <div class="text-danger">
+                {% for error in form.estudios.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}         
             <div class="input-group mb-3">
               <label class="input-group-text">
                 {{form.estudios.label}}
               </label>
                 {{form.estudios}}
-              <div class="invalid-feedback" style="display: none">
-              </div>
             </div>
             <label class="mb-1" align="start">
               Si no aparece el máximo nivel alcanzado en el listado podés
@@ -176,12 +254,26 @@
               </label>
                 {{form.materias_adeudadas}}
             </div>
+            {% if form.colegio.errors %}
+            <div class="text-danger">
+                {% for error in form.colegio.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="input-group mb-3">
               <label for="colegio" class="input-group-text">
                 {{form.colegio.label}}
               </label>
                 {{form.colegio}}
             </div>
+            {% if form.pais.errors %}
+            <div class="text-danger">
+                {% for error in form.pais.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="input-group mb-3">
               <label
                 for="paisColegio"
@@ -190,6 +282,13 @@
               </label>
                 {{form.pais}}
             </div>
+            {% if form.provincia.errors %}
+            <div class="text-danger">
+                {% for error in form.provincia.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="input-group mb-3">
               <label class='input-group-text'>
                 {{form.provincia.label}}
@@ -202,12 +301,9 @@
               </label>
                 {{form.localidad}}
             </div>
-          </div>
           <div id="validador" class="row">
             <div class="mb-2 fs-5">
               Selecciona los horarios para cursar
-            </div>
-            <div class="mb-1 text-danger small" style="display: none">
             </div>
             <div class="form-check mx-3">
                 {{form.turno_manana}}
@@ -236,7 +332,7 @@
           </div>
         </div>
         <div class="container row mx-auto justify-content-center" id="button-submit">
-          <button type="button" class="btn btn-primary col-md-2 mt-4 mb-3" name="submit">
+          <button type="submit" class="btn btn-primary col-md-2 mt-4 mb-3" name="submit">
             Enviar
           </button>
         </div>
