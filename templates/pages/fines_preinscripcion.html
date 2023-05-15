@@ -50,24 +50,12 @@
             Datos personales
           </div>          
           {% if form.nombres.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.nombres.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
           </div>
           {% endif %}
-          {% comment %} {% if form.nombres.errors %}
-          <div class="input-group mb-3">
-            <label class="input-group-text">
-              {{form.nombres.label}}
-            </label>
-              {{form.nombres}}          
-            <script>
-              var nombres = document.getElementById('id_nombres');
-              nombres.classList.add('invalid-feedback');
-            </script>
-          </div>
-          {% else %} {% endcomment %}
           <div class="input-group mb-3">
             <label class="input-group-text">
               {{form.nombres.label}}
@@ -75,7 +63,7 @@
               {{form.nombres}}
           </div>
           {% if form.apellidos.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.apellidos.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -88,20 +76,20 @@
               {{form.apellidos}}
           </div>
           {% if form.dni.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.dni.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
           </div>
           {% endif %}
-          <div class="input-group mb-3">
+          <div style='font-size:0.875em' class="input-group mb-3">
             <label class="input-group-text">
               {{form.dni.label}} 
             </label>
               {{form.dni}}
           </div>
           {% if form.nacionalidad.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.nacionalidad.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -114,7 +102,7 @@
               {{form.nacionalidad}}
           </div>
           {% if form.genero.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.genero.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -127,7 +115,7 @@
               {{form.genero}}
           </div>
           {% if form.nacimiento.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.nacimiento.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -140,7 +128,7 @@
               {{form.nacimiento}}
           </div>
           {% if form.domicilio.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.domicilio.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -153,7 +141,7 @@
               {{form.domicilio}}
           </div>
           {% if form.barrio.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.barrio.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -169,7 +157,7 @@
             Datos de contacto
           </div>
           {% if form.email.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.email.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -182,7 +170,7 @@
               {{form.email}}
           </div>
           {% if form.celular_1.errors %}
-          <div class="text-danger">
+          <div style='font-size:0.875em' class="text-danger">
               {% for error in form.celular_1.errors %}
                   <span>{{ error }}</span>
               {% endfor %}
@@ -221,7 +209,7 @@
               materias, por favor selecciona el año anterior.
             </label>
             {% if form.estudios.errors %}
-            <div class="text-danger">
+            <div style='font-size:0.875em' class="text-danger">
                 {% for error in form.estudios.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
@@ -255,7 +243,7 @@
                 {{form.materias_adeudadas}}
             </div>
             {% if form.colegio.errors %}
-            <div class="text-danger">
+            <div style='font-size:0.875em' class="text-danger">
                 {% for error in form.colegio.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
@@ -268,7 +256,7 @@
                 {{form.colegio}}
             </div>
             {% if form.pais.errors %}
-            <div class="text-danger">
+            <div style='font-size:0.875em' class="text-danger">
                 {% for error in form.pais.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
@@ -283,7 +271,7 @@
                 {{form.pais}}
             </div>
             {% if form.provincia.errors %}
-            <div class="text-danger">
+            <div style='font-size:0.875em' class="text-danger">
                 {% for error in form.provincia.errors %}
                     <span>{{ error }}</span>
                 {% endfor %}
