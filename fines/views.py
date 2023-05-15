@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import PreinscriptionForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -9,11 +10,21 @@ def fines(request):
 
 
 def preinscripcion(request):
-    form = PreinscriptionForm()
-    context = {
-        'form': form
-    }
-    return render(request, "pages/fines_preinscripcion.html", context)
+    if request.method == 'POST':
+        form = PreinscriptionForm(request.POST)
+        if form.is_valid():
+            context = {'form': form}
+            return render(request, 'pages/index.html', context)
+        else:
+            # messages.error(request, 'Por favor introduzca datos válidos')
+            context = {'form': form}
+            return render(request, 'pages/fines_preinscripcion.html', context)
+    else:
+        form = PreinscriptionForm()
+        context = {
+            'form': form
+        }
+        return render(request, "pages/fines_preinscripcion.html", context)
 
 
 def materias(request, orientacion, materia):
