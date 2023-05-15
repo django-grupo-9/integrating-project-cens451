@@ -156,9 +156,7 @@ class VerifyCodeForm(forms.Form):
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
-        raise ValidationError('El nombre no puede contener números - %(valor)s',
-                            code='Invalid',
-                            params={'valor': value})
+        raise ValidationError('El nombre no puede contener números - %(valor)s', code='Invalid', params={'valor': value})
 
 
 def validate_email(value):
@@ -227,7 +225,6 @@ class ContactoForm(forms.Form):
             }
         )
     )
-
 
 
 def validate_pass(value):
