@@ -114,7 +114,7 @@ def validate_localidad(value):
 class PreinscriptionForm(forms.Form):
     nombres = forms.CharField(
         label='Nombre/s',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El nombre no puede quedar vacío'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_nombres',
@@ -129,7 +129,7 @@ class PreinscriptionForm(forms.Form):
 
     apellidos = forms.CharField(
         label='Apellido/s',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El apellido no puede quedar vacío'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_apellidos',
@@ -144,7 +144,7 @@ class PreinscriptionForm(forms.Form):
 
     dni = forms.IntegerField(
         label='DNI',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El DNI no puede quedar vacío'},
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'id': 'id_dni',
@@ -173,7 +173,7 @@ class PreinscriptionForm(forms.Form):
     )
     nacionalidad = forms.ChoiceField(
         label='Nacionalidad',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Por favor seleccione un país'},
         choices=NACIONALIDADES_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_nacionalidad',
@@ -192,7 +192,7 @@ class PreinscriptionForm(forms.Form):
 
     genero = forms.ChoiceField(
         label='Género',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Por favor seleccione su género'},
         choices=GENEROS_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_genero',
@@ -205,7 +205,7 @@ class PreinscriptionForm(forms.Form):
 
     nacimiento = forms.DateField(
         label='Fecha de Nacimiento',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Por favor introduzca su fecha de nacimiento. Ej: dd/mm/yyyy'},
         widget=forms.TextInput(attrs={
             'id': 'id_fechaNacimiento',
             'class': 'form-control',
@@ -216,7 +216,7 @@ class PreinscriptionForm(forms.Form):
 
     domicilio = forms.CharField(
         label='Domicilio',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El domicilio no puede quedar vacío'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_domicilio',
@@ -258,7 +258,7 @@ class PreinscriptionForm(forms.Form):
 
     email = forms.EmailField(
         label='Correo Electrónico',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El email no puede quedar vacío'},
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'id': 'id_email',
@@ -272,7 +272,7 @@ class PreinscriptionForm(forms.Form):
 
     celular_1 = forms.CharField(
         label='Celular 1',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El celular no puede quedar vacío. Ej: 118765432'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Celular sin agregar 0 ni 15',
@@ -341,7 +341,7 @@ class PreinscriptionForm(forms.Form):
 
     estudios = forms.ChoiceField(
         label='Estudios',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': "Seleccione un estudio. En caso de no encontrar el suyo, seleccione 'Otro'"},
         choices=ESTUDIOS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-control form-select',
@@ -378,7 +378,7 @@ class PreinscriptionForm(forms.Form):
 
     colegio = forms.CharField(
         label='Colegio',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'El nombre de su escuela de procedencia no puede quedar vacío'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_colegio',
@@ -406,7 +406,7 @@ class PreinscriptionForm(forms.Form):
 
     pais = forms.ChoiceField(
         label='País',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Por favor seleccione su pais'},
         choices=PAIS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
@@ -437,7 +437,7 @@ class PreinscriptionForm(forms.Form):
 
     provincia = forms.ChoiceField(
         label='Provincia',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Por favor seleccione su provincia'},
         choices=PROVINCIA_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
@@ -447,7 +447,7 @@ class PreinscriptionForm(forms.Form):
 
     localidad = forms.CharField(
         label='Localidad',
-        error_messages={'required': 'Este campo es obligatorio'},
+        error_messages={'required': 'Introduzca la localidad a la que pertenece la institución'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Localidad a la que pertenece la institución',
