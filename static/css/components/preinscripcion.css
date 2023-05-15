@@ -1,0 +1,18 @@
+.has-validation input.form-control {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23dc3545'%3e%3cpath d='M10 12.586L5.707 16.88a1 1 0 0 1-1.414-1.415L8.586 11H3a1 1 0 0 1 0-2h5.586l-4.293-4.293a1 1 0 0 1 1.414-1.414L10 7.586l4.293-4.293a1 1 0 0 1 1.414 1.414L11.414 9H17a1 1 0 0 1 0 2h-5.586l4.293 4.293a1 1 0 0 1-1.414 1.414L10 12.586z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.has-validation select.form-select {
+    border-color: #dc3545;
+}
+
+.text-danger ul {
+    margin:0;
+    padding:0;
+    list-style: none;
+}
