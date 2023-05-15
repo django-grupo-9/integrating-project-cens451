@@ -6,7 +6,6 @@ from datetime import datetime, date, timedelta
 
 
 def validate_nombres(value):
-    """Valida si el input 'nombres' tiene mínimo cuatro letras, máximo 30 letras y, si efectivamente son letras."""
     if len(value) < 4:
         raise ValidationError('El nombre debe tener al menos 4 caracteres')
     if len(value) > 30:
@@ -25,48 +24,97 @@ def validate_apellidos(value):
 
 
 def validate_dni(value):
-    if len(value) < 4:
+    if len(str(value)) < 4:
         raise ValidationError('El DNI debe tener al menos 4 números')
-    if len(value) > 8:
+    if len(str(value)) > 8:
         raise ValidationError('El DNI puede tener hasta 8 números')
-    if not value.isdigit():
+    if not str(value).isdigit():
         raise ValidationError('El DNI contiene sólo números')
-    
+
 
 def validate_nacionalidad(value):
     if value == '':
         raise ValidationError('Por favor seleccione una nacionalidad')
-    
+
 
 def validate_genero(value):
     if value == '':
         raise ValidationError('Por favor seleccione un género')
-    
+
 
 def validate_nacimiento(value):
     if value.year < 1900:
         raise ValidationError('La fecha de nacimiento no puede ser anterior a 1900')
-    
+
     today = date.today()
     edad_minima = timedelta(days=13*365)
     fecha_minima = today - edad_minima
     if value > fecha_minima:
         raise ValidationError('Debe tener al menos 13 años para registrarse')
-    
+
     try:
         datetime.strptime(value.strftime('%d/%m/%Y'), '%d/%m/%Y')
     except ValueError:
         raise ValidationError('La fecha debe tener el formato dd/mm/yyyy')
-    
+
+
+def validate_domicilio(value):
+    if len(value) < 8:
+        raise ValidationError('Introduzca su dirección')
+    if len(value) > 100:
+        raise ValidationError('La dirección no puede contener más de 100 caracteres')
+
 
 def validate_barrio(value):
     if value == '':
         raise ValidationError('Por favor seleccione un barrio')
- 
+
+
+def validate_email(value):
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, value):
+        raise ValidationError('Ingrese un correo electrónico válido (ejemplo@dominio.com)')
+    return value
+
+
+def validate_celular_1(value):
+    if not value.isdigit():
+        raise ValidationError('El número de teléfono no puede contener letras')
+
+
+def validate_estudios(value):
+    if value == '':
+        raise ValidationError('Por favor seleccione sus estudios')
+
+
+def validate_colegio(value):
+    if value == '':
+        raise ValidationError('Por favor introduzca su colegio de procedencia')
+    if len(value) < 6:
+        raise ValidationError('Por favor introduzca un colegio válido')
+
+
+def validate_pais(value):
+    if value == '':
+        raise ValidationError('Por favor seleccione un país')
+
+
+# def validate_provincia(value):
+#     if value == '':
+#         raise ValidationError('Por favor seleccione una provincia')
+
+
+def validate_localidad(value):
+    if value == '':
+        raise ValidationError('Por favor introduzca la localidad de su institución')
+    if len(value) < 6:
+        raise ValidationError('Por favor introduzca una localidad válida')
+
 
 class PreinscriptionForm(forms.Form):
     nombres = forms.CharField(
         label='Nombre/s',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_nombres',
@@ -77,10 +125,11 @@ class PreinscriptionForm(forms.Form):
             'placeholder': 'Nombre/s'
         }),
         validators=[validate_nombres]
-    )    
+    )
 
     apellidos = forms.CharField(
         label='Apellido/s',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_apellidos',
@@ -95,6 +144,7 @@ class PreinscriptionForm(forms.Form):
 
     dni = forms.IntegerField(
         label='DNI',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.NumberInput(attrs={
             'class': 'form-control',
             'id': 'id_dni',
@@ -123,6 +173,7 @@ class PreinscriptionForm(forms.Form):
     )
     nacionalidad = forms.ChoiceField(
         label='Nacionalidad',
+        error_messages={'required': 'Este campo es obligatorio'},
         choices=NACIONALIDADES_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_nacionalidad',
@@ -141,6 +192,7 @@ class PreinscriptionForm(forms.Form):
 
     genero = forms.ChoiceField(
         label='Género',
+        error_messages={'required': 'Este campo es obligatorio'},
         choices=GENEROS_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_genero',
@@ -153,6 +205,7 @@ class PreinscriptionForm(forms.Form):
 
     nacimiento = forms.DateField(
         label='Fecha de Nacimiento',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'id': 'id_fechaNacimiento',
             'class': 'form-control',
@@ -163,6 +216,7 @@ class PreinscriptionForm(forms.Form):
 
     domicilio = forms.CharField(
         label='Domicilio',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_domicilio',
@@ -170,7 +224,8 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'domicilio'
-        })
+        }),
+        validators=[validate_domicilio]
     )
 
     BARRIOS_CHOICES = (
@@ -190,17 +245,20 @@ class PreinscriptionForm(forms.Form):
 
     barrio = forms.ChoiceField(
         label='Localidad / Barrio',
+        error_messages={'required': 'Este campo es obligatorio'},
         choices=BARRIOS_CHOICES,
         widget=forms.Select(attrs={
             'id': 'id_localidad',
             'name': 'localidad',
             'required': True,
             'class': 'form-select'
-        })
+        }),
+        validators=[validate_barrio]
     )
 
     email = forms.EmailField(
         label='Correo Electrónico',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
             'id': 'id_email',
@@ -208,11 +266,13 @@ class PreinscriptionForm(forms.Form):
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'email'
-        })
+        }),
+        validators=[validate_email]
     )
 
     celular_1 = forms.CharField(
         label='Celular 1',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Celular sin agregar 0 ni 15',
@@ -220,7 +280,8 @@ class PreinscriptionForm(forms.Form):
             'maxlength': '10',
             'required': True,
             'type': 'tel',
-        })
+        }),
+        validators=[validate_celular_1]
     )
 
     celular_2 = forms.CharField(
@@ -280,12 +341,14 @@ class PreinscriptionForm(forms.Form):
 
     estudios = forms.ChoiceField(
         label='Estudios',
+        error_messages={'required': 'Este campo es obligatorio'},
         choices=ESTUDIOS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-control form-select',
             'id': 'id_estudios',
             'name': 'estudios'
-        })
+        }),
+        validators=[validate_estudios]
     )
 
     otros_estudios = forms.CharField(
@@ -315,13 +378,15 @@ class PreinscriptionForm(forms.Form):
 
     colegio = forms.CharField(
         label='Colegio',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_colegio',
             'name': 'colegio',
             'placeholder': 'Nombre de la escuela de procedencia',
             'aria-describedby': 'basic-addon1'
-        })
+        }),
+        validators=[validate_colegio]
     )
 
     PAIS_CHOICES = (
@@ -341,11 +406,13 @@ class PreinscriptionForm(forms.Form):
 
     pais = forms.ChoiceField(
         label='País',
+        error_messages={'required': 'Este campo es obligatorio'},
         choices=PAIS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
             'id': 'id_estudios',
-        })
+        }),
+        validators=[validate_pais]
     )
 
     PROVINCIA_CHOICES = (
@@ -370,7 +437,8 @@ class PreinscriptionForm(forms.Form):
 
     provincia = forms.ChoiceField(
         label='Provincia',
-        choices=PAIS_CHOICES,
+        error_messages={'required': 'Este campo es obligatorio'},
+        choices=PROVINCIA_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
             'id': 'id_provinciaColegio'
@@ -379,11 +447,13 @@ class PreinscriptionForm(forms.Form):
 
     localidad = forms.CharField(
         label='Localidad',
+        error_messages={'required': 'Este campo es obligatorio'},
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Localidad a la que pertenece la institución',
             'aria-describedby': 'basic-addon1'
-        })
+        }),
+        validators=[validate_localidad]
     )
 
     turno_manana = forms.BooleanField(
@@ -416,7 +486,8 @@ class PreinscriptionForm(forms.Form):
             'class': 'form-control',
             'id': 'id_sedeDePreferencia',
             'placeholder': 'Indicá aquí si tenes una sede de preferencia',
-            'aria-describedby': 'basic-addon1'
+            'aria-describedby': 'basic-addon1',
+            'required': False,
         })
     )
 
