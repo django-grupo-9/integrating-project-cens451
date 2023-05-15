@@ -5,6 +5,14 @@ import re
 from datetime import datetime, date, timedelta
 
 
+class ExAlumnoCheckboxInput(forms.CheckboxInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        if attrs is None:
+            attrs = {}
+        attrs['onchange'] = 'CheckboxChange()'
+        return super().render(name, value, attrs, renderer)
+
+
 def validate_nombres(value):
     if len(value) < 4:
         raise ValidationError('El nombre debe tener al menos 4 caracteres')
@@ -97,11 +105,6 @@ def validate_colegio(value):
 def validate_pais(value):
     if value == '':
         raise ValidationError('Por favor seleccione un país')
-
-
-# def validate_provincia(value):
-#     if value == '':
-#         raise ValidationError('Por favor seleccione una provincia')
 
 
 def validate_localidad(value):
@@ -299,7 +302,7 @@ class PreinscriptionForm(forms.Form):
     ex_alumno = forms.BooleanField(
         label='Fui alumno/a de Fines en el CENS 451 de Lanús en años anteriores',
         required=False,
-        widget=forms.CheckboxInput(attrs={
+        widget=ExAlumnoCheckboxInput(attrs={
             'class': 'form-check-input',
             'id': 'id_ex_alumno',
             'name': 'ex_alumno',
@@ -410,7 +413,7 @@ class PreinscriptionForm(forms.Form):
         choices=PAIS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
-            'id': 'id_estudios',
+            'id': 'id_pais',
         }),
         validators=[validate_pais]
     )
@@ -437,7 +440,6 @@ class PreinscriptionForm(forms.Form):
 
     provincia = forms.ChoiceField(
         label='Provincia',
-        error_messages={'required': 'Por favor seleccione su provincia'},
         choices=PROVINCIA_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
@@ -491,28 +493,13 @@ class PreinscriptionForm(forms.Form):
         })
     )
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['nombres'].label = self.fields['nombres'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['apellidos'].label = self.fields['apellidos'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['dni'].label = self.fields['dni'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['nacionalidad'].label = self.fields['nacionalidad'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['genero'].label = self.fields['genero'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['nacimiento'].label = self.fields['nacimiento'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['domicilio'].label = self.fields['domicilio'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['barrio'].label = self.fields['barrio'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['email'].label = self.fields['email'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['celular_1'].label = self.fields['celular_1'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['celular_2'].label = self.fields['celular_2'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['ex_alumno'].label = self.fields['ex_alumno'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['estudios'].label = self.fields['estudios'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['otros_estudios'].label = self.fields['otros_estudios'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['materias_adeudadas'].label = self.fields['materias_adeudadas'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['colegio'].label = self.fields['colegio'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['pais'].label = self.fields['pais'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['provincia'].label = self.fields['provincia'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['localidad'].label = self.fields['localidad'].label_tag(attrs={'class': 'input-group-text'})
-    #     self.fields['turno_manana'].label = self.fields['turno_manana'].label_tag(attrs={'class': 'form-check-label'})
-    #     self.fields['turno_tarde'].label = self.fields['turno_tarde'].label_tag(attrs={'class': 'form-check-label'})
-    #     self.fields['turno_noche'].label = self.fields['turno_noche'].label_tag(attrs={'class': 'form-check-label'})
-    #     self.fields['sede'].label = self.fields['sede'].label_tag(attrs={'class': 'input-group-text'})
+    def clean(self):
+        cleaned_data = super().clean()
+        turno_manana = cleaned_data.get('turno_1')
+        turno_tarde = cleaned_data.get('turno_2')
+        turno_noche = cleaned_data.get('turno_3')
+
+        if not (turno_manana or turno_tarde or turno_noche):
+            self.add_error(None, 'Debes elegir al menos un turno.')
+
+        return cleaned_data
