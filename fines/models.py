@@ -65,7 +65,7 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=50, blank=False, verbose_name="Nombre")
     apellido = models.CharField(max_length=50, blank=False, verbose_name="Apellido")
     nacimiento = models.DateField(verbose_name="Fecha de nacimiento", blank=False)
-    genero = models.CharField(max_length=1, blank=True, null=False, verbose_name="Género")
+    genero = models.CharField(max_length=10, blank=True, null=False, verbose_name="Género")
     nacionalidad = models.CharField(max_length=12, blank=True, null=False, verbose_name="Nacionalidad")
     email = models.EmailField(max_length=254, blank=False, verbose_name="Correo electrónico")
     celular = models.IntegerField(verbose_name="Celular")
