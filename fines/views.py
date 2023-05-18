@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PreinscriptionForm
 from django.contrib import messages
@@ -13,8 +13,8 @@ def preinscripcion(request):
     if request.method == 'POST':
         form = PreinscriptionForm(request.POST)
         if form.is_valid():
-            context = {'form': form}
-            return render(request, 'pages/index.html', context)
+            form.save()
+            return redirect('index')
         else:
             # messages.error(request, 'Por favor introduzca datos válidos')
             context = {'form': form}
