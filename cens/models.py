@@ -15,3 +15,4 @@ class Administrador(Persona):
     rol = models.BooleanField(default=False, null=False)
 
 
+ 
