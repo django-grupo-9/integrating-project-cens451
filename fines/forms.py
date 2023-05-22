@@ -56,15 +56,9 @@ def validate_nacimiento(value):
         raise ValidationError('La fecha de nacimiento no puede ser anterior a 1900')
 
     today = date.today()
-    edad_minima = timedelta(days=13*365)
-    fecha_minima = today - edad_minima
-    if value > fecha_minima:
+    edad_minima = date(today.year - 13, today.month, today.day)
+    if value > today or value > edad_minima:
         raise ValidationError('Debe tener al menos 13 años para registrarse')
-
-    try:
-        datetime.strptime(value.strftime('%d/%m/%Y'), '%d/%m/%Y')
-    except ValueError:
-        raise ValidationError('La fecha debe tener el formato dd/mm/yyyy')
 
 
 def validate_domicilio(value):
@@ -216,13 +210,14 @@ class PreinscriptionForm(forms.ModelForm):
         validators=[validate_genero]
     )
 
+
     nacimiento = forms.DateField(
         label='Fecha de Nacimiento',
-        error_messages={'required': 'Por favor introduzca su fecha de nacimiento. Ej: dd/mm/yyyy'},
+        error_messages={'required': 'Por favor introduzca su fecha de nacimiento. Ej: mm/dd/yyyy'},
         widget=forms.TextInput(attrs={
             'id': 'id_fechaNacimiento',
             'class': 'form-control',
-            'placeholder': 'dd/mm/yyyy'
+            'placeholder': 'mm/dd/yyyy'
         }),
         validators=[validate_nacimiento]
     )
@@ -354,18 +349,18 @@ class PreinscriptionForm(forms.ModelForm):
 
     estudios = forms.ChoiceField(
         label='Estudios',
-        error_messages={'required': "Seleccione un estudio. En caso de no encontrar el suyo, seleccione 'Otro'"},
+        required=False,
         choices=ESTUDIOS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-control form-select',
             'id': 'id_estudios',
-            'name': 'estudios'
-        }),
-        validators=[validate_estudios]
+            'name': 'estudios',
+        })
     )
 
     otros_estudios = forms.CharField(
         label='Otro',
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_otrosEstudios',
@@ -378,6 +373,7 @@ class PreinscriptionForm(forms.ModelForm):
 
     materias_adeudadas = forms.CharField(
         label='Materias adeudadas',
+        required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control',
             'placeholder': 'Opcional',
@@ -391,15 +387,14 @@ class PreinscriptionForm(forms.ModelForm):
 
     colegio = forms.CharField(
         label='Colegio',
-        error_messages={'required': 'El nombre de su escuela de procedencia no puede quedar vacío'},
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_colegio',
             'name': 'colegio',
             'placeholder': 'Nombre de la escuela de procedencia',
-            'aria-describedby': 'basic-addon1'
-        }),
-        validators=[validate_colegio]
+            'aria-describedby': 'basic-addon1',
+        })
     )
 
     PAIS_CHOICES = (
@@ -419,13 +414,12 @@ class PreinscriptionForm(forms.ModelForm):
 
     pais = forms.ChoiceField(
         label='País',
-        error_messages={'required': 'Por favor seleccione su pais'},
+        required=False,
         choices=PAIS_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
             'id': 'id_pais',
-        }),
-        validators=[validate_pais]
+        })
     )
 
     PROVINCIA_CHOICES = (
@@ -450,22 +444,22 @@ class PreinscriptionForm(forms.ModelForm):
 
     provincia = forms.ChoiceField(
         label='Provincia',
+        required=False,
         choices=PROVINCIA_CHOICES,
         widget=forms.Select(attrs={
             'class': 'form-select',
-            'id': 'id_provinciaColegio'
+            'id': 'id_provinciaColegio',
         })
     )
 
     localidad = forms.CharField(
         label='Localidad',
-        error_messages={'required': 'Introduzca la localidad a la que pertenece la institución'},
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Localidad a la que pertenece la institución',
-            'aria-describedby': 'basic-addon1'
-        }),
-        validators=[validate_localidad]
+            'aria-describedby': 'basic-addon1',
+        })
     )
 
     turno_manana = forms.BooleanField(
@@ -502,6 +496,30 @@ class PreinscriptionForm(forms.ModelForm):
             'required': False,
         })
     )
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        estudios = cleaned_data.get('estudios')
+
+        if self.fields['estudios'].required and estudios == '':
+            self.add_error('estudios', 'Este campo es obligatorio.')
+
+    def clean_pais(self):
+        pais = self.cleaned_data.get('pais')
+        if self.fields['pais'].required and pais == '':
+            self.add_error('pais', 'Por favor introduzca el país de su institución')
+        
+    
+    def clean_provincia(self):
+        provincia = self.cleaned_data.get('provincia')
+        if self.fields['provincia'].required and provincia == '':
+            self.add_error('provincia', 'Por favor introduzca la provincia de su institución')
+
+    def clean_localidad(self):
+        localidad = self.cleaned_data.get('localidad')
+        if self.fields['localidad'].required and localidad == '':
+            self.add_error('localidad', 'Por favor introduzca la localidad/barrio de su institución')
 
     def clean(self):
         cleaned_data = super().clean()
