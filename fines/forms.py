@@ -217,7 +217,8 @@ class PreinscriptionForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'id': 'id_fechaNacimiento',
             'class': 'form-control',
-            'placeholder': 'mm/dd/yyyy'
+            'placeholder': 'mm/dd/yyyy',
+            'type': 'date'
         }),
         validators=[validate_nacimiento]
     )
