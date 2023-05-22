@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ValidationError
 import re
 from datetime import datetime, date, timedelta
+from .models import Persona, Estudiante
 
 
 class ExAlumnoCheckboxInput(forms.CheckboxInput):
@@ -110,11 +111,19 @@ def validate_pais(value):
 def validate_localidad(value):
     if value == '':
         raise ValidationError('Por favor introduzca la localidad de su institución')
-    if len(value) < 6:
+    if len(value) < 2:
         raise ValidationError('Por favor introduzca una localidad válida')
 
 
-class PreinscriptionForm(forms.Form):
+class PreinscriptionForm(forms.ModelForm):
+
+    class Meta:
+        model = Estudiante
+        fields = [
+            'nombres', 'apellidos', 'dni', 'nacionalidad', 'genero', 'nacimiento',
+            'domicilio', 'barrio', 'email', 'celular_1', 'celular_2', 'ex_alumno', 'estudios', 'otros_estudios', 'materias_adeudadas', 'colegio', 'pais', 'provincia', 'localidad', 'turno_manana', 'turno_tarde', 'turno_noche', 'sede'
+            ]
+
     nombres = forms.CharField(
         label='Nombre/s',
         error_messages={'required': 'El nombre no puede quedar vacío'},
@@ -153,6 +162,7 @@ class PreinscriptionForm(forms.Form):
             'id': 'id_dni',
             'placeholder': 'Número de DNI sin puntos',
             'maxlenght': '8',
+
             'required': True,
             'aria-describedby': 'basic-addon1',
             'name': 'dni'
@@ -495,9 +505,9 @@ class PreinscriptionForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        turno_manana = cleaned_data.get('turno_1')
-        turno_tarde = cleaned_data.get('turno_2')
-        turno_noche = cleaned_data.get('turno_3')
+        turno_manana = cleaned_data.get('turno_manana')
+        turno_tarde = cleaned_data.get('turno_tarde')
+        turno_noche = cleaned_data.get('turno_noche')
 
         if not (turno_manana or turno_tarde or turno_noche):
             self.add_error(None, 'Debes elegir al menos un turno.')
