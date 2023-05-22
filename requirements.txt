@@ -12,6 +12,8 @@ psycopg2==2.9.6
 pyaes==1.6.1
 pycodestyle==2.10.0
 pycparser==2.21
+pydantic==1.10.7
 pytz==2023.3
 soupsieve==2.4
 sqlparse==0.4.3
+typing_extensions==4.5.0

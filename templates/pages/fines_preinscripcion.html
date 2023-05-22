@@ -1,26 +1,337 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+ <title>CENS 451 | Preinscripción </title>
+{% endblock %}
+
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/components/preinscripcion.css' %}?v={% now 'U'%}">
+<script src="{% static 'js/preinscripcion.js' %}"></script>
+{% endblock script %}
+
 {% block header %}
     {% include 'components/navbar.html' %}
-{% endblock header %}
+{% endblock %}
 
 {% block main %}
-
 <div class="desplacement-down" style="margin: 80px">
-
-  
-    <section class="container pt-4 bg-light border border-1 rounded">
-      <h1 class="text-center">Preinscripción Plan Fines</h1>
-      <div class="d-flex justify-content-center ">
-        <p class="w-75 bg-success px-4 py-2 text-white rounded">
-          Una vez que completes el formulario, te llegará un mail de confirmación con los datos que completaste. Para finalizar la inscripción deberás presentarte en el CENS 451 los días lunes y miércoles de 18:30 a 20:30 con la documentación requerida, para así validar los datos informados.
-          Si ya sos alumnos y aprobaste todo el cuatrimestre pasado no debes inscribirte nuevamente. Caso contrario debes ir a la sede del CENS los días de atención a consultar como debes seguir y luego completar este formulario.
-          Por favor lee atentamente al momento de completar el formulario.
-        
-        </p>
+  <section class="container pt-4 bg-light border border-1 rounded">
+    <h1 class="text-center">
+      Preinscripción Plan Fines
+    </h1>
+    <div class="d-flex justify-content-center">
+      <p class="bg-success px-4 py-2 text-white rounded">
+        Una vez que completes el formulario, te llegará un mail de confirmación
+        con los datos que completaste. Para finalizar la inscripción deberás
+        presentarte en el CENS 451 de lunes a viernes de 18:30 a 20:30 con la
+        documentación requerida, para así validar los datos informados.
+      </p>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p class="bg-warning font-weight-bold px-4 py-2 rounded">
+        Si ya sos alumnos y aprobaste todo el cuatrimestre pasado no debes
+        inscribirte nuevamente. Caso contrario debes ir a la sede del CENS los
+        días de atención a consultar como debes seguir y luego completar este
+        formulario. Por favor lee atentamente al momento de completar el
+        formulario.
+      </p>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+                {{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form class="container-fluid needs-validation" method="POST" name="google-sheet" novalidate>
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6 d-flex flex-column justify-content-between">
+          <div class="mb-3 fs-4">
+            Datos personales
+          </div>          
+          {% if form.nombres.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.nombres.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.nombres.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.nombres.label}}
+            </label>
+              {{form.nombres}}
+          </div>
+          {% if form.apellidos.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.apellidos.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.apellidos.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.apellidos.label}}
+            </label>
+              {{form.apellidos}}
+          </div>
+          {% if form.dni.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.dni.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.dni.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.dni.label}} 
+            </label>
+              {{form.dni}}
+          </div>
+          {% if form.nacionalidad.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.nacionalidad.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.nacionalidad.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.nacionalidad.label}}
+            </label>
+              {{form.nacionalidad}}
+          </div>
+          {% if form.genero.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.genero.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.genero.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.genero.label}}
+            </label>
+              {{form.genero}}
+          </div>
+          {% if form.nacimiento.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.nacimiento.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.nacimiento.errors %}has-validation{% endif %}">
+            <label for="" class="input-group-text">
+              {{form.nacimiento.label}}
+            </label>
+              {{form.nacimiento}}
+          </div>
+          {% if form.domicilio.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.domicilio.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.domicilio.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.domicilio.label}}
+            </label>
+              {{form.domicilio}}
+          </div>
+          {% if form.barrio.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.barrio.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.barrio.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.barrio.label}}
+            </label>
+              {{form.barrio}}
+          </div>
+          <div class="mb-3 fs-4">
+            Datos de contacto
+          </div>
+          {% if form.email.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}        
+          <div class="input-group mb-3 {% if form.email.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.email.label}}
+            </label>
+              {{form.email}}
+          </div>
+          {% if form.celular_1.errors %}
+          <div style='font-size:0.875em' class="text-danger">
+              {% for error in form.celular_1.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <div class="input-group mb-3 {% if form.celular_1.errors %}has-validation{% endif %}">
+            <label class="input-group-text">
+              {{form.celular_1.label}}
+            </label>
+              {{form.celular_1}}
+          </div>
+          <div class="input-group mb-3">
+            <label class="input-group-text">
+              {{form.celular_2.label}}
+            </label>
+              {{form.celular_2}}
+          </div>
+        </div>
+        <div id="datos-academicos" class="col-md-6">
+          <div class="mb-3 fs-4">
+            Datos Académicos
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+                {{form.ex_alumno}}
+              <h5>
+                {{form.ex_alumno.label}}
+              </h5>
+            </label>
+          </div>
+          <div id='change_display'>
+            <label class="mb-3" align="start">
+              Para poder determinar a que año te corresponde entrar en el Plan
+              Fines, te pedimos que indiques tu último nivel de estudios
+              alcanzado. Si en dicho nivel en el que abandonaste debes mas de 3
+              materias, por favor selecciona el año anterior.
+            </label>
+            {% if form.estudios.errors %}
+            <div style='font-size:0.875em' class="text-danger">
+                {% for error in form.estudios.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}         
+            <div class="input-group mb-3 {% if form.estudios.errors %}has-validation{% endif %}">
+              <label class="input-group-text">
+                {{form.estudios.label}}
+              </label>
+                {{form.estudios}}
+            </div>
+            <label class="mb-1" align="start">
+              Si no aparece el máximo nivel alcanzado en el listado podés
+              indicarlo en el siguiente campo:
+            </label>
+            <div class="input-group mb-3">
+              <label class='input-group-text'>
+                {{form.otros_estudios.label}}
+              </label>
+                {{form.otros_estudios}}
+            </div>
+            <label class="mb-1" align="start">
+              Si debés materias del último año que cursaste o de años previos,
+              te pedimos que indiques cuales son y a que año pertenecen. De no
+              deber ninguna materia por favor completa con el texto "Ninguna"
+            </label>
+            <div class="input-group mb-3">
+              <label class='input-group-text'>
+                {{form.materias_adeudadas.label}}
+              </label>
+                {{form.materias_adeudadas}}
+            </div>
+            {% if form.colegio.errors %}
+            <div style='font-size:0.875em' class="text-danger">
+                {% for error in form.colegio.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="input-group mb-3 {% if form.colegio.errors %}has-validation{% endif %}">
+              <label for="colegio" class="input-group-text">
+                {{form.colegio.label}}
+              </label>
+                {{form.colegio}}
+            </div>
+            {% if form.pais.errors %}
+            <div style='font-size:0.875em' class="text-danger">
+                {% for error in form.pais.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="input-group mb-3 {% if form.pais.errors %}has-validation{% endif %}">
+              <label
+                for="paisColegio"
+                class="input-group-text">
+                {{form.pais.label}}
+              </label>
+                {{form.pais}}
+            </div>
+            <div class="input-group mb-3">
+              <label class='input-group-text'>
+                {{form.provincia.label}}
+              </label>
+                {{form.provincia}}
+            </div>
+            <div class="input-group mb-3">
+              <label for="distritoColegio" class="input-group-text">
+                {{form.localidad.label}}
+              </label>
+                {{form.localidad}}
+            </div>
+          </div>
+          <div id="validador" class="row">
+            <div class="mb-2 fs-5">
+              Selecciona los horarios para cursar
+            </div>
+            {% if form.errors %}
+            <div style='font-size:0.875em' class="text-danger">
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            <div class="form-check mx-3">
+                {{form.turno_manana}}
+              <label for="id_turnoManana" class="form-check-label">
+                {{form.turno_manana.label}}
+              </label>
+            </div>
+            <div class="form-check mx-3">
+                {{form.turno_tarde}}
+              <label for="id_turnoTarde" class="form-check-label">
+                {{form.turno_tarde.label}}
+              </label>
+            </div>
+            <div class="form-check mx-3">
+                {{form.turno_noche}}
+              <label for="id_turnoNoche" class="form-check-label">
+                {{form.turno_noche.label}}
+              </label>
+            </div>
+            <div class="input-group mb-3">
+              <label for="sedeDePreferencia" class="input-group-text">
+                {{form.sede.label}}
+              </label>
+                {{form.sede}}
+            </div>
+          </div>
+        </div>
+        <div class="container row mx-auto justify-content-center" id="button-submit">
+          <button type="submit" class="btn btn-primary col-md-2 mt-4 mb-3" name="submit">
+            Enviar
+          </button>
+        </div>
       </div>
-    </section>
+    </form>
+  </section>
 </div>
 
 {% endblock main %}
+

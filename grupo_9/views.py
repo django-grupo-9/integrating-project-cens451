@@ -94,7 +94,7 @@ def verify_code(request):
         if verify_code_form.is_valid():
             if request.session.get('forgot_code') == verify_code_form.cleaned_data['code']:
                 del request.session['forgot_code']
-                # Redireccionar a un template que tenga un 
+                # Redireccionar a un template que tenga un
                 # Django form que permita actualizar el password
                 return redirect('new_password')
             else:
