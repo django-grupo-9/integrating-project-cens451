@@ -45,7 +45,7 @@ class Campus(models.Model):
 class Comision(models.Model):
     STATUS_CHOICES = [('Activa', 'Activa'), ('Reagrupada', 'Reagrupada'), ('Cerrada', 'Cerrada'), ('Egresada', 'Egresada')]
 
-    id_comision = models.CharField(max_length=11, primary_key=True, verbose_name='ID Comisión')
+    id_comision = models.AutoField(max_length=11, primary_key=True, verbose_name='ID Comisión')
     comision = models.CharField(max_length=15, verbose_name='Comisión')
     orientacion = models.ForeignKey(Orientacion, on_delete=models.SET('Orientación Eliminada'))
     campus = models.ForeignKey(Campus, on_delete=models.SET('Sede Eliminada'))
