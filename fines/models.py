@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Orientacion(models.Model):
+    id_orientacion = models.AutoField(primary_key=True, verbose_name='ID Orientación')
     orientacion = models.CharField(max_length=40, verbose_name="Orientación")
     resolucion = models.CharField(max_length=10, verbose_name="N° Resolución")
 
@@ -14,7 +15,8 @@ class Orientacion(models.Model):
         return self.orientation
 
 
-class Materias(models.Model):
+class Asignatura(models.Model):
+    id_asignatura = models.AutoField(primary_key=True, verbose_name='ID Asignatura')
     asignatura = models.CharField(max_length=40, verbose_name="Asignatura")
     horas = models.IntegerField(verbose_name="Horas Cátedra")
     orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
@@ -29,6 +31,7 @@ class Materias(models.Model):
 
 
 class Campus(models.Model):
+    id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
     campus = models.CharField(max_length=30, verbose_name='Sede')
     direccion = models.CharField(max_length=35, verbose_name='Dirección')
     referente = models.CharField(max_length=15, verbose_name='Referente')
@@ -45,7 +48,7 @@ class Campus(models.Model):
 class Comision(models.Model):
     STATUS_CHOICES = [('Activa', 'Activa'), ('Reagrupada', 'Reagrupada'), ('Cerrada', 'Cerrada'), ('Egresada', 'Egresada')]
 
-    id_comision = models.AutoField(max_length=11, primary_key=True, verbose_name='ID Comisión')
+    id_comision = models.AutoField(primary_key=True, verbose_name='ID Comisión')
     comision = models.CharField(max_length=15, verbose_name='Comisión')
     orientacion = models.ForeignKey(Orientacion, on_delete=models.SET('Orientación Eliminada'))
     campus = models.ForeignKey(Campus, on_delete=models.SET('Sede Eliminada'))
