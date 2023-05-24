@@ -1,12 +1,12 @@
-{% extends '../base_administracion.html' %}
+{% extends '../base_admin.html' %}
 
-{% block titulo %}Categorias cursos{% endblock%}
+{% block titulo %}Orientaciones{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Categorias cursos</h1>
+<h1 class="mt-4">Orientaciones CENS 451</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Categorias</li>
+    <li class="breadcrumb-item active">Orientaciones</li>
 </ol>
 
 <div class="card">
@@ -37,24 +37,26 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'categorias_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'orientacion_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <!-- bs5-table-defaul -->
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Resolucion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for categoria in categorias %}
+                {% for orientacion in orientaciones %}
                     <tr>
-                        <td>{{categoria.id}}</td>
-                        <td>{{categoria.nombre}}</td>
+                        <td>{{orientacion.id_orientacion}}</td>
+                        <td>{{orientacion.orientacion}}</td>
+                        <td>{{orientacion.resolucion}}</td>
                         <td>
-                            <a href="{% url 'categorias_editar' categoria.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'categorias_eliminar' categoria.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'orientacion_editar' orientacion.id_orientacion %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'orientacion_eliminar' orientacion.id_orientacion %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
