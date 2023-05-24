@@ -1,17 +1,17 @@
-{% extends '../base_administracion.html' %}
+{% extends '../base_admin.html' %}
 
-{% block titulo %}Eliminar categoria{% endblock%}
+{% block titulo %}Eliminar orientación{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Categorias cursos</h1>
+<h1 class="mt-4">Orientacion CENS 451</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Eliminar Categoriaa</li>
+    <li class="breadcrumb-item active">Eliminar orientación</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Eliminacion de categoría</div>
+    <div class="card-header">Eliminacion de orientación</div>
     <div class="card-body">
         <form method="post">{% csrf_token %}
             <p>Esta seguro que quiere eliminar la categoria "{{ object.nombre }}"?</p>
