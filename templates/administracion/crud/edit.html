@@ -1,20 +1,20 @@
-{% extends '../base_administracion.html' %}
+{% extends '../base_admin.html' %}
 
-{% block titulo %}Editar categria{% endblock%}
+{% block titulo %}Editar orientación{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Categorias cursos</h1>
+<h1 class="mt-4">Orientaciones CENS 451</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Editar Categoria</li>
+    <li class="breadcrumb-item active">Editar orientación</li>
 </ol>
 
 <div class="card">
-    <div class="card-header">Edicion de categoria</div>
+    <div class="card-header">Edicion de orientación</div>
     <div class="card-body">
         <form action="" method="post">
             {% csrf_token %}
-            {% include 'administracion/categorias/form.html' %}
+            {% include 'administracion/crud/form.html' %}
         </form>
     </div>
 </div>
