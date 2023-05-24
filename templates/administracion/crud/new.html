@@ -1,21 +1,21 @@
-{% extends '../base_administracion.html' %}
+{% extends '../base_admin.html' %}
 
-{% block titulo %}Nueva categoria{% endblock%}
+{% block titulo %}Nueva orientacion{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Categorias cursos</h1>
+<h1 class="mt-4">Orientaciones</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nueva Categoriaa</li>
+    <li class="breadcrumb-item active">Nueva Orientacion</li>
 </ol>
 
 
 <div class="card">
     <div class="card-header">Creacion de categoría</div>
     <div class="card-body">
-        <form action="{% url 'categorias_nuevo' %}" method="post" novalidate>
+        <form action="{% url 'orientacion_nuevo' %}" method="post" novalidate>
             {% csrf_token %}
-            {% include 'administracion/categorias/form.html' %}
+            {% include 'administracion/crud/form.html' %}
         </form>
     </div>
 </div>
