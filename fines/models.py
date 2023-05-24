@@ -30,6 +30,7 @@ class Asignatura(models.Model):
     horas = models.IntegerField(verbose_name="Horas Cátedra")
     orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
     cuatrimestre = models.CharField(max_length=4, verbose_name='Cuatrimestre')
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Materias"
@@ -48,11 +49,12 @@ class Asignatura(models.Model):
 
 
 class Campus(models.Model):
-    id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
+    # id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
     campus = models.CharField(max_length=30, verbose_name='Sede')
     direccion = models.CharField(max_length=35, verbose_name='Dirección')
     referente = models.CharField(max_length=15, verbose_name='Referente')
     celular = models.CharField(max_length=10, verbose_name='Celular')
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Sede"
