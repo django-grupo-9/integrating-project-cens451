@@ -6,6 +6,7 @@ class Orientacion(models.Model):
     id_orientacion = models.AutoField(primary_key=True, verbose_name='ID Orientación')
     orientacion = models.CharField(max_length=40, verbose_name="Orientación")
     resolucion = models.CharField(max_length=10, verbose_name="N° Resolución")
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Orientación"
@@ -13,6 +14,14 @@ class Orientacion(models.Model):
 
     def __str__(self):
         return self.orientation
+
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
 
 
 class Asignatura(models.Model):
@@ -29,6 +38,14 @@ class Asignatura(models.Model):
     def __str__(self):
         return self.subject
 
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
+
 
 class Campus(models.Model):
     id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
@@ -43,6 +60,14 @@ class Campus(models.Model):
 
     def __str__(self):
         return self.campus
+
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
 
 
 class Comision(models.Model):
