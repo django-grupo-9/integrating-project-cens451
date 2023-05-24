@@ -1,48 +1,100 @@
 from django import forms
-from .models import Curso, Categoria
+from .models import Orientacion, Asignatura, Comision, Campus
 
 
-class CategoriaForm(forms.ModelForm):
+class OrientacionForm(forms.ModelForm):
     # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
 
     class Meta:
-        model = Categoria
-        # fields='__all__'
-        fields = ['nombre']
+        model = Orientacion
+        # fields = '__all__'
+        # fields = ['nombre']
         # exclude=('baja',)
+        # widgets = {
+        #     'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese un nombre'})
+        # }
+        # error_messages = {
+        #     'nombre':{
+        #         'required': 'No te olvides de mi!'
+        #     }
+        # }
+
+        fields = ['orientacion', 'resolucion']
+
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese un nombre'})
-        }
-        error_messages = {
-            'nombre':{
-                'required': 'No te olvides de mi!'
-            }
+            'orientacion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la orientación'}),
+            'resolucion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° Resolución'})
         }
 
 
-class CursoForm(forms.ModelForm):
+class ComisionForm(forms.ModelForm):
 
     class Meta:
-        model = Curso
-        fields = ['nombre', 'fecha_inicio', 'portada', 'descripcion', 'categoria']
+        model = Comision
+        fields = ['comision', 'orientacion', 'campus', 'status']
 
-    nombre = forms.CharField(
+    comision = forms.CharField(
             label='Nombre',
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-    fecha_inicio = forms.DateField(
-            label='Fecha Inicio',
-            widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+    orientacion = forms.CharField(
+            label='Orientación',
+            widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-    descripcion = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 5, 'class': 'form-control'})
+    campus = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
     )
-    """Se utiliza ModelChoiceField para poder realizar un filtrado de lo que
-    quiero mostrar en el selector"""
-    categoria = forms.ModelChoiceField(
-        queryset=Categoria.objects.filter(baja=False),
+    status = forms.ChoiceField(
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    portada = forms.ImageField(
-        widget=forms.FileInput(attrs={'class': 'form-control'})
+
+
+class CampusForm(forms.ModelForm):
+
+    class Meta:
+        model = Campus
+        fields = ['campus', 'direccion', 'referente', 'celular']
+
+    campus = forms.CharField(
+        label='Nombre',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    direccion = forms.CharField(
+        label='Dirección',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    referente = forms.CharField(
+        label='Referente',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    celular = forms.CharField(
+        label='Celular',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+
+class AsignaturaForm(forms.ModelForm):
+
+    class Meta:
+        model = Asignatura
+        fields = ['asignatura', 'horas', 'orientacion', 'cuatrimestre']
+
+    asignatura = forms.CharField(
+        label='Nombre',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    horas = forms.IntegerField(
+        label='Horas Cátedra',
+        widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+
+    orientacion = forms.CharField(
+        label='Orientación',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    cuatrimestre = forms.CharField(
+        label='Cuatrimestre',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
     )
