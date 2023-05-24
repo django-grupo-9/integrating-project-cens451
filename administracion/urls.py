@@ -13,7 +13,7 @@ urlpatterns = [
     # path('categorias/vieweditar/<int:pk>', views.CategoriaUpdateView.as_view(), name='categorias_editar_view'),
     # path('categorias/vieweliminar/<int:pk>', views.CategoriaDeleteView.as_view(), name='categorias_eliminar_view'),
 
-
+    path('', views.index_administracion, name='inicio_administracion'),
     path('orentacion/', views.orientacion_index, name='orientacion_index'),
     path('orientacion/nuevo/', views.orientacion_nuevo, name='orientacion_nuevo'),
     path('orientacion/editar/<int:id_orientacion>', views.orientacion_editar, name='orientacion_editar'),
