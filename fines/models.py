@@ -3,8 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Orientacion(models.Model):
+    id_orientacion = models.AutoField(primary_key=True, verbose_name='ID Orientación')
     orientacion = models.CharField(max_length=40, verbose_name="Orientación")
     resolucion = models.CharField(max_length=10, verbose_name="N° Resolución")
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Orientación"
@@ -13,12 +15,22 @@ class Orientacion(models.Model):
     def __str__(self):
         return self.orientation
 
+    def soft_delete(self):
+        self.baja = True
+        super().save()
 
-class Materias(models.Model):
+    def restore(self):
+        self.baja = False
+        super().save()
+
+
+class Asignatura(models.Model):
+    id_asignatura = models.AutoField(primary_key=True, verbose_name='ID Asignatura')
     asignatura = models.CharField(max_length=40, verbose_name="Asignatura")
     horas = models.IntegerField(verbose_name="Horas Cátedra")
     orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
     cuatrimestre = models.CharField(max_length=4, verbose_name='Cuatrimestre')
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Materias"
@@ -27,12 +39,22 @@ class Materias(models.Model):
     def __str__(self):
         return self.subject
 
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
+
 
 class Campus(models.Model):
+    # id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
     campus = models.CharField(max_length=30, verbose_name='Sede')
     direccion = models.CharField(max_length=35, verbose_name='Dirección')
     referente = models.CharField(max_length=15, verbose_name='Referente')
     celular = models.CharField(max_length=10, verbose_name='Celular')
+    baja = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Sede"
@@ -41,11 +63,19 @@ class Campus(models.Model):
     def __str__(self):
         return self.campus
 
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
+
 
 class Comision(models.Model):
     STATUS_CHOICES = [('Activa', 'Activa'), ('Reagrupada', 'Reagrupada'), ('Cerrada', 'Cerrada'), ('Egresada', 'Egresada')]
 
-    id_comision = models.CharField(max_length=11, primary_key=True, verbose_name='ID Comisión')
+    id_comision = models.AutoField(primary_key=True, verbose_name='ID Comisión')
     comision = models.CharField(max_length=15, verbose_name='Comisión')
     orientacion = models.ForeignKey(Orientacion, on_delete=models.SET('Orientación Eliminada'))
     campus = models.ForeignKey(Campus, on_delete=models.SET('Sede Eliminada'))
@@ -80,17 +110,17 @@ class Estudiante(Persona):
     domicilio = models.CharField(max_length=100, blank=True, verbose_name="Domicilio")
     barrio = models.CharField(max_length=55, blank=False, verbose_name="Localidad/Barrio")
     celular_2 = models.CharField(max_length=10, blank=True, null=False, verbose_name="Celular 2")
-    estudios = models.CharField(max_length=255, verbose_name="Estudios previos")
-    otros_estudios = models.CharField(max_length=255, verbose_name='Otros estudios')
+    estudios = models.CharField(max_length=255, verbose_name="Estudios previos", null=True)
+    otros_estudios = models.CharField(max_length=255, verbose_name='Otros estudios', null=True)
     materias_adeudadas = models.TextField(verbose_name="Materias Adeudadas", blank=True)
-    colegio = models.CharField(max_length=255, verbose_name="Colegio")
-    pais = models.CharField(max_length=50, verbose_name="País del colegio")
-    provincia = models.CharField(max_length=50, verbose_name='Provincia del colegio')
-    localidad = models.CharField(max_length=50, verbose_name="Ciudad del colegio")
+    colegio = models.CharField(max_length=255, verbose_name="Colegio", null=True)
+    pais = models.CharField(max_length=50, verbose_name="País del colegio", null=True)
+    provincia = models.CharField(max_length=50, verbose_name='Provincia del colegio', null=True)
+    localidad = models.CharField(max_length=50, verbose_name="Ciudad del colegio", null=True)
     turno_manana = models.BooleanField(default=False, verbose_name='Turno mañana')
     turno_tarde = models.BooleanField(default=False, verbose_name='Turno tarde')
     turno_noche = models.BooleanField(default=False, verbose_name='Turno noche')
-    sede = models.CharField(max_length=55, verbose_name='Sede de preferencia')
+    sede = models.CharField(max_length=55, verbose_name='Sede de preferencia', null=True)
     ex_alumno = models.BooleanField(verbose_name='Ex Alumno', default=False)
 
     class Meta:

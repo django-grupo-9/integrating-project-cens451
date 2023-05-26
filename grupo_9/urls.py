@@ -29,5 +29,6 @@ urlpatterns = [
     path('sign/', views.sign, name='sign'),
     path('forgot/', views.forgot, name='forgot'),
     path('verify_code/', views.verify_code, name='verify_code'),
-    path('new_password/', views.new_password, name='new_password')
+    path('new_password/', views.new_password, name='new_password'),
+    path('administracion/', include('administracion.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
