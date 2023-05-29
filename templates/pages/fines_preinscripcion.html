@@ -281,7 +281,14 @@
               </label>
                 {{form.provincia}}
             </div>
-            <div class="input-group mb-3">
+            {% if form.localidad.errors %}
+            <div style='font-size:0.875em' class="text-danger">
+                {% for error in form.localidad.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="input-group mb-3 {% if form.localidad.errors %}has-validation{% endif %}">
               <label for="distritoColegio" class="input-group-text">
                 {{form.localidad.label}}
               </label>
