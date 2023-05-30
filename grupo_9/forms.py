@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ValidationError
 import re
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
@@ -41,8 +43,13 @@ class LoginForm(forms.Form):
         return password
 
 
-class SignUpForm(forms.Form):
-    user = forms.CharField(
+class SignUpForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    username = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'id': 'user',
@@ -67,7 +74,7 @@ class SignUpForm(forms.Form):
         )
     )
 
-    password = forms.CharField(
+    password1 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                 'id': 'password',
@@ -80,7 +87,7 @@ class SignUpForm(forms.Form):
         )
     )
 
-    pass_repeat = forms.CharField(
+    password2 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
                 'id': 'pass',
@@ -92,16 +99,6 @@ class SignUpForm(forms.Form):
             }
         )
     )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get('password')
-        pass_repeat = cleaned_data.get('pass_repeat')
-
-        if password and pass_repeat and password != pass_repeat:
-            self.add_error('password', 'Las contraseñas no coinciden.')
-            self.add_error('pass_repeat', 'Las contraseñas no coinciden.')
-            raise ValidationError("Las contraseñas no coinciden")
 
 
 def check_email(value):

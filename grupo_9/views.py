@@ -55,6 +55,7 @@ def sign(request):
         elif 'register' in request.POST:
             form2 = SignUpForm(request.POST)
             if form2.is_valid():
+                form2.save()
                 messages.info(request, 'Registro exitoso.')
                 context = {'login_form': LoginForm(), 'form2': form2}
                 return render(request, 'pages/sign.html', context)
