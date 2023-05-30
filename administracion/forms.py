@@ -1,5 +1,6 @@
 from django import forms
 from .models import Orientacion, Asignatura, Comision, Campus, Estudiante
+from django.forms import CheckboxSelectMultiple
 
 
 class OrientacionForm(forms.ModelForm):
@@ -171,7 +172,8 @@ class EstudianteForm(forms.ModelForm):
     )
 
     comision = forms.ModelMultipleChoiceField(
-        queryset= Comision.objects.all()
+        queryset= Comision.objects.all(),
+        widget=CheckboxSelectMultiple()
     )
 
     domicilio = forms.CharField(
