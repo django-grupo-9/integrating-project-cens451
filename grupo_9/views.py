@@ -8,7 +8,6 @@ import string
 from django.core.mail import send_mail
 from administracion.models import Noticias
 
-
 def index(request):
     noticias = Noticias.objects.all()
     
@@ -125,3 +124,7 @@ def new_password(request):
             return render(request, 'pages/new_password.html', context)
     context = {'new_form': NewPassForm()}
     return render(request, 'pages/new_password.html', context)
+
+def noticias(request, id_noticia):
+    noticia = Noticias.objects.get(id=id_noticia)
+    return render(request, 'pages/noticias.html', {"noticia": noticia})

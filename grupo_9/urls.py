@@ -24,11 +24,12 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
-    path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
+    path('docentes/', views.docentes, name='docentes'),
     path('contacto/', views.contacto, name='contacto'),
     path('sign/', views.sign, name='sign'),
     path('forgot/', views.forgot, name='forgot'),
     path('verify_code/', views.verify_code, name='verify_code'),
     path('new_password/', views.new_password, name='new_password'),
     path('administracion/', include('administracion.urls')),
+    path('noticias/<int:id_noticia>/', views.noticias)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
