@@ -6,6 +6,7 @@ from grupo_9.forms import ContactoForm
 import random
 import string
 from django.core.mail import send_mail
+from django.contrib.auth import login, logout, authenticate
 
 
 def index(request):
@@ -37,13 +38,20 @@ def sign(request):
         if 'login' in request.POST:
             login_form = LoginForm(request.POST)
             if login_form.is_valid():
-                messages.info(request, 'Inicio de sesión exitoso.')
-                context = {'login_form': login_form, 'form2': SignUpForm()}
-                return render(request, 'pages/sign.html', context)
-            else:
-                messages.error(request, 'Por favor introduzca datos válidos')
-                context = {'login_form': login_form, 'form2': SignUpForm()}
-                return render(request, 'pages/sign.html', context)
+                # messages.info(request, 'Inicio de sesión exitoso.')
+                username = request.POST['user']
+                password = request.POST['password']
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login_form = login(request, user)
+                    messages.success(request, f'Bienvenido/a {username}')
+                    return redirect('index')
+                else:
+                    messages.error(request, 'Por favor introduzca datos válidos')
+                    context = {'login_form': login_form, 'form2': SignUpForm()}
+                    return render(request, 'pages/sign.html', context)
+                    # context = {'login_form': login_form, 'form2': SignUpForm()}
+                    # return render(request, 'pages/sign.html', context)
         elif 'register' in request.POST:
             form2 = SignUpForm(request.POST)
             if form2.is_valid():
