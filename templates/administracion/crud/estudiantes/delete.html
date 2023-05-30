@@ -1,0 +1,23 @@
+{% extends '../../base_admin.html'  %}
+
+{% block titulo %}Eliminar estudiante{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Estudiantes CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Eliminar estudiante</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Eliminacion de estudiantes</div>
+    <div class="card-body">
+        <form method="post">{% csrf_token %}
+            <p>Esta seguro que quiere eliminar el estudiante "{{ object.nombre }}"?</p>
+            <input type="submit" value="Confirmar" class="btn btn-danger">
+        </form>
+        
+    </div>
+</div>
+{% endblock %}
