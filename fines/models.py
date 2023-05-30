@@ -13,7 +13,7 @@ class Orientacion(models.Model):
         verbose_name_plural = "Orientaciones"
 
     def __str__(self):
-        return self.orientation
+        return self.orientacion
 
     def soft_delete(self):
         self.baja = True
@@ -37,7 +37,7 @@ class Asignatura(models.Model):
         verbose_name_plural = "Materias"
 
     def __str__(self):
-        return self.subject
+        return self.asignatura
 
     def soft_delete(self):
         self.baja = True
@@ -128,7 +128,7 @@ class Estudiante(Persona):
         verbose_name_plural = "Alumnos"
 
         def __str__(self):
-            return f'{self.dni} - {self.last_name} {self.name}'
+            return f'{self.dni} - {self.apellidos} {self.nombres}'
 
 
 class Legajo(models.Model):
