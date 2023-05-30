@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 
-from administracion.forms import OrientacionForm, CampusForm, AsignaturaForm, ComisionForm
+from administracion.forms import OrientacionForm, CampusForm, AsignaturaForm, ComisionForm, EstudianteForm
 
-from administracion.models import Orientacion, Comision, Asignatura, Campus
+from administracion.models import Orientacion, Comision, Asignatura, Campus, Estudiante
 
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -14,7 +14,7 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index_administracion(request):
-    variable = 'test variable'
+    variable = 'CENS 451'
     return render(request, 'administracion/index_admin.html', {'variable': variable})
 
 
@@ -59,6 +59,48 @@ def orientacion_eliminar(request, id_orientacion):
         return render(request, 'administracion/404_admin.html')
     orientacion.soft_delete()
     return redirect('orientacion_index')
+
+
+def estudiantes_index(request):
+    # queryset
+    estudiantes = Estudiante.objects.all()
+    return render(request, 'administracion/crud/estudiantes/index.html', {'estudiantes': estudiantes})
+
+
+def estudiantes_nuevo(request):
+    if request.method == 'POST':
+        formulario = EstudianteForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('estudiantes_index')
+    else:
+        formulario = EstudianteForm()
+    return render(request, 'administracion/crud/estudiantes/new.html', {'form': formulario})
+
+
+def estudiantes_editar(request, id_person):
+    try:
+        estudiantes = Estudiante.objects.get(pk=id_person)
+    except Estudiante.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = EstudianteForm(request.POST, instance=estudiantes)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('orientacion_index')
+    else:
+        formulario = EstudianteForm(instance=estudiantes)
+    return render(request, 'administracion/crud/estudiantes/edit.html', {'form': formulario})
+
+
+def estudiantes_eliminar(request, id_person):
+    try:
+        estudiantes = Estudiante.objects.get(pk=id_person)
+    except Estudiante.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    estudiantes.delete()
+    return redirect('estudiantes_index')
 
 
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
