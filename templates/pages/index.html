@@ -79,9 +79,9 @@
                 </div>
                 {% comment %} Cards {% endcomment %}
                 <div class="row gx-5">
-                    {% include 'components/card.html' %}
-                    {% include 'components/card.html' %}
-                    {% include 'components/card.html' %}
+                    {% for noticia in noticias  %}
+                        {% include 'components/card.html' %}
+                    {% endfor %}
                 </div>
             </div>
         </section>

@@ -6,10 +6,13 @@ from grupo_9.forms import ContactoForm
 import random
 import string
 from django.core.mail import send_mail
+from administracion.models import Noticias
 
 
 def index(request):
-    return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
+    noticias = Noticias.objects.all()
+    
+    return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451", "noticias": noticias})
 
 
 def docentes(request):
