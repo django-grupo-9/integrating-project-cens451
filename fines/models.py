@@ -86,7 +86,7 @@ class Comision(models.Model):
         verbose_name_plural = "Comisiones"
 
     def __str__(self):
-        return self.commission
+        return self.commision
 
 
 class Persona(models.Model):
