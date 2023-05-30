@@ -13,15 +13,26 @@
 
       <ul id="navId" class="navigation">
         <li><a href="{% url 'index' %}">Inicio</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'inicio_administracion' %}">Administración</a></li>
+        {% endif %}
         <li><a href="{% url 'cens' %}">CENS</a></li>
         <li><a href="{% url 'fines' %}">Plan Fines</a></li>
         <li><a href="{% url 'docentes' %}">Docentes</a></li>
         <li><a href="{% url 'contacto' %}">Contacto</a></li>
+        {% if user.is_authenticated %}
         <li>
           <a href="{% url 'sign' %}">
-            <button type="button" class="btn btn-primary">Ingresar</button>
+            <button type="button" class="btn btn-secondary">Cerrar Sesión</button>
           </a>
         </li>
+        {% else %}
+        <li>
+          <a href="{% url 'sign' %}">
+            <button type="button" class="btn btn-secondary">Ingresar</button>
+          </a>
+        </li>
+        {% endif %}
 
       </ul>
 
