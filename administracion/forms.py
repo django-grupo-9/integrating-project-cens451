@@ -170,7 +170,7 @@ class EstudianteForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'maxlength': '10', 'type': 'tel'})
     )
 
-    comision = forms.ModelChoiceField(
+    comision = forms.ModelMultipleChoiceField(
         queryset= Comision.objects.all()
     )
 
