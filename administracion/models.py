@@ -14,5 +14,5 @@ class Noticias(models.Model):
         verbose_name = "Noticia"
         verbose_name_plural = "Noticias"
 
-        def __str__(self):
-            return f'{self.creado} - {self.categoria} -{self.titulo}'
+    def __str__(self):
+        return f"{self.titulo} - {self.creado}"
