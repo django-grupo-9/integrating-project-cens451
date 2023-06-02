@@ -210,7 +210,6 @@ class PreinscriptionForm(forms.ModelForm):
         validators=[validate_genero]
     )
 
-
     nacimiento = forms.DateField(
         label='Fecha de Nacimiento',
         error_messages={'required': 'Por favor introduzca su fecha de nacimiento. Ej: mm/dd/yyyy'},
@@ -295,6 +294,7 @@ class PreinscriptionForm(forms.ModelForm):
 
     celular_2 = forms.CharField(
         label='Celular 2',
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'Opcional',
@@ -489,6 +489,7 @@ class PreinscriptionForm(forms.ModelForm):
 
     sede = forms.CharField(
         label='Sede',
+        required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'id': 'id_sedeDePreferencia',
@@ -498,43 +499,41 @@ class PreinscriptionForm(forms.ModelForm):
         })
     )
 
-
     def clean_estudios(self):
         cleaned_data = super().clean()
 
         ex_alumno = cleaned_data.get('ex_alumno')
+        estudios = cleaned_data.get('estudios')
 
         if not ex_alumno:
-            estudios = cleaned_data.get('estudios')
             if not estudios:
                 self.add_error('estudios', 'Por favor introduzca sus estudios')
-
+        return estudios or ''
 
     def clean_colegio(self):
         cleaned_data = super().clean()
+
         ex_alumno = cleaned_data.get('ex_alumno')
+        colegio = cleaned_data.get('colegio')
 
         if not ex_alumno:
-            colegio = cleaned_data.get('colegio')
             if not colegio:
                 self.add_error('colegio', 'Por favor introduzca su colegio de procedencia')
-
+        return colegio or ''
 
     def clean_pais(self):
         cleaned_data = super().clean()
+
         ex_alumno = cleaned_data.get('ex_alumno')
+        pais = self.cleaned_data.get('pais')
 
         if not ex_alumno:
-            pais = self.cleaned_data.get('pais')
             if not pais:
                 self.add_error('pais', 'Por favor introduzca el país de su institución')
-        
-    
+        return pais or ''
 #    def clean_provincia(self):
     #    cleaned_data = super().clean()
     #    ex_alumno = cleaned_data.get('ex_alumno')
-
-
     #    if not ex_alumno:
         #    provincia = self.cleaned_data.get('provincia')
         #    if not provincia:
@@ -542,12 +541,14 @@ class PreinscriptionForm(forms.ModelForm):
 
     def clean_localidad(self):
         cleaned_data = super().clean()
+        
         ex_alumno = cleaned_data.get('ex_alumno')
+        localidad = self.cleaned_data.get('localidad')
 
         if not ex_alumno:
-            localidad = self.cleaned_data.get('localidad')
             if not localidad:
                 self.add_error('localidad', 'Por favor introduzca la localidad/barrio de su institución')
+        return localidad or ''
 
     def clean(self):
         cleaned_data = super().clean()
