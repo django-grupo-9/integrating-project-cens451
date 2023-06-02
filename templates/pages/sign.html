@@ -24,7 +24,7 @@
                     {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} >
                             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
                             {{ message }}
                         </li>
@@ -53,7 +53,7 @@
                         {% csrf_token %}  
                         <div class="sign-up-htm">
                             <div class="group">
-                                {{form2.user}}
+                                {{form2.username}}
                                 <p class= 'errors'>{{ form.user.errors }}</p>
                             </div>
         
@@ -63,11 +63,11 @@
                             </div>
         
                             <div class="group">
-                                {{form2.password}}
+                                {{form2.password1}}
                                 <p class= 'errors'>{{ form.password.errors }}</p>
                             </div>
                             <div class="group">
-                                {{form2.pass_repeat}}
+                                {{form2.password2}}
                                 <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
                             </div>
         

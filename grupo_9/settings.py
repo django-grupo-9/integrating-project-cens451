@@ -165,3 +165,21 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Login URL
+LOGIN_URL = 'sign'
+
+# Logout URL
+LOGOUT_URL = 'logout'
+
+# Redirect URL after logout
+LOGOUT_REDIRECT_URL = 'index'
+
+# Permissions
+# AUTH_PERMISSIONS_MODULE = 'your_app.permissions'

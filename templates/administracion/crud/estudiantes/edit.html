@@ -1,0 +1,21 @@
+{% extends '../../base_admin.html'  %}
+
+{% block titulo %}Editar estudiantes{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Estudiantes CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Editar estudiantes</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">Edicion de estudiantes</div>
+    <div class="card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include 'administracion/crud/estudiantes/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}

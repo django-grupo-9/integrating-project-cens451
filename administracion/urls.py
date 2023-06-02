@@ -19,4 +19,8 @@ urlpatterns = [
     path('orientacion/editar/<int:id_orientacion>', views.orientacion_editar, name='orientacion_editar'),
     path('orientacion/eliminar/<int:id_orientacion>', views.orientacion_eliminar, name='orientacion_eliminar'),
 
+    path('estudiantes/', views.estudiantes_index, name='estudiantes_index'),
+    path('estudiantes/nuevo/', views.estudiantes_nuevo, name='estudiantes_nuevo'),
+    path('estudiantes/editar/<int:id_person>', views.estudiantes_editar, name='estudiantes_editar'),
+    path('estudiantes/eliminar/<int:id_person>', views.estudiantes_eliminar, name='estudiantes_eliminar'),
 ]

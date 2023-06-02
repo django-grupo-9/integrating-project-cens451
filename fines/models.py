@@ -13,7 +13,7 @@ class Orientacion(models.Model):
         verbose_name_plural = "Orientaciones"
 
     def __str__(self):
-        return self.orientation
+        return self.orientacion
 
     def soft_delete(self):
         self.baja = True
@@ -37,7 +37,7 @@ class Asignatura(models.Model):
         verbose_name_plural = "Materias"
 
     def __str__(self):
-        return self.subject
+        return self.asignatura
 
     def soft_delete(self):
         self.baja = True
@@ -86,7 +86,7 @@ class Comision(models.Model):
         verbose_name_plural = "Comisiones"
 
     def __str__(self):
-        return self.commission
+        return self.comision
 
 
 class Persona(models.Model):
@@ -98,7 +98,7 @@ class Persona(models.Model):
     genero = models.CharField(max_length=30, blank=True, null=False, verbose_name="Género")
     nacionalidad = models.CharField(max_length=55, blank=True, null=False, verbose_name="Nacionalidad")
     email = models.EmailField(max_length=255, blank=False, verbose_name="Correo electrónico")
-    celular_1 = models.IntegerField(verbose_name="Celular")
+    celular_1 = models.IntegerField(verbose_name="Celular", blank=False)
 
     class Meta:
         abstract = True
@@ -108,19 +108,19 @@ class Estudiante(Persona):
     comision = models.ManyToManyField(Comision)
     creado = models.DateTimeField(auto_now_add=True, verbose_name="Fecha inscripción")
     domicilio = models.CharField(max_length=100, blank=True, verbose_name="Domicilio")
-    barrio = models.CharField(max_length=55, blank=False, verbose_name="Localidad/Barrio")
-    celular_2 = models.CharField(max_length=10, blank=True, null=False, verbose_name="Celular 2")
-    estudios = models.CharField(max_length=255, verbose_name="Estudios previos", null=True)
-    otros_estudios = models.CharField(max_length=255, verbose_name='Otros estudios', null=True)
+    barrio = models.CharField(max_length=55, blank=True, verbose_name="Localidad/Barrio")
+    celular_2 = models.CharField(max_length=10, blank=True, verbose_name="Celular 2")
+    estudios = models.CharField(max_length=255, verbose_name="Estudios previos", blank=True)
+    otros_estudios = models.CharField(max_length=255, verbose_name='Otros estudios', blank=True)
     materias_adeudadas = models.TextField(verbose_name="Materias Adeudadas", blank=True)
-    colegio = models.CharField(max_length=255, verbose_name="Colegio", null=True)
-    pais = models.CharField(max_length=50, verbose_name="País del colegio", null=True)
-    provincia = models.CharField(max_length=50, verbose_name='Provincia del colegio', null=True)
-    localidad = models.CharField(max_length=50, verbose_name="Ciudad del colegio", null=True)
+    colegio = models.CharField(max_length=255, verbose_name="Colegio", blank=True, null=True)
+    pais = models.CharField(max_length=50, verbose_name="País del colegio", blank=True)
+    provincia = models.CharField(max_length=50, verbose_name='Provincia del colegio', blank=True)
+    localidad = models.CharField(max_length=50, verbose_name="Ciudad del colegio", blank=True)
     turno_manana = models.BooleanField(default=False, verbose_name='Turno mañana')
     turno_tarde = models.BooleanField(default=False, verbose_name='Turno tarde')
     turno_noche = models.BooleanField(default=False, verbose_name='Turno noche')
-    sede = models.CharField(max_length=55, verbose_name='Sede de preferencia', null=True)
+    sede = models.CharField(max_length=55, verbose_name='Sede de preferencia', blank=True)
     ex_alumno = models.BooleanField(verbose_name='Ex Alumno', default=False)
 
     class Meta:
@@ -128,7 +128,7 @@ class Estudiante(Persona):
         verbose_name_plural = "Alumnos"
 
         def __str__(self):
-            return f'{self.dni} - {self.last_name} {self.name}'
+            return f'{self.dni} - {self.apellidos} {self.nombres}'
 
 
 class Legajo(models.Model):

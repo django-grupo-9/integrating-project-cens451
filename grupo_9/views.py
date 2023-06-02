@@ -6,6 +6,9 @@ from grupo_9.forms import ContactoForm
 import random
 import string
 from django.core.mail import send_mail
+from django.contrib.auth import login, logout, authenticate
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 from administracion.models import Noticias
 
 def index(request):
@@ -39,16 +42,24 @@ def sign(request):
         if 'login' in request.POST:
             login_form = LoginForm(request.POST)
             if login_form.is_valid():
-                messages.info(request, 'Inicio de sesión exitoso.')
-                context = {'login_form': login_form, 'form2': SignUpForm()}
-                return render(request, 'pages/sign.html', context)
-            else:
-                messages.error(request, 'Por favor introduzca datos válidos')
-                context = {'login_form': login_form, 'form2': SignUpForm()}
-                return render(request, 'pages/sign.html', context)
+                # messages.info(request, 'Inicio de sesión exitoso.')
+                username = request.POST['user']
+                password = request.POST['password']
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, f'Bienvenido/a {username}')
+                    return redirect('index')
+                else:
+                    messages.error(request, 'Por favor introduzca datos válidos')
+                    context = {'login_form': login_form, 'form2': SignUpForm()}
+                    return render(request, 'pages/sign.html', context)
+                    # context = {'login_form': login_form, 'form2': SignUpForm()}
+                    # return render(request, 'pages/sign.html', context)
         elif 'register' in request.POST:
             form2 = SignUpForm(request.POST)
             if form2.is_valid():
+                form2.save()
                 messages.info(request, 'Registro exitoso.')
                 context = {'login_form': LoginForm(), 'form2': form2}
                 return render(request, 'pages/sign.html', context)
@@ -73,15 +84,27 @@ def forgot(request):
         if forgot_form.is_valid():
             random_code = generate_code()
             request.session['forgot_code'] = random_code
-            user = forgot_form.cleaned_data['user']
-            email = forgot_form.cleaned_data['email']
-            subject = 'Reseteo de contraseña'
-            message = f'Hola {user}!\nTu codigo para resetear la contraseña es: {random_code}.\nNo lo compartas con nadie.'
-            from_email = 'programacion101200@gmail.com'
-            recipient_list = [email]
-            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            try:
+                username = forgot_form.cleaned_data['user']
+                email = forgot_form.cleaned_data['email']
+                user = get_object_or_404(User, username=username)
+                if username == user.username and email == user.email:
+                    subject = 'Reseteo de contraseña'
+                    message = f'Hola {username}!\nTu codigo para resetear la contraseña es: {random_code}.\nNo lo compartas con nadie.'
+                    from_email = 'programacion101200@gmail.com'
+                    recipient_list = [email]
+                    send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+                    request.session['username_reset'] = username
 
-            return redirect('verify_code')
+                    return redirect('verify_code')
+                else:
+                    messages.error(request, 'El usuario o el mail no existen')
+                    forgot_form = ForgotPass(request.POST)
+                    return render(request, 'pages/forgot.html', {'forgot_form': forgot_form})
+            except:
+                messages.error(request, 'El usuario o el mail no existen')
+                forgot_form = ForgotPass(request.POST)
+                return render(request, 'pages/forgot.html', {'forgot_form': forgot_form})
     else:
         context = {'forgot_form': ForgotPass()}
         return render(request, 'pages/forgot.html', context)
@@ -96,8 +119,6 @@ def verify_code(request):
         if verify_code_form.is_valid():
             if request.session.get('forgot_code') == verify_code_form.cleaned_data['code']:
                 del request.session['forgot_code']
-                # Redireccionar a un template que tenga un
-                # Django form que permita actualizar el password
                 return redirect('new_password')
             else:
                 messages.error(request, 'El código ingresado es inválido.')
@@ -108,14 +129,41 @@ def verify_code(request):
     return render(request, 'pages/verify_code.html', context)
 
 
+# def new_password(request):
+#     if request.method == 'POST':
+#         new_form = NewPassForm(request.POST)
+#         if new_form.is_valid():
+#             username = request.session.get('username_reset')
+#             user = get_object_or_404(User, username=username)
+#             password = new_form.cleaned_data['new_pass']
+#             hashed_password = make_password(password)
+#             user.set_password(hashed_password)
+#             user.save()
+#             context = {'new_form': new_form}
+#             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
+#         else:
+#             messages.error(request, 'Por favor introduzca datos válidos')
+#             context = {'new_form': new_form}
+#             return render(request, 'pages/new_password.html', context)
+#     else:
+#         if request.method == 'GET':
+#             context = {'new_form': NewPassForm()}
+#             return render(request, 'pages/new_password.html', context)
+#     context = {'new_form': NewPassForm()}
+#     return render(request, 'pages/new_password.html', context)
+
+
 def new_password(request):
     if request.method == 'POST':
         new_form = NewPassForm(request.POST)
         if new_form.is_valid():
-            context = {'new_form': new_form}
+            username = request.session.get('username_reset')
+            user = get_object_or_404(User, username=username)
+            password = new_form.cleaned_data['new_pass']
+            user.set_password(password)  # Use set_password to hash the new password
+            user.save()
             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
         else:
-            messages.error(request, 'Por favor introduzca datos válidos')
             context = {'new_form': new_form}
             return render(request, 'pages/new_password.html', context)
     else:
@@ -125,6 +173,14 @@ def new_password(request):
     context = {'new_form': NewPassForm()}
     return render(request, 'pages/new_password.html', context)
 
+
+        new_form = NewPassForm()
+        context = {'new_form': new_form}
+        return render(request, 'pages/new_password.html', context)
+
+
+
 def noticias(request, id_noticia):
     noticia = Noticias.objects.get(id=id_noticia)
     return render(request, 'pages/noticias.html', {"noticia": noticia})
+

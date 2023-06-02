@@ -18,6 +18,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('forgot/', views.forgot, name='forgot'),
     path('verify_code/', views.verify_code, name='verify_code'),
     path('new_password/', views.new_password, name='new_password'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='pages/index.html'), name='logout'),
     path('administracion/', include('administracion.urls')),
     path('noticias/<int:id_noticia>/', views.noticias)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
