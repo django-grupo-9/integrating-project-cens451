@@ -33,5 +33,6 @@ urlpatterns = [
     path('new_password/', views.new_password, name='new_password'),
     path('logout/', auth_views.LogoutView.as_view(template_name='pages/index.html'), name='logout'),
     path('administracion/', include('administracion.urls')),
-    path('noticias/<int:id_noticia>/', views.noticias)
+    path('noticias/<int:id_noticia>/', views.noticias),
+    path('profile/', views.profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

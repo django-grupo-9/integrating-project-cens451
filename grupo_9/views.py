@@ -9,7 +9,8 @@ from django.core.mail import send_mail
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from administracion.models import Noticias
+from administracion.models import Noticias, Estudiante
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     noticias = Noticias.objects.all()
@@ -129,30 +130,6 @@ def verify_code(request):
     return render(request, 'pages/verify_code.html', context)
 
 
-# def new_password(request):
-#     if request.method == 'POST':
-#         new_form = NewPassForm(request.POST)
-#         if new_form.is_valid():
-#             username = request.session.get('username_reset')
-#             user = get_object_or_404(User, username=username)
-#             password = new_form.cleaned_data['new_pass']
-#             hashed_password = make_password(password)
-#             user.set_password(hashed_password)
-#             user.save()
-#             context = {'new_form': new_form}
-#             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
-#         else:
-#             messages.error(request, 'Por favor introduzca datos válidos')
-#             context = {'new_form': new_form}
-#             return render(request, 'pages/new_password.html', context)
-#     else:
-#         if request.method == 'GET':
-#             context = {'new_form': NewPassForm()}
-#             return render(request, 'pages/new_password.html', context)
-#     context = {'new_form': NewPassForm()}
-#     return render(request, 'pages/new_password.html', context)
-
-
 def new_password(request):
     if request.method == 'POST':
         new_form = NewPassForm(request.POST)
@@ -160,7 +137,7 @@ def new_password(request):
             username = request.session.get('username_reset')
             user = get_object_or_404(User, username=username)
             password = new_form.cleaned_data['new_pass']
-            user.set_password(password)  # Use set_password to hash the new password
+            user.set_password(password)
             user.save()
             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
         else:
@@ -178,3 +155,8 @@ def noticias(request, id_noticia):
     noticia = Noticias.objects.get(id=id_noticia)
     return render(request, 'pages/noticias.html', {"noticia": noticia})
 
+
+@login_required
+def profile(request):
+
+    return render(request, 'pages/profile.html',)

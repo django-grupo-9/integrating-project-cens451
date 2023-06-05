@@ -34,6 +34,7 @@
               <ul style='background-color: #11080C' class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
                   <li ><p class="dropdown-header" style='color: #FFFFFF' href="#!">{{ user.username }}</p></li>
                   <li ><hr class="dropdown-divider" /></li>
+                  <li ><a class="dropdown-item" style='color: #FFFFFF' href="{% url 'profile' %}">Perfil</a></li>
                   <li ><a class="dropdown-item" style='color: #FFFFFF' href="{% url 'logout' %}">Logout</a></li>
               </ul>
           </li>
