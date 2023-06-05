@@ -106,7 +106,7 @@ def estudiantes_editar(request, id_person):
         formulario = EstudianteForm(request.POST, instance=estudiantes)
         if formulario.is_valid():
             formulario.save()
-            return redirect('orientacion_index')
+            return redirect('estudiantes_index')
     else:
         formulario = EstudianteForm(instance=estudiantes)
     return render(request, 'administracion/crud/estudiantes/edit.html', {'form': formulario})
