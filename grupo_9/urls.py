@@ -25,7 +25,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
-    path('docentes/', views.docentes, name='docentes'),  # Solución temporal para error en navbar!
+    path('docentes/', views.docentes, name='docentes'),
     path('contacto/', views.contacto, name='contacto'),
     path('sign/', views.sign, name='sign'),
     path('forgot/', views.forgot, name='forgot'),
@@ -33,4 +33,5 @@ urlpatterns = [
     path('new_password/', views.new_password, name='new_password'),
     path('logout/', auth_views.LogoutView.as_view(template_name='pages/index.html'), name='logout'),
     path('administracion/', include('administracion.urls')),
+    path('noticias/<int:id_noticia>/', views.noticias)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

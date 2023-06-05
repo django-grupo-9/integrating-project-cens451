@@ -9,10 +9,12 @@ from django.core.mail import send_mail
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-
+from administracion.models import Noticias
 
 def index(request):
-    return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
+    noticias = Noticias.objects.all()
+    
+    return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451", "noticias": noticias})
 
 
 def docentes(request):
@@ -165,6 +167,20 @@ def new_password(request):
             context = {'new_form': new_form}
             return render(request, 'pages/new_password.html', context)
     else:
+        if request.method == 'GET':
+            context = {'new_form': NewPassForm()}
+            return render(request, 'pages/new_password.html', context)
+    context = {'new_form': NewPassForm()}
+    return render(request, 'pages/new_password.html', context)
+
+
         new_form = NewPassForm()
         context = {'new_form': new_form}
         return render(request, 'pages/new_password.html', context)
+
+
+
+def noticias(request, id_noticia):
+    noticia = Noticias.objects.get(id=id_noticia)
+    return render(request, 'pages/noticias.html', {"noticia": noticia})
+
