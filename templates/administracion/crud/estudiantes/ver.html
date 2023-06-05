@@ -1,0 +1,95 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Estudiantes{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Estudiante: {{estudiante.nombres}} {{estudiante.apellidos}}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">{{estudiante.nombres}} {{estudiante.apellidos}}</li>
+</ol>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-secondary" href="{% url 'estudiantes_index' %}" role="button"> <i class="fa-solid fa-arrow-left"></i> Atrás</a>
+        <!-- bs5-table-defaul -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Celular</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>{{estudiante.id_person}}</td>
+                        <td>{{estudiante.nombres}}</td>
+                        <td>{{estudiante.apellidos}}</td>
+                        <td>{{estudiante.dni}}</td>
+                        <td>{{estudiante.celular_1}}</td>
+                    </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Mail</th>
+                    <th>Nacionalidad</th>
+                    <th>Género</th>
+                    <th>Domicilio</th>
+                    <th>Barrio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{estudiante.email}}</td>
+                    <td>{{estudiante.nacionalidad}}</td>
+                    <td>{{estudiante.genero}}</td>
+                    <td>{{estudiante.domicilio}}</td>
+                    <td>{{estudiante.barrio}}</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>Turno mañana</th>
+                    <th>Turno tarde</th>
+                    <th>Turno noche</th>
+                    <th>Ex alumno</th>
+                    <th>Comisión</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{estudiante.turno_manana}}</td>
+                    <td>{{estudiante.turno_tarde}}</td>
+                    <td>{{estudiante.turno_noche}}</td>
+                    <td>{{estudiante.ex_alumno}}</td>
+                    <td>
+                        {% for comision in estudiante.comision.all %}
+                            {{ comision.comision }} {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% comment %} <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item"><a class="page-link" href="#"><<</a></li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">>></a></li>
+                    </ul>
+                  </nav>
+            </div>
+        </div> {% endcomment %}
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
+
+{% endblock %}
+    

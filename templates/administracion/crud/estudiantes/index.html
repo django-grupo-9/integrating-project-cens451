@@ -59,6 +59,7 @@
                         <td>
                             <a href="{% url 'estudiantes_editar' estudiante.id_person %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
                             <a href="{% url 'estudiantes_eliminar' estudiante.id_person %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'estudiantes_ver' estudiante.id_person %}" title="Ver" class="btn btn-success"><i class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

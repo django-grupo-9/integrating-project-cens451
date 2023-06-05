@@ -122,6 +122,14 @@ def estudiantes_eliminar(request, id_person):
     estudiantes.delete()
     return redirect('estudiantes_index')
 
+@permission_required('administracion')
+def estudiantes_ver(request, id_person):
+    try:
+        estudiante = Estudiante.objects.get(pk=id_person)
+    except Estudiante.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    return render(request, 'administracion/crud/estudiantes/ver.html',  {'estudiante': estudiante})
+
 
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
 # class CategoriaListView(ListView):
