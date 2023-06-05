@@ -174,12 +174,6 @@ def new_password(request):
     return render(request, 'pages/new_password.html', context)
 
 
-        new_form = NewPassForm()
-        context = {'new_form': new_form}
-        return render(request, 'pages/new_password.html', context)
-
-
-
 def noticias(request, id_noticia):
     noticia = Noticias.objects.get(id=id_noticia)
     return render(request, 'pages/noticias.html', {"noticia": noticia})
