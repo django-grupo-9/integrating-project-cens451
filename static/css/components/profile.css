@@ -15,8 +15,8 @@ body{
 }
 
 .profile-work{
-    padding: 14%;
-    margin-top: -25%;
+    padding: 4%;
+    margin-top: 0%;
 }
 .profile-work p{
     font-size: 15px;
@@ -26,16 +26,9 @@ body{
 }
 
 .profile-work strong{
-    margin-left: 2%;
+    margin-left: 0.5%;
 }
 
 .profile-work ul{
     list-style: none;
-}
-.px-5 .my-5 label{
-    font-weight: 600 !important;
-}
-.profile-tab p{
-    font-weight: 600;
-    color: #0062cc;
 }
