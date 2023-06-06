@@ -63,6 +63,7 @@
             <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
             <li><a class="link" href="{% url 'contacto' %}">Contacto</a></li>
             {% if user.is_authenticated %}
+            <li ><a class="link" href="{% url 'profile' %}">Perfil</a></li>
             <a href="{% url 'logout' %}">
               <button type="button" class="btn btn-primary">Cerrar Sesión</button>
             </a>
