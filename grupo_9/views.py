@@ -158,5 +158,9 @@ def noticias(request, id_noticia):
 
 @login_required
 def profile(request):
+    user = request.user
+    estudiante = get_object_or_404(Estudiante, email=user.email)
+    asignaturas = estudiante.asignaturas.all()
+    comision = estudiante.comision.all()
 
-    return render(request, 'pages/profile.html',)
+    return render(request, 'pages/profile.html', {'estudiante': estudiante, 'asignaturas': asignaturas, 'comision': comision})

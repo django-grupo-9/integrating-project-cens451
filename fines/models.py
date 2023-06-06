@@ -24,30 +24,6 @@ class Orientacion(models.Model):
         super().save()
 
 
-class Asignatura(models.Model):
-    id_asignatura = models.AutoField(primary_key=True, verbose_name='ID Asignatura')
-    asignatura = models.CharField(max_length=40, verbose_name="Asignatura")
-    horas = models.IntegerField(verbose_name="Horas Cátedra")
-    orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
-    cuatrimestre = models.CharField(max_length=4, verbose_name='Cuatrimestre')
-    baja = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = "Materias"
-        verbose_name_plural = "Materias"
-
-    def __str__(self):
-        return self.asignatura
-
-    def soft_delete(self):
-        self.baja = True
-        super().save()
-
-    def restore(self):
-        self.baja = False
-        super().save()
-
-
 class Campus(models.Model):
     # id_campus = models.AutoField(primary_key=True, verbose_name='ID Campus')
     campus = models.CharField(max_length=30, verbose_name='Sede')
@@ -127,8 +103,8 @@ class Estudiante(Persona):
         verbose_name = "Alumno"
         verbose_name_plural = "Alumnos"
 
-        def __str__(self):
-            return f'{self.dni} - {self.apellidos} {self.nombres}'
+    def __str__(self):
+        return f'{self.dni} - {self.apellidos} {self.nombres}'
 
 
 class Legajo(models.Model):
@@ -145,3 +121,28 @@ class Legajo(models.Model):
     class Meta:
         verbose_name = "Legajo"
         verbose_name_plural = "Legajos"
+
+
+class Asignatura(models.Model):
+    id_asignatura = models.AutoField(primary_key=True, verbose_name='ID Asignatura')
+    asignatura = models.CharField(max_length=40, verbose_name="Asignatura")
+    horas = models.IntegerField(verbose_name="Horas Cátedra")
+    orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
+    cuatrimestre = models.CharField(max_length=4, verbose_name='Cuatrimestre')
+    baja = models.BooleanField(default=False)
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name='asignaturas', blank=True, null=False)
+
+    class Meta:
+        verbose_name = "Materias"
+        verbose_name_plural = "Materias"
+
+    def __str__(self):
+        return self.asignatura
+
+    def soft_delete(self):
+        self.baja = True
+        super().save()
+
+    def restore(self):
+        self.baja = False
+        super().save()
