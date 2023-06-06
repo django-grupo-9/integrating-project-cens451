@@ -26,11 +26,12 @@
         <div class='row'>
             <div class="col order-first mt-4">
                 <div class="profile-work">
+              
                     <h3>Asignaturas:</h3>
                         <ul class="list">
-                            {% if estudiante.aignatura %}
-                                {% for asignaturas in asignatura %}
-                                <li class="list-group-item">{{ asignaturas }}</li>
+                            {% if asignaturas %}
+                                {% for asignatura in asignaturas %}
+                                <li class="list-group-item">{{ asignatura }}</li>
                                 {% endfor %}
                             {% else %}
                             <p>No se registra inscripción a ninguna asignatura</p>
@@ -43,9 +44,19 @@
                     <h3>Estudiante:</h3>
                     <p>Nombre/s: <strong>{{ estudiante.nombres }}</strong></p>
                     <p>Apellido/s: <strong>{{ estudiante.apellidos }}</strong></p>
-                    <p>Orientación: <strong>{% if comision.orientacion %}{{ comision.orientacion }}{% else %}Sin asignar{% endif %}</strong></p>
-                    <p>Campus: <strong>{% if comision.campus %}{{ comision.campus }}{% else %}Sin asignar{% endif %}</strong></p>
-                    <p>Comisión: <strong>{% if comision %}{{ comision.comision }}{% else %}Sin asignar{% endif %}</strong></p>
+                    <p>DNI: <strong>{{ estudiante.dni }}</strong></p>
+                    <p>Correo: <strong>{{ estudiante.email }}</strong></p>
+                    {% if comision %}
+                        {% for comision in comision %}
+                            <p>Orientación: <strong>{{ comision.orientacion }}</strong></p>
+                            <p>Campus: <strong>{{ comision.campus }}</strong></p>
+                            <p>Comisión: <strong>{{ comision }}</strong></p>
+                        {% endfor %}
+                    {% else %}
+                    <p>Orientación: <strong>Sin asignar</strong></p>
+                    <p>Campus: <strong>Sin asignar</strong></p>
+                    <p>Comisión: <strong>Sin asignar</strong></p>
+                    {% endif %}
                     <p>Materias adeudadas: <strong>{% if estudiante.materias_adeudadas %}{{estudiante.materias_adeudadas}}{% else %}No adeuda{% endif %}</strong></p>
                 </div>
             </div>
