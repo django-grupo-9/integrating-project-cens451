@@ -1,6 +1,7 @@
 from django import forms
 from .models import Orientacion, Asignatura, Comision, Campus, Estudiante
 from django.forms import CheckboxSelectMultiple
+from django.contrib.auth.models import User
 
 
 class OrientacionForm(forms.ModelForm):
@@ -102,9 +103,13 @@ class AsignaturaForm(forms.ModelForm):
 
 class EstudianteForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].label_from_instance = lambda user: user.email
+
     class Meta:
         model = Estudiante
-        fields = ['nombres', 'apellidos', 'dni', 'nacimiento', 'genero', 'nacionalidad', 'email', 'celular_1', 'comision', 'domicilio', 'barrio', 'ex_alumno', 'estudios', 'materias_adeudadas', 'turno_manana', 'turno_tarde', 'turno_noche']
+        fields = ['nombres', 'apellidos', 'dni', 'nacimiento', 'genero', 'nacionalidad', 'email', 'celular_1', 'comision', 'domicilio', 'barrio', 'ex_alumno', 'estudios', 'materias_adeudadas', 'turno_manana', 'turno_tarde', 'turno_noche', 'user']
 
     nombres = forms.CharField(
         label='Nombre/s',
@@ -272,3 +277,12 @@ class EstudianteForm(forms.ModelForm):
         label='Turno noche 18 a 22hs aprox.',
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        label='Usuario (email)',
+        to_field_name='email',
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
