@@ -29,7 +29,6 @@ def preinscripcion(request):
 
             password = random_symbol + str(password) + random_letter
 
-            # Create a new form using SignUpForm and set the initial data
             data = {
                 'username': username,
                 'email': email,
