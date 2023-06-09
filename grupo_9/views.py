@@ -166,6 +166,17 @@ def profile(request):
         comision = estudiante.comision.all()
 
         return render(request, 'pages/profile.html', {'estudiante': estudiante, 'asignaturas': asignaturas, 'comision': comision})
+    
     except Estudiante.DoesNotExist:
-        messages.warning(request, 'No hay un estudiante asociado al usuario')
-        return redirect("index")
+
+        try:
+            estudiante = Estudiante.objects.get(email=user.email)
+            asignaturas = estudiante.asignaturas.all()
+            comision = estudiante.comision.all()
+
+        except Estudiante.DoesNotExist:
+            messages.warning(request, 'No hay un estudiante asociado al usuario')
+            return redirect("index")
+        
+    messages.warning(request, 'No hay un estudiante asociado al usuario')
+    return redirect("index")
