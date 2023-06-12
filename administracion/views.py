@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def index_administracion(request):
     variable = 'CENS 451'
     return render(request, 'administracion/index_admin.html', {'variable': variable})
@@ -24,7 +24,7 @@ def index_administracion(request):
 
 # CRUD Categorias
 @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_index(request):
     # queryset
     orientaciones = Orientacion.objects.filter(baja=False)
@@ -32,7 +32,7 @@ def orientacion_index(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_nuevo(request):
     if request.method == 'POST':
         formulario = OrientacionForm(request.POST)
@@ -45,7 +45,7 @@ def orientacion_nuevo(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_editar(request, id_orientacion):
     try:
         orientacion = Orientacion.objects.get(pk=id_orientacion)
@@ -63,7 +63,7 @@ def orientacion_editar(request, id_orientacion):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_eliminar(request, id_orientacion):
     try:
         orientacion = Orientacion.objects.get(pk=id_orientacion)
@@ -74,7 +74,7 @@ def orientacion_eliminar(request, id_orientacion):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_index(request):
     # queryset
     estudiantes = Estudiante.objects.all()
@@ -82,7 +82,7 @@ def estudiantes_index(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_nuevo(request):
     if request.method == 'POST':
         formulario = EstudianteForm(request.POST)
@@ -95,7 +95,7 @@ def estudiantes_nuevo(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_editar(request, id_person):
     try:
         estudiantes = Estudiante.objects.get(pk=id_person)
@@ -113,7 +113,7 @@ def estudiantes_editar(request, id_person):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_eliminar(request, id_person):
     try:
         estudiantes = Estudiante.objects.get(pk=id_person)
@@ -122,7 +122,7 @@ def estudiantes_eliminar(request, id_person):
     estudiantes.delete()
     return redirect('estudiantes_index')
 
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_ver(request, id_person):
     try:
         estudiante = Estudiante.objects.get(pk=id_person)
