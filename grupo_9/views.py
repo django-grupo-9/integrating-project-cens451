@@ -12,9 +12,10 @@ from django.contrib.auth.models import User
 from administracion.models import Noticias, Estudiante
 from django.contrib.auth.decorators import login_required
 
+
 def index(request):
     noticias = Noticias.objects.all()
-    
+
     return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451", "noticias": noticias})
 
 
@@ -166,7 +167,7 @@ def profile(request):
         comision = estudiante.comision.all()
 
         return render(request, 'pages/profile.html', {'estudiante': estudiante, 'asignaturas': asignaturas, 'comision': comision})
-    
+
     except Estudiante.DoesNotExist:
 
         try:
@@ -179,4 +180,3 @@ def profile(request):
         except Estudiante.DoesNotExist:
             messages.warning(request, 'No hay un estudiante asociado al usuario')
             return redirect("index")
-
