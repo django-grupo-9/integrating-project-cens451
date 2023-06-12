@@ -28,9 +28,6 @@ class LoginForm(forms.Form):
         label=False
     )
 
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-
     def clean_password(self):
         password = self.cleaned_data['password']
         if len(password) < 8:
@@ -78,7 +75,7 @@ class SignUpForm(UserCreationForm):
     password1 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                'id': 'password',
+                'id': 'password1',
                 'class': 'input',
                 'placeholder': 'Contraseña',
                 'required': True,
