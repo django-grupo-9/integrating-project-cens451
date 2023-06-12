@@ -198,3 +198,20 @@ a {
 	margin: 0px;
     color:#943459;
 }
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container input[type="password"] {
+    padding-right: 40px !important;
+}
+
+.password-input-container span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 12px 10px 5px 0px;
+    font-size: 14px;
+}
