@@ -20,7 +20,7 @@
 
       <ul id="navId" class="navigation">
         <li><a href="{% url 'index' %}">Inicio</a></li>
-        {% if perms.grupo_9 %}
+        {% if perms.administracion.administrador %}
         <li><a href="{% url 'inicio_administracion' %}">Administración</a></li>
         {% endif %}
         <li><a href="{% url 'fines' %}">Plan Fines</a></li>
