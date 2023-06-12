@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/components/sign.css' %}?v={% now 'U' %}">
     <title>Sign in/up</title>
 </head>
@@ -38,7 +39,12 @@
                               {{ login_form.user }}
                             </div>
                             <div class="group">
-                              {{ login_form.password }}
+                                <div class="password-input-container">
+                                    {{ login_form.password }}
+                                    <span  id="showPasswordBtn" class="show-password-button" onclick="togglePasswordVisibility()">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
                             </div>
                             <div class="group">
                                 <input type="submit" class="button" value="Ingresar" action="/signup" method="POST" onsubmit="return validateForm()", name="login">
@@ -63,11 +69,21 @@
                             </div>
         
                             <div class="group">
-                                {{form2.password1}}
+                                <div class="password-input-container">
+                                    {{form2.password1}}
+                                    <span  id="showPasswordBtn1" class="show-password-button" onclick="togglePassword1Visibility()">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
                                 <p class= 'errors'>{{ form.password.errors }}</p>
                             </div>
                             <div class="group">
-                                {{form2.password2}}
+                                <div class="password-input-container">
+                                    {{form2.password2}}
+                                    <span  id="showPasswordBtn2" class="show-password-button" onclick="togglePassword2Visibility()">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
                                 <p class= 'errors'>{{ form.pass_repeat.errors }}</p>
                             </div>
         
@@ -82,5 +98,6 @@
                 </div>
             </div>
         </div>
+        <script src={% static 'js/sign.js' %}></script>
 </body>
 </html>
