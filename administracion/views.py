@@ -131,6 +131,18 @@ def estudiantes_ver(request, id_person):
     return render(request, 'administracion/crud/estudiantes/ver.html',  {'estudiante': estudiante})
 
 
+@permission_required('administracion.administrador')
+def estudiantes_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    estudiantes = Estudiante.objects.filter(nombres__icontains=nombre)
+
+    context = {
+        'estudiantes': estudiantes
+    }
+
+    return render(request, 'administracion/crud/estudiantes/buscar.html', context)
+
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
 # class CategoriaListView(ListView):
 #     model = Categoria
