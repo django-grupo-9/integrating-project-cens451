@@ -60,6 +60,9 @@
             <li><a class="link" href="{% url 'fines' %}">Plan Fines</a></li>
             <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
             <li><a class="link" href="{% url 'contacto' %}">Contacto</a></li>
+            {% if perms.administracion.administrador %}
+            <li><a href="{% url 'inicio_administracion' %}">Administración</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
             <li ><a class="link" href="{% url 'profile' %}">Perfil</a></li>
             <a href="{% url 'logout' %}">
