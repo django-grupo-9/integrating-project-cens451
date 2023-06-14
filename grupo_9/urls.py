@@ -19,9 +19,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from . import views
 from django.contrib.auth import views as auth_views
+from .admin import cens_admin
+
+admin.autodiscover()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_og/', admin.site.urls),
+    path('admin/', cens_admin.urls),
     path('', views.index, name='index'),
     path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
