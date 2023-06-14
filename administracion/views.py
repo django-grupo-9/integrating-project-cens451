@@ -73,6 +73,19 @@ def orientacion_eliminar(request, id_orientacion):
     return redirect('orientacion_index')
 
 
+@permission_required('administracion.administrador')
+def orientacion_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    orientaciones = Orientacion.objects.filter(orientacion__icontains=nombre)
+
+    context = {
+        'orientaciones': orientaciones
+    }
+
+    return render(request, 'administracion/crud/orientacion/buscar.html', context)
+
+
 # @login_required(login_url="sign")
 @permission_required('administracion.administrador')
 def estudiantes_index(request):
