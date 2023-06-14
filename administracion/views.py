@@ -28,7 +28,7 @@ def index_administracion(request):
 def orientacion_index(request):
     # queryset
     orientaciones = Orientacion.objects.filter(baja=False)
-    return render(request, 'administracion/crud/index.html', {'orientaciones': orientaciones})
+    return render(request, 'administracion/crud/orientacion/index.html', {'orientaciones': orientaciones})
 
 
 # @login_required(login_url="sign")
@@ -41,7 +41,7 @@ def orientacion_nuevo(request):
             return redirect('orientacion_index')
     else:
         formulario = OrientacionForm()
-    return render(request, 'administracion/crud/new.html', {'form': formulario})
+    return render(request, 'administracion/crud/orientacion/new.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
@@ -59,7 +59,7 @@ def orientacion_editar(request, id_orientacion):
             return redirect('orientacion_index')
     else:
         formulario = OrientacionForm(instance=orientacion)
-    return render(request, 'administracion/crud/edit.html', {'form': formulario})
+    return render(request, 'administracion/crud/orientacion/edit.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
