@@ -14,7 +14,7 @@ urlpatterns = [
     # path('categorias/vieweliminar/<int:pk>', views.CategoriaDeleteView.as_view(), name='categorias_eliminar_view'),
 
     path('', views.index_administracion, name='inicio_administracion'),
-    path('orentacion/', views.orientacion_index, name='orientacion_index'),
+    path('orientacion/', views.orientacion_index, name='orientacion_index'),
     path('orientacion/nuevo/', views.orientacion_nuevo, name='orientacion_nuevo'),
     path('orientacion/editar/<int:id_orientacion>', views.orientacion_editar, name='orientacion_editar'),
     path('orientacion/eliminar/<int:id_orientacion>', views.orientacion_eliminar, name='orientacion_eliminar'),
@@ -23,4 +23,13 @@ urlpatterns = [
     path('estudiantes/nuevo/', views.estudiantes_nuevo, name='estudiantes_nuevo'),
     path('estudiantes/editar/<int:id_person>', views.estudiantes_editar, name='estudiantes_editar'),
     path('estudiantes/eliminar/<int:id_person>', views.estudiantes_eliminar, name='estudiantes_eliminar'),
+
+    path('campus/', views.campus_index, name='campus_index'),
+    path('campus/nuevo/', views.campus_nuevo, name='campus_nuevo'),
+    path('campus/editar/<int:id>', views.campus_editar, name='campus_editar'),
+    path('campus/eliminar/<int:id>', views.campus_eliminar, name='campus_eliminar'),
+
+
+
+
 ]

@@ -22,7 +22,7 @@ def index_administracion(request):
     return render(request, 'administracion/index_admin.html', {'variable': variable})
 
 
-# CRUD Categorias
+# CRUD orientacion--------------------------------------
 @login_required(login_url="sign")
 @permission_required('administracion')
 def orientacion_index(request):
@@ -72,6 +72,57 @@ def orientacion_eliminar(request, id_orientacion):
     orientacion.soft_delete()
     return redirect('orientacion_index')
 
+# CRUD campus--------------------------------------
+@login_required(login_url="sign")
+@permission_required('administracion')
+def campus_index(request):
+    # queryset
+    campus = Campus.objects.filter(baja=False)
+    return render(request, 'administracion/crud/index.html', {'campus': campus})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion')
+def campus_nuevo(request):
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm()
+    return render(request, 'administracion/crud/new.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion')
+def campus_editar(request, id_campus):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST, instance=campus)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm(instance=campus)
+    return render(request, 'administracion/crud/edit.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion')
+def campus_eliminar(request, id):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    campus.soft_delete()
+    return redirect('campus_index')
+
+# CRUD estudiantes--------------------------------------
 
 # @login_required(login_url="sign")
 @permission_required('administracion')

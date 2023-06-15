@@ -1,0 +1,22 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Editar campus{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Campus CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Editar campus</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">Edición de campus</div>
+    <div class="card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include 'administracion/crud/campus/form.html' %}
+            administracion/crud/campus/form.html
+        </form>
+    </div>
+</div>
+{% endblock %}
