@@ -78,7 +78,7 @@ def orientacion_eliminar(request, id_orientacion):
 def campus_index(request):
     # queryset
     campus = Campus.objects.filter(baja=False)
-    return render(request, 'administracion/crud/index.html', {'campus': campus})
+    return render(request, 'administracion/crud/campus/index.html', {'campus': campus})
 
 
 # @login_required(login_url="sign")
@@ -91,12 +91,12 @@ def campus_nuevo(request):
             return redirect('campus_index')
     else:
         formulario = CampusForm()
-    return render(request, 'administracion/crud/new.html', {'form': formulario})
+    return render(request, 'administracion/crud/campus/new.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
 @permission_required('administracion')
-def campus_editar(request, id_campus):
+def campus_editar(request, id):
     try:
         campus = Campus.objects.get(pk=id)
     except Campus.DoesNotExist:
@@ -109,7 +109,7 @@ def campus_editar(request, id_campus):
             return redirect('campus_index')
     else:
         formulario = CampusForm(instance=campus)
-    return render(request, 'administracion/crud/edit.html', {'form': formulario})
+    return render(request, 'administracion/crud/campus/edit.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
