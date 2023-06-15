@@ -189,7 +189,13 @@ def give_administracion_permission(request, user_id):
     try:
         user = get_object_or_404(User, id=user_id)
 
-        content_type = ContentType.objects.get(app_label='administracion')
+        content_types = ContentType.objects.filter(app_label='administracion')
+
+        if content_types.exists():
+            content_type = content_types.first()
+        else:
+            messages.error(request, 'El permiso o el tipo de contenido no existe.')
+            return redirect('index')
 
         permission, created = Permission.objects.get_or_create(
             codename='administrador',
