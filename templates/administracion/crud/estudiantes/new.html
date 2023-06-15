@@ -15,7 +15,7 @@
     <div class="card-body">
         <form action="{% url 'estudiantes_nuevo' %}" method="post" novalidate>
             {% csrf_token %}
-            {% include 'administracion/crud/form.html' %}
+            {% include 'administracion/crud/estudiantes/form.html' %}
         </form>
     </div>
 </div>
