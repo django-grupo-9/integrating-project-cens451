@@ -33,7 +33,7 @@
                               <h5 class="card-title ">Preinscripción</h5>
                               <p class="card-text fw-normal text-muted">Para terminar tu secundario podés hacerlo preinscribiendote en este formulario.</p>
                               {% if inscripto == True %}
-                              <p class="card-text fw-normal text-muted">Usted ya se encuentra preinscripto!</p>
+                              <p class="card-text fw-normal">Usted ya se encuentra preinscripto!</p>
                               {% else %}
                               <a href="{% url 'fines_preinscripcion'%}" class="btn btn-primary">Quiero estudiar!</a>
                               {% endif %}
