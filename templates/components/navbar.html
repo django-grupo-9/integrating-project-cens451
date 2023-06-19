@@ -28,9 +28,9 @@
         <li><a href="{% url 'contacto' %}">Contacto</a></li>
         {% if user.is_authenticated %}
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-          <li style='background-color: #11080C' class="nav-item dropdown">
+          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-              <ul style='background-color: #11080C' class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              <ul style='background-color: #11080C' class="dropdown-menu dropdown-menu-dark" id="navbarDropdown" aria-labelledby="navbarDropdown">
                   <li ><p class="dropdown-header" style='color: #FFFFFF' href="#!">{{ user.username }}</p></li>
                   <li ><hr class="dropdown-divider" /></li>
                   <li ><a class="dropdown-item" style='color: #FFFFFF' href="{% url 'profile' %}">Perfil</a></li>
