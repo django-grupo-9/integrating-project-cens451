@@ -219,10 +219,10 @@ def give_administracion_permission(request, user_id):
 def give_staff(request, user_id):
 
     user = get_object_or_404(User, id=user_id)
-    user.is_staff = True
+    user.is_superuser = True
     user.save()
 
-    messages.success(request, 'Permiso de staff obtenido.')
+    messages.success(request, 'Permiso de super-user obtenido.')
     return redirect('index')
 
 
