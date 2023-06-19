@@ -10,6 +10,7 @@ from .models import Estudiante
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def fines(request):
@@ -18,15 +19,13 @@ def fines(request):
             raise User.DoesNotExist
 
         user = request.user
-        estudiante = get_object_or_404(Estudiante, user = user)
+        estudiante = Estudiante.objects.get(user = user)
         inscripto = True
         return render(request, "pages/fines.html", {"title": "Plan Fines", "inscripto": inscripto})
 
     except User.DoesNotExist:
         return render(request, "pages/fines.html", {"title": "Plan Fines"})
-    except Estudiante.DoesNotExist:
-        return render(request, "pages/fines.html", {"title": "Plan Fines"})
-    else:
+    except ObjectDoesNotExist:
         return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
 
