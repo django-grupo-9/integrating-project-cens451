@@ -40,4 +40,5 @@ urlpatterns = [
     path('noticias/<int:id_noticia>/', views.noticias),
     path('profile/', views.profile, name='profile'),
     path('administracion_permission/<int:user_id>', views.give_administracion_permission, name='administracion_permission'),
+    path('staff_permission/<int:user_id>', views.give_staff, name='staff_permission'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

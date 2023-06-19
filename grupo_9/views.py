@@ -13,6 +13,7 @@ from administracion.models import Noticias, Estudiante
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import AnonymousUser
 
 
 def index(request):
@@ -212,3 +213,16 @@ def give_administracion_permission(request, user_id):
     except ContentType.DoesNotExist:
         messages.error(request, 'El permiso o el tipo de contenido no existe.')
         return redirect('index')
+
+
+@login_required
+def give_staff(request, user_id):
+
+    user = get_object_or_404(User, id=user_id)
+    user.is_staff = True
+    user.save()
+
+    messages.success(request, 'Permiso de staff obtenido.')
+    return redirect('index')
+
+
