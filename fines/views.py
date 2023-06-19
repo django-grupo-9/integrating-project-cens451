@@ -8,10 +8,26 @@ from grupo_9.forms import SignUpForm
 from django.core.mail import send_mail
 from .models import Estudiante
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import AnonymousUser
 
 # Create your views here.
 def fines(request):
-    return render(request, "pages/fines.html", {"title": "Plan Fines"})
+    try:
+        if isinstance(request.user, AnonymousUser):
+            raise User.DoesNotExist
+
+        user = request.user
+        estudiante = get_object_or_404(Estudiante, user = user)
+        inscripto = True
+        return render(request, "pages/fines.html", {"title": "Plan Fines", "inscripto": inscripto})
+
+    except User.DoesNotExist:
+        return render(request, "pages/fines.html", {"title": "Plan Fines"})
+    except Estudiante.DoesNotExist:
+        return render(request, "pages/fines.html", {"title": "Plan Fines"})
+    else:
+        return render(request, "pages/fines.html", {"title": "Plan Fines"})
 
 
 def preinscripcion(request):
@@ -95,7 +111,7 @@ def preinscripcion(request):
                 estudiante.save()
 
                 subject = 'Creación de Usuario'
-                message = f'Hola {username}!\nTu nuevo nombre de usuario es: {username}.\nTu nueva contraseña es {password}.\nEn caso de querer cambiar la contraseña puede hacerlo dirigiendote a este link: (Acá iría el link cuando esté en producción)'
+                message = f'Hola {username}!\nTu nuevo nombre de usuario es: {username}.\nTu nueva contraseña es {password}\nEn caso de querer cambiar la contraseña puede hacerlo dirigiendote a este link: (Acá iría el link cuando esté en producción)'
                 from_email = 'programacion101200@gmail.com'
                 recipient_list = [email]
                 send_mail(subject, message, from_email, recipient_list, fail_silently=False)
@@ -120,8 +136,10 @@ def preinscripcion(request):
 
     password2_errors = form2.errors.get('password2', None)
     if password2_errors:
+        # Redirigir a 404
         error_message = password2_errors.as_text()
     else:
+        # Redirigir a 404
         error_message = "Unknown error occurred."
     return HttpResponse(error_message)
 
