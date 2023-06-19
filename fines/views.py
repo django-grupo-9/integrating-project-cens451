@@ -100,6 +100,8 @@ def preinscripcion(request):
                 recipient_list = [email]
                 send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
+                messages.success(request, 'Ya estás preinscripto en el Plan Fines.\nRevisa tu correo para ver tu nuevo usuario!')
+
                 return redirect('index')
             
             else:
