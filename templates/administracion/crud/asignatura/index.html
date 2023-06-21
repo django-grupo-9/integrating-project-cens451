@@ -1,0 +1,80 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Asignaturas{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Asignaturas CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Asignaturas</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Filtros</h3>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'buscar_asignatura' %}" method="GET">
+            <div class="row">
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" class="form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mt-4">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-success" href="{% url 'asignatura_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Horas Cátedra</th>
+                    <th>Cuatrimestre</th>
+                    <th>Baja</th>
+                    <th>Estudiante/s</th>
+                    <th>Orientación</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for asignatura in asignaturas %}
+                    <tr>
+                        <td>{{asignatura.id_asignatura}}</td>
+                        <td>{{asignatura.asignatura}}</td>
+                        <td>{{asignatura.horas}}</td>
+                        <td>{{asignatura.cuatrimestre}}</td>
+                        <td>{{asignatura.baja}}</td>
+                        <td>
+                            {% for estudiante in asignatura.estudiante.all %}
+                            {{ estudiante.nombres }} - {{ estudiante.apellidos }}{% if not forloop.last %} | {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ asignatura.orientacion.orientacion }}
+                        </td>
+                        <td>
+                            <a href="{% url 'asignatura_editar' asignatura.id_asignatura %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'asignatura_eliminar' asignatura.id_asignatura %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
+
+{% endblock %}
+    

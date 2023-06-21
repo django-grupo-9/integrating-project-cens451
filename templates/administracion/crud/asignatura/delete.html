@@ -1,0 +1,23 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Eliminar Asignatura{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Asignatura CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Eliminar Asignatura</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Eliminación de Asignatura</div>
+    <div class="card-body">
+        <form method="post">{% csrf_token %}
+            <p>Esta seguro que quiere eliminar la asignatura "{{ object.nombre }}"?</p>
+            <input type="submit" value="Confirmar" class="btn btn-danger">
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

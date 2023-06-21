@@ -1,0 +1,22 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Nueva Asignatura{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Asignaturas</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Nueva Asignatura</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Creacion de Asignaturas</div>
+    <div class="card-body">
+        <form action="{% url 'asignatura_nuevo' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'administracion/crud/asignatura/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
