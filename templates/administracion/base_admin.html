@@ -48,13 +48,13 @@
                         </a>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                            Cursos
+                            CRUDs
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="{% url 'orientacion_index' %}">Orientaciones</a>
-                                <a class="nav-link" href="">Cursos</a>
+                                <a class="nav-link" href="{% url 'campus_index' %}">Sedes</a>
                             </nav>
                         </div>
                         <a class="nav-link" href="{% url 'index' %}">
