@@ -91,13 +91,13 @@ class Persona(models.Model):
     )
 
     id_person = models.AutoField(primary_key=True, verbose_name='ID Persona')
-    dni = models.IntegerField(verbose_name="DNI")
+    dni = models.IntegerField(verbose_name="DNI", unique=True)
     nombres = models.CharField(max_length=50, blank=False, verbose_name="Nombre")
     apellidos = models.CharField(max_length=50, blank=False, verbose_name="Apellido")
     nacimiento = models.DateField(verbose_name="Fecha de nacimiento", blank=False)
     genero = models.CharField(max_length=30, choices=GENEROS_CHOICES, blank=True, null=False, verbose_name="Género")
     nacionalidad = models.CharField(max_length=55, choices=NACIONALIDADES_CHOICES, blank=True, null=False, verbose_name="Nacionalidad")
-    email = models.EmailField(max_length=255, blank=False, verbose_name="Correo electrónico")
+    email = models.EmailField(max_length=255, blank=False, verbose_name="Correo electrónico", unique=True)
     celular_1 = models.IntegerField(verbose_name="Celular", blank=False)
 
     class Meta:
@@ -182,7 +182,7 @@ class Estudiante(Persona):
 
 
 class Legajo(models.Model):
-    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, verbose_name="Estudiante")
+    estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, verbose_name="Estudiante", unique=True)
     orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name="Orientación")
     libro = models.IntegerField(verbose_name="Libro")
     folio = models.IntegerField(verbose_name="Folio")
@@ -191,6 +191,9 @@ class Legajo(models.Model):
     certificado = models.BooleanField(verbose_name="Certificado de estudios")
     constancia = models.BooleanField(verbose_name="Constancia")
     observaciones = models.TextField(verbose_name="Observaciones")
+
+    def __str__(self):
+        return f"{self.estudiante}"
 
     class Meta:
         verbose_name = "Legajo"
