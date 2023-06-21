@@ -38,4 +38,10 @@ urlpatterns = [
     path('comision/editar/<int:id_comision>', views.comision_editar, name='comision_editar'),
     path('comision/eliminar/<int:id_comision>', views.comision_eliminar, name='comision_eliminar'),
     path('comision/buscar/', views.comision_buscar, name='buscar_comision'),
+
+    path('asignatura/', views.asignatura_index, name='asignatura_index'),
+    path('asignatura/nuevo/', views.asignatura_nuevo, name='asignatura_nuevo'),
+    path('asignatura/editar/<int:id_asignatura>', views.asignatura_editar, name='asignatura_editar'),
+    path('asignatura/eliminar/<int:id_asignatura>', views.asignatura_eliminar, name='asignatura_eliminar'),
+    path('asignatura/buscar/', views.asignatura_buscar, name='buscar_asignatura'),
 ]
