@@ -204,7 +204,7 @@ class Asignatura(models.Model):
     orientacion = models.ForeignKey(Orientacion, on_delete=models.CASCADE, verbose_name='Orientación')
     cuatrimestre = models.CharField(max_length=4, verbose_name='Cuatrimestre')
     baja = models.BooleanField(default=False)
-    estudiante = models.ManyToManyField(Estudiante, related_name='asignaturas', blank=True, null=False)
+    estudiante = models.ManyToManyField(Estudiante, related_name='asignaturas', blank=True)
 
     class Meta:
         verbose_name = "Materias"
