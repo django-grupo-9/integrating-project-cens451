@@ -90,7 +90,7 @@ class AsignaturaForm(forms.ModelForm):
 
     class Meta:
         model = Asignatura
-        fields = ['asignatura', 'horas', 'orientacion', 'cuatrimestre']
+        fields = ['asignatura', 'horas', 'cuatrimestre', 'orientacion', 'estudiante']
 
     asignatura = forms.CharField(
         label='Nombre',
@@ -102,15 +102,24 @@ class AsignaturaForm(forms.ModelForm):
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
 
-    orientacion = forms.CharField(
+    orientacion = forms.ModelChoiceField(
+        queryset=Orientacion.objects.all(),
+        required=True,
         label='Orientación',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
 
     cuatrimestre = forms.CharField(
         label='Cuatrimestre',
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
+
+    estudiante = forms.ModelMultipleChoiceField(
+        queryset=Estudiante.objects.all(),
+        label='Estudiante (CTRL + click para selección múltiple)',
+        widget=forms.SelectMultiple(attrs={'class': 'form-select'})
+    )
+
 
 class EstudianteForm(forms.ModelForm):
 
@@ -188,7 +197,7 @@ class EstudianteForm(forms.ModelForm):
     )
 
     comision = forms.ModelMultipleChoiceField(
-        queryset= Comision.objects.all(),
+        queryset=Comision.objects.all(),
         widget=CheckboxSelectMultiple()
     )
 
