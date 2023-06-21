@@ -220,6 +220,67 @@ def campus_buscar(request):
 
     return render(request, 'administracion/crud/campus/buscar.html', context)
 
+
+# Crud Comisiones
+@permission_required('administracion.administrador')
+def comision_index(request):
+    comisiones = Comision.objects.all()
+    return render(request, 'administracion/crud/comision/index.html', {'comisiones': comisiones})
+
+
+@permission_required('administracion.administrador')
+def comision_nuevo(request):
+    if request.method == 'POST':
+        formulario = ComisionForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('comision_index')
+    else:
+        formulario = ComisionForm()
+    return render(request, 'administracion/crud/comision/new.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def comision_editar(request, id_comision):
+    try:
+        comisiones = Comision.objects.get(pk=id_comision)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = ComisionForm(request.POST, instance=comisiones)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('comision_index')
+    else:
+        formulario = ComisionForm(instance=comisiones)
+    return render(request, 'administracion/crud/comision/edit.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def comision_eliminar(request, id_comision):
+    try:
+        comisiones = Comision.objects.get(pk=id_comision)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    comisiones.delete()
+    return redirect('comision_index')
+
+
+@permission_required('administracion.administrador')
+def comision_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    comisiones = Comision.objects.filter(comision__icontains=nombre)
+
+    context = {
+        'comisiones': comisiones
+    }
+
+    return render(request, 'administracion/crud/comision/buscar.html', context)
+
+
+
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
 # class CategoriaListView(ListView):
 #     model = Categoria
