@@ -280,6 +280,64 @@ def comision_buscar(request):
     return render(request, 'administracion/crud/comision/buscar.html', context)
 
 
+# Crud Asignaturas
+@permission_required('administracion.administrador')
+def asignatura_index(request):
+    asignaturas = Asignatura.objects.filter(baja=False)
+    return render(request, 'administracion/crud/asignatura/index.html', {'asignaturas': asignaturas})
+
+
+@permission_required('administracion.administrador')
+def asignatura_nuevo(request):
+    if request.method == 'POST':
+        formulario = AsignaturaForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('asignatura_index')
+    else:
+        formulario = AsignaturaForm()
+    return render(request, 'administracion/crud/asignatura/new.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def asignatura_editar(request, id_asignatura):
+    try:
+        asignaturas = Asignatura.objects.get(pk=id_asignatura)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = AsignaturaForm(request.POST, instance=asignaturas)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('asignatura_index')
+    else:
+        formulario = AsignaturaForm(instance=asignaturas)
+    return render(request, 'administracion/crud/asignatura/edit.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def asignatura_eliminar(request, id_asignatura):
+    try:
+        asignaturas = Asignatura.objects.get(pk=id_asignatura)
+    except Asignatura.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    asignaturas.soft_delete()
+    return redirect('asignatura_index')
+
+
+@permission_required('administracion.administrador')
+def asignatura_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    asignaturas = Asignatura.objects.filter(asignatura__icontains=nombre)
+
+    context = {
+        'asignaturas': asignaturas
+    }
+
+    return render(request, 'administracion/crud/asignatura/buscar.html', context)
+
 
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
 # class CategoriaListView(ListView):
