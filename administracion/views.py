@@ -22,7 +22,7 @@ def index_administracion(request):
     return render(request, 'administracion/index_admin.html', {'variable': variable})
 
 
-# CRUD Categorias
+# CRUD Orientación
 @login_required(login_url="sign")
 @permission_required('administracion.administrador')
 def orientacion_index(request):
@@ -86,6 +86,7 @@ def orientacion_buscar(request):
     return render(request, 'administracion/crud/orientacion/buscar.html', context)
 
 
+# Crud Estudiantes
 # @login_required(login_url="sign")
 @permission_required('administracion.administrador')
 def estudiantes_index(request):
@@ -135,6 +136,7 @@ def estudiantes_eliminar(request, id_person):
     estudiantes.delete()
     return redirect('estudiantes_index')
 
+
 @permission_required('administracion.administrador')
 def estudiantes_ver(request, id_person):
     try:
@@ -155,6 +157,68 @@ def estudiantes_buscar(request):
     }
 
     return render(request, 'administracion/crud/estudiantes/buscar.html', context)
+
+
+# CRUD Campus
+@login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_index(request):
+    campus = Campus.objects.filter(baja=False)
+    return render(request, 'administracion/crud/campus/index.html', {'campus': campus})
+
+
+@permission_required('administracion.administrador')
+def campus_nuevo(request):
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm()
+    return render(request, 'administracion/crud/campus/new.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_editar(request, id):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST, instance=campus)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm(instance=campus)
+    return render(request, 'administracion/crud/campus/edit.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_eliminar(request, id):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    campus.soft_delete()
+    return redirect('campus_index')
+
+
+@permission_required('administracion.administrador')
+def campus_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    campus = Campus.objects.filter(campus__icontains=nombre)
+
+    context = {
+        'campus': campus
+    }
+
+    return render(request, 'administracion/crud/campus/buscar.html', context)
 
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)
 # class CategoriaListView(ListView):
