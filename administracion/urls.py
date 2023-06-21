@@ -26,4 +26,10 @@ urlpatterns = [
     path('estudiantes/eliminar/<int:id_person>', views.estudiantes_eliminar, name='estudiantes_eliminar'),
     path('estudiantes/ver/<int:id_person>', views.estudiantes_ver, name='estudiantes_ver'),
     path('estudiantes/buscar/', views.estudiantes_buscar, name='buscar_estudiantes'),
+
+    path('campus/', views.campus_index, name='campus_index'),
+    path('campus/nuevo/', views.campus_nuevo, name='campus_nuevo'),
+    path('campus/editar/<int:id>', views.campus_editar, name='campus_editar'),
+    path('campus/eliminar/<int:id>', views.campus_eliminar, name='campus_eliminar'),
+    path('campus/buscar/', views.campus_buscar, name='buscar_campus'),
 ]
