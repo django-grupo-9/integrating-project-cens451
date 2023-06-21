@@ -39,14 +39,25 @@ class ComisionForm(forms.ModelForm):
             label='Nombre',
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-    orientacion = forms.CharField(
-            label='Orientación',
-            widget=forms.TextInput(attrs={'class': 'form-control'})
-        )
-    campus = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+    
+    orientacion = forms.ModelChoiceField(
+        queryset=Orientacion.objects.all(),
+        required=True,
+        label='Orientación',
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
+
+    campus = forms.ModelChoiceField(
+        queryset=Campus.objects.all(),
+        required=True,
+        label='Sede',
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    STATUS_CHOICES = [('Activa', 'Activa'), ('Reagrupada', 'Reagrupada'), ('Cerrada', 'Cerrada'), ('Egresada', 'Egresada')]
+    
     status = forms.ChoiceField(
+        choices=STATUS_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
