@@ -32,4 +32,10 @@ urlpatterns = [
     path('campus/editar/<int:id>', views.campus_editar, name='campus_editar'),
     path('campus/eliminar/<int:id>', views.campus_eliminar, name='campus_eliminar'),
     path('campus/buscar/', views.campus_buscar, name='buscar_campus'),
+
+    path('comision/', views.comision_index, name='comision_index'),
+    path('comision/nuevo/', views.comision_nuevo, name='comision_nuevo'),
+    path('comision/editar/<int:id_comision>', views.comision_editar, name='comision_editar'),
+    path('comision/eliminar/<int:id_comision>', views.comision_eliminar, name='comision_eliminar'),
+    path('comision/buscar/', views.comision_buscar, name='buscar_comision'),
 ]
