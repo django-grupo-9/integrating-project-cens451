@@ -16,23 +16,23 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def index_administracion(request):
     variable = 'CENS 451'
     return render(request, 'administracion/index_admin.html', {'variable': variable})
 
 
-# CRUD Categorias
+# CRUD Orientación
 @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_index(request):
     # queryset
     orientaciones = Orientacion.objects.filter(baja=False)
-    return render(request, 'administracion/crud/index.html', {'orientaciones': orientaciones})
+    return render(request, 'administracion/crud/orientacion/index.html', {'orientaciones': orientaciones})
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_nuevo(request):
     if request.method == 'POST':
         formulario = OrientacionForm(request.POST)
@@ -41,11 +41,11 @@ def orientacion_nuevo(request):
             return redirect('orientacion_index')
     else:
         formulario = OrientacionForm()
-    return render(request, 'administracion/crud/new.html', {'form': formulario})
+    return render(request, 'administracion/crud/orientacion/new.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_editar(request, id_orientacion):
     try:
         orientacion = Orientacion.objects.get(pk=id_orientacion)
@@ -59,11 +59,11 @@ def orientacion_editar(request, id_orientacion):
             return redirect('orientacion_index')
     else:
         formulario = OrientacionForm(instance=orientacion)
-    return render(request, 'administracion/crud/edit.html', {'form': formulario})
+    return render(request, 'administracion/crud/orientacion/edit.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def orientacion_eliminar(request, id_orientacion):
     try:
         orientacion = Orientacion.objects.get(pk=id_orientacion)
@@ -73,8 +73,22 @@ def orientacion_eliminar(request, id_orientacion):
     return redirect('orientacion_index')
 
 
+@permission_required('administracion.administrador')
+def orientacion_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    orientaciones = Orientacion.objects.filter(orientacion__icontains=nombre)
+
+    context = {
+        'orientaciones': orientaciones
+    }
+
+    return render(request, 'administracion/crud/orientacion/buscar.html', context)
+
+
+# Crud Estudiantes
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_index(request):
     # queryset
     estudiantes = Estudiante.objects.all()
@@ -82,7 +96,7 @@ def estudiantes_index(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_nuevo(request):
     if request.method == 'POST':
         formulario = EstudianteForm(request.POST)
@@ -95,7 +109,7 @@ def estudiantes_nuevo(request):
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_editar(request, id_person):
     try:
         estudiantes = Estudiante.objects.get(pk=id_person)
@@ -106,14 +120,14 @@ def estudiantes_editar(request, id_person):
         formulario = EstudianteForm(request.POST, instance=estudiantes)
         if formulario.is_valid():
             formulario.save()
-            return redirect('orientacion_index')
+            return redirect('estudiantes_index')
     else:
         formulario = EstudianteForm(instance=estudiantes)
     return render(request, 'administracion/crud/estudiantes/edit.html', {'form': formulario})
 
 
 # @login_required(login_url="sign")
-@permission_required('administracion')
+@permission_required('administracion.administrador')
 def estudiantes_eliminar(request, id_person):
     try:
         estudiantes = Estudiante.objects.get(pk=id_person)
@@ -121,6 +135,208 @@ def estudiantes_eliminar(request, id_person):
         return render(request, 'administracion/404_admin.html')
     estudiantes.delete()
     return redirect('estudiantes_index')
+
+
+@permission_required('administracion.administrador')
+def estudiantes_ver(request, id_person):
+    try:
+        estudiante = Estudiante.objects.get(pk=id_person)
+    except Estudiante.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    return render(request, 'administracion/crud/estudiantes/ver.html',  {'estudiante': estudiante})
+
+
+@permission_required('administracion.administrador')
+def estudiantes_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    estudiantes = Estudiante.objects.filter(nombres__icontains=nombre)
+
+    context = {
+        'estudiantes': estudiantes
+    }
+
+    return render(request, 'administracion/crud/estudiantes/buscar.html', context)
+
+
+# CRUD Campus
+@login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_index(request):
+    campus = Campus.objects.filter(baja=False)
+    return render(request, 'administracion/crud/campus/index.html', {'campus': campus})
+
+
+@permission_required('administracion.administrador')
+def campus_nuevo(request):
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm()
+    return render(request, 'administracion/crud/campus/new.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_editar(request, id):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = CampusForm(request.POST, instance=campus)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('campus_index')
+    else:
+        formulario = CampusForm(instance=campus)
+    return render(request, 'administracion/crud/campus/edit.html', {'form': formulario})
+
+
+# @login_required(login_url="sign")
+@permission_required('administracion.administrador')
+def campus_eliminar(request, id):
+    try:
+        campus = Campus.objects.get(pk=id)
+    except Campus.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    campus.soft_delete()
+    return redirect('campus_index')
+
+
+@permission_required('administracion.administrador')
+def campus_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    campus = Campus.objects.filter(campus__icontains=nombre)
+
+    context = {
+        'campus': campus
+    }
+
+    return render(request, 'administracion/crud/campus/buscar.html', context)
+
+
+# Crud Comisiones
+@permission_required('administracion.administrador')
+def comision_index(request):
+    comisiones = Comision.objects.all()
+    return render(request, 'administracion/crud/comision/index.html', {'comisiones': comisiones})
+
+
+@permission_required('administracion.administrador')
+def comision_nuevo(request):
+    if request.method == 'POST':
+        formulario = ComisionForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('comision_index')
+    else:
+        formulario = ComisionForm()
+    return render(request, 'administracion/crud/comision/new.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def comision_editar(request, id_comision):
+    try:
+        comisiones = Comision.objects.get(pk=id_comision)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = ComisionForm(request.POST, instance=comisiones)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('comision_index')
+    else:
+        formulario = ComisionForm(instance=comisiones)
+    return render(request, 'administracion/crud/comision/edit.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def comision_eliminar(request, id_comision):
+    try:
+        comisiones = Comision.objects.get(pk=id_comision)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    comisiones.delete()
+    return redirect('comision_index')
+
+
+@permission_required('administracion.administrador')
+def comision_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    comisiones = Comision.objects.filter(comision__icontains=nombre)
+
+    context = {
+        'comisiones': comisiones
+    }
+
+    return render(request, 'administracion/crud/comision/buscar.html', context)
+
+
+# Crud Asignaturas
+@permission_required('administracion.administrador')
+def asignatura_index(request):
+    asignaturas = Asignatura.objects.filter(baja=False)
+    return render(request, 'administracion/crud/asignatura/index.html', {'asignaturas': asignaturas})
+
+
+@permission_required('administracion.administrador')
+def asignatura_nuevo(request):
+    if request.method == 'POST':
+        formulario = AsignaturaForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('asignatura_index')
+    else:
+        formulario = AsignaturaForm()
+    return render(request, 'administracion/crud/asignatura/new.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def asignatura_editar(request, id_asignatura):
+    try:
+        asignaturas = Asignatura.objects.get(pk=id_asignatura)
+    except Comision.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+
+    if request.method == 'POST':
+        formulario = AsignaturaForm(request.POST, instance=asignaturas)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('asignatura_index')
+    else:
+        formulario = AsignaturaForm(instance=asignaturas)
+    return render(request, 'administracion/crud/asignatura/edit.html', {'form': formulario})
+
+
+@permission_required('administracion.administrador')
+def asignatura_eliminar(request, id_asignatura):
+    try:
+        asignaturas = Asignatura.objects.get(pk=id_asignatura)
+    except Asignatura.DoesNotExist:
+        return render(request, 'administracion/404_admin.html')
+    asignaturas.soft_delete()
+    return redirect('asignatura_index')
+
+
+@permission_required('administracion.administrador')
+def asignatura_buscar(request):
+    nombre = request.GET.get('nombre')
+
+    asignaturas = Asignatura.objects.filter(asignatura__icontains=nombre)
+
+    context = {
+        'asignaturas': asignaturas
+    }
+
+    return render(request, 'administracion/crud/asignatura/buscar.html', context)
 
 
 # IMPLEMENTACION DE CRUD DE CATEGORIA POR MEDIO DE VISTAS BASADAS EN CLASES (VBC)

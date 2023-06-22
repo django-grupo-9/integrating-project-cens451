@@ -1,0 +1,70 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Sedes CENS 451{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Sedes CENS 451</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Sedes</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Filtros</h3>
+    </div>
+    <div class="card-body">
+        <form action="{% url 'buscar_campus' %}" method="GET">
+            <div class="row">
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" class="form-control">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mt-4">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-success" href="{% url 'campus_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <!-- bs5-table-defaul -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Referente</th>
+                    <th>Celular</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sede in campus %}
+                    <tr>
+                        <td>{{sede.id}}</td>
+                        <td>{{sede.campus}}</td>
+                        <td>{{sede.direccion}}</td>
+                        <td>{{sede.referente}}</td>
+                        <td>{{sede.celular}}</td>
+                        <td>
+                            <a href="{% url 'campus_editar' sede.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'campus_eliminar' sede.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
+
+{% endblock %}
+    

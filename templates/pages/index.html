@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}?v={% now 'U'%}">
 {% endblock %}
 
 {% block header %}

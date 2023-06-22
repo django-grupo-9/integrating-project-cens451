@@ -1,6 +1,7 @@
 from django import forms
 from .models import Orientacion, Asignatura, Comision, Campus, Estudiante
 from django.forms import CheckboxSelectMultiple
+from django.contrib.auth.models import User
 
 
 class OrientacionForm(forms.ModelForm):
@@ -38,14 +39,25 @@ class ComisionForm(forms.ModelForm):
             label='Nombre',
             widget=forms.TextInput(attrs={'class': 'form-control'})
         )
-    orientacion = forms.CharField(
-            label='Orientación',
-            widget=forms.TextInput(attrs={'class': 'form-control'})
-        )
-    campus = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+    
+    orientacion = forms.ModelChoiceField(
+        queryset=Orientacion.objects.all(),
+        required=True,
+        label='Orientación',
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
+
+    campus = forms.ModelChoiceField(
+        queryset=Campus.objects.all(),
+        required=True,
+        label='Sede',
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+
+    STATUS_CHOICES = [('Activa', 'Activa'), ('Reagrupada', 'Reagrupada'), ('Cerrada', 'Cerrada'), ('Egresada', 'Egresada')]
+    
     status = forms.ChoiceField(
+        choices=STATUS_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
@@ -78,7 +90,7 @@ class AsignaturaForm(forms.ModelForm):
 
     class Meta:
         model = Asignatura
-        fields = ['asignatura', 'horas', 'orientacion', 'cuatrimestre']
+        fields = ['asignatura', 'horas', 'cuatrimestre', 'orientacion', 'estudiante']
 
     asignatura = forms.CharField(
         label='Nombre',
@@ -90,9 +102,11 @@ class AsignaturaForm(forms.ModelForm):
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
 
-    orientacion = forms.CharField(
+    orientacion = forms.ModelChoiceField(
+        queryset=Orientacion.objects.all(),
+        required=True,
         label='Orientación',
-        widget=forms.TextInput(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
 
     cuatrimestre = forms.CharField(
@@ -100,11 +114,23 @@ class AsignaturaForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
 
+    estudiante = forms.ModelMultipleChoiceField(
+        queryset=Estudiante.objects.all(),
+        required=False,
+        label='Estudiante (CTRL + click para selección múltiple)',
+        widget=forms.SelectMultiple(attrs={'class': 'form-select'})
+    )
+
+
 class EstudianteForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].label_from_instance = lambda user: user.email
 
     class Meta:
         model = Estudiante
-        fields = ['nombres', 'apellidos', 'dni', 'nacimiento', 'genero', 'nacionalidad', 'email', 'celular_1', 'comision', 'domicilio', 'barrio', 'ex_alumno', 'estudios', 'materias_adeudadas', 'turno_manana', 'turno_tarde', 'turno_noche']
+        fields = ['nombres', 'apellidos', 'dni', 'nacimiento', 'genero', 'nacionalidad', 'email', 'celular_1', 'comision', 'domicilio', 'barrio', 'ex_alumno', 'estudios', 'materias_adeudadas', 'turno_manana', 'turno_tarde', 'turno_noche', 'user']
 
     nombres = forms.CharField(
         label='Nombre/s',
@@ -172,7 +198,7 @@ class EstudianteForm(forms.ModelForm):
     )
 
     comision = forms.ModelMultipleChoiceField(
-        queryset= Comision.objects.all(),
+        queryset=Comision.objects.all(),
         widget=CheckboxSelectMultiple()
     )
 
@@ -272,3 +298,12 @@ class EstudianteForm(forms.ModelForm):
         label='Turno noche 18 a 22hs aprox.',
         widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        label='Usuario (email)',
+        to_field_name='email',
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+

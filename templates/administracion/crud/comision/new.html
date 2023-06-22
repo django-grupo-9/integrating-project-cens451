@@ -1,0 +1,22 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Nueva Comisión{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Comisiones</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Nueva Comisión</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Creacion de Comsiones</div>
+    <div class="card-body">
+        <form action="{% url 'comision_nuevo' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'administracion/crud/comision/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}

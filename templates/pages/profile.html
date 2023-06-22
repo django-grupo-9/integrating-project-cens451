@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ <title>CENS 451 | Inicio </title>
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/components/profile.css' %}?v={% now 'U'%}">
+{% endblock %}
+
+{% block header %}
+    {% include 'components/navbar.html' %}
+{% endblock %}
+
+{% block main %}
+<div class="emp-profile">
+    <div class="container-fluid">
+        <div class="card text-center">
+            <div class="card-body">
+                <h1 class="card-title">Perfil de estudiante</h1>
+                <hr>
+                <h2 class="card-text">{{ estudiante }}</h2>
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col order-first mt-4">
+                <div class="profile-work">
+              
+                    <h3>Asignaturas:</h3>
+                        <ul class="list">
+                            {% if asignaturas %}
+                                {% for asignatura in asignaturas %}
+                                <li class="list-group-item">{{ asignatura }}</li>
+                                {% endfor %}
+                            {% else %}
+                            <p>No se registra inscripción a ninguna asignatura</p>
+                            {% endif %}
+                        </ul>
+                </div>
+            </div>
+            <div class="col order-last mt-4">
+                <div class="profile-work">
+                    <h3>Estudiante:</h3>
+                    <p>Nombre/s: <strong>{{ estudiante.nombres }}</strong></p>
+                    <p>Apellido/s: <strong>{{ estudiante.apellidos }}</strong></p>
+                    <p>DNI: <strong>{{ estudiante.dni }}</strong></p>
+                    <p>Correo: <strong>{{ estudiante.email }}</strong></p>
+                    <hr>
+                    {% if comision %}
+                        {% for comision in comision %}
+                            <p>Orientación: <strong>{{ comision.orientacion }}</strong></p>
+                            <p>Campus: <strong>{{ comision.campus }}</strong></p>
+                            <p>Comisión: <strong>{{ comision }}</strong></p>
+                            <hr>
+                        {% endfor %}
+                    {% else %}
+                    <p>Orientación: <strong>Sin asignar</strong></p>
+                    <p>Campus: <strong>Sin asignar</strong></p>
+                    <p>Comisión: <strong>Sin asignar</strong></p>
+                    {% endif %}
+                    <p>Materias adeudadas: <strong>{% if estudiante.materias_adeudadas %}{{estudiante.materias_adeudadas}}{% else %}No adeuda{% endif %}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>       
+          
+{% endblock %}

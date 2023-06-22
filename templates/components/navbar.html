@@ -20,20 +20,20 @@
 
       <ul id="navId" class="navigation">
         <li><a href="{% url 'index' %}">Inicio</a></li>
-        {% if perms.grupo_9 %}
+        {% if perms.administracion.administrador %}
         <li><a href="{% url 'inicio_administracion' %}">Administración</a></li>
         {% endif %}
-        <li><a href="{% url 'cens' %}">CENS</a></li>
         <li><a href="{% url 'fines' %}">Plan Fines</a></li>
         <li><a href="{% url 'docentes' %}">Docentes</a></li>
         <li><a href="{% url 'contacto' %}">Contacto</a></li>
         {% if user.is_authenticated %}
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-          <li style='background-color: #11080C' class="nav-item dropdown">
+          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-              <ul style='background-color: #11080C' class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              <ul style='background-color: #11080C' class="dropdown-menu dropdown-menu-dark" id="navbarDropdown" aria-labelledby="navbarDropdown">
                   <li ><p class="dropdown-header" style='color: #FFFFFF' href="#!">{{ user.username }}</p></li>
                   <li ><hr class="dropdown-divider" /></li>
+                  <li ><a class="dropdown-item" style='color: #FFFFFF' href="{% url 'profile' %}">Perfil</a></li>
                   <li ><a class="dropdown-item" style='color: #FFFFFF' href="{% url 'logout' %}">Logout</a></li>
               </ul>
           </li>
@@ -57,11 +57,14 @@
       <div id="navMobileId">
         <ul>
             <li><a class="link" href="{% url 'index' %}">Inicio</a></li>
-            <li><a class="link" href="{% url 'cens' %}">CENS</a></li>
             <li><a class="link" href="{% url 'fines' %}">Plan Fines</a></li>
             <li><a class="link" href="{% url 'docentes' %}">Docentes</a></li>
             <li><a class="link" href="{% url 'contacto' %}">Contacto</a></li>
+            {% if perms.administracion.administrador %}
+            <li><a href="{% url 'inicio_administracion' %}">Administración</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
+            <li ><a class="link" href="{% url 'profile' %}">Perfil</a></li>
             <a href="{% url 'logout' %}">
               <button type="button" class="btn btn-primary">Cerrar Sesión</button>
             </a>
