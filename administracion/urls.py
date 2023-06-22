@@ -18,9 +18,30 @@ urlpatterns = [
     path('orientacion/nuevo/', views.orientacion_nuevo, name='orientacion_nuevo'),
     path('orientacion/editar/<int:id_orientacion>', views.orientacion_editar, name='orientacion_editar'),
     path('orientacion/eliminar/<int:id_orientacion>', views.orientacion_eliminar, name='orientacion_eliminar'),
+    path('orientacion/buscar/', views.orientacion_buscar, name='buscar_orientaciones'),
 
     path('estudiantes/', views.estudiantes_index, name='estudiantes_index'),
     path('estudiantes/nuevo/', views.estudiantes_nuevo, name='estudiantes_nuevo'),
     path('estudiantes/editar/<int:id_person>', views.estudiantes_editar, name='estudiantes_editar'),
     path('estudiantes/eliminar/<int:id_person>', views.estudiantes_eliminar, name='estudiantes_eliminar'),
+    path('estudiantes/ver/<int:id_person>', views.estudiantes_ver, name='estudiantes_ver'),
+    path('estudiantes/buscar/', views.estudiantes_buscar, name='buscar_estudiantes'),
+
+    path('campus/', views.campus_index, name='campus_index'),
+    path('campus/nuevo/', views.campus_nuevo, name='campus_nuevo'),
+    path('campus/editar/<int:id>', views.campus_editar, name='campus_editar'),
+    path('campus/eliminar/<int:id>', views.campus_eliminar, name='campus_eliminar'),
+    path('campus/buscar/', views.campus_buscar, name='buscar_campus'),
+
+    path('comision/', views.comision_index, name='comision_index'),
+    path('comision/nuevo/', views.comision_nuevo, name='comision_nuevo'),
+    path('comision/editar/<int:id_comision>', views.comision_editar, name='comision_editar'),
+    path('comision/eliminar/<int:id_comision>', views.comision_eliminar, name='comision_eliminar'),
+    path('comision/buscar/', views.comision_buscar, name='buscar_comision'),
+
+    path('asignatura/', views.asignatura_index, name='asignatura_index'),
+    path('asignatura/nuevo/', views.asignatura_nuevo, name='asignatura_nuevo'),
+    path('asignatura/editar/<int:id_asignatura>', views.asignatura_editar, name='asignatura_editar'),
+    path('asignatura/eliminar/<int:id_asignatura>', views.asignatura_eliminar, name='asignatura_eliminar'),
+    path('asignatura/buscar/', views.asignatura_buscar, name='buscar_asignatura'),
 ]

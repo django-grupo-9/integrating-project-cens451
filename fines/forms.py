@@ -155,7 +155,7 @@ class PreinscriptionForm(forms.ModelForm):
             'class': 'form-control',
             'id': 'id_dni',
             'placeholder': 'Número de DNI sin puntos',
-            'maxlenght': '8',
+            'maxlength': '8',
 
             'required': True,
             'aria-describedby': 'basic-addon1',

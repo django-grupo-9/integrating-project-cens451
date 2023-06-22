@@ -1,0 +1,22 @@
+{% extends '../../base_admin.html' %}
+
+{% block titulo %}Nueva Sede{% endblock%}
+
+{% block contenido %}
+<h1 class="mt-4">Sedes</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Nueva Sede</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Creacion de Sedes</div>
+    <div class="card-body">
+        <form action="{% url 'campus_nuevo' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'administracion/crud/campus/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}

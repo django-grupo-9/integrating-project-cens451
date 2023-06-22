@@ -19,9 +19,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from . import views
 from django.contrib.auth import views as auth_views
+from .admin import cens_admin
+
+admin.autodiscover()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin_og/', admin.site.urls),
+    path('admin/', cens_admin.urls),
     path('', views.index, name='index'),
     path('cens/', include('cens.urls')),
     path('fines/', include('fines.urls')),
@@ -33,5 +37,8 @@ urlpatterns = [
     path('new_password/', views.new_password, name='new_password'),
     path('logout/', auth_views.LogoutView.as_view(template_name='pages/index.html'), name='logout'),
     path('administracion/', include('administracion.urls')),
-    path('noticias/<int:id_noticia>/', views.noticias)
+    path('noticias/<int:id_noticia>/', views.noticias),
+    path('profile/', views.profile, name='profile'),
+    path('administracion_permission/<int:user_id>', views.give_administracion_permission, name='administracion_permission'),
+    path('staff_permission/<int:user_id>', views.give_staff, name='staff_permission'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

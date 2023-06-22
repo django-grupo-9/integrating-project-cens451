@@ -1,4 +1,4 @@
-{% extends '../base_admin.html' %}
+{% extends '../../base_admin.html' %}
 
 {% block titulo %}Orientaciones{% endblock%}
 
@@ -14,21 +14,16 @@
         <h3>Filtros</h3>
     </div>
     <div class="card-body">
-        <form action="">
+        <form action="{% url 'buscar_orientaciones' %}" method="GET">
             <div class="row">
                 <div class="col-3">
                     <div class="md-form mb-0">
-                        <label for="name" class="">Nombre</label>
-                        
-                        <input type="text" 
-                              id="nombre" 
-                              name="nombre"
-                              placeholder="Ingrese el nombre" 
-                              class="form-control">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" class="form-control">
                     </div>
                 </div>
-                <div class="col-3 ">
-                    <button class="btn btn-primary mt-4">Buscar</button>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary mt-4">Buscar</button>
                 </div>
             </div>
         </form>

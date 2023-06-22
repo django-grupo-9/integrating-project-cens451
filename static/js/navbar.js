@@ -4,7 +4,9 @@ let windowWidth = null;
 const icon = document.querySelector('#iconNavId');
 const menuMobile = document.querySelector('#navMobileId');
 const navbar = document.querySelector('#navId');
-const header = document.querySelector('header')
+const header = document.querySelector('header');
+const dropdownItem = document.querySelector('.nav-item.dropdown');
+const navbarBackgroundColor = window.getComputedStyle(navbar).backgroundColor;
 
 hideNavbar = function(width){
     if (width > 850) {
@@ -86,3 +88,6 @@ window.addEventListener('load', formatPage)
 window.addEventListener('scroll', updateScroll);
 window.addEventListener('resize', formatPage)
 icon.addEventListener('click', showMobileMenu)
+
+
+dropdownItem.style.backgroundColor = navbarBackgroundColor;

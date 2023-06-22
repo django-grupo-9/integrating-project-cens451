@@ -19,15 +19,14 @@
 
 <div class="container contact my-5">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="row">
 			<div class="contact-info">
-				<i class="bi bi-envelope-paper-fill"></i>
 				{% comment "" %}<img src="../static/img/mail2.png" alt="image"/>{% endcomment %}
-				<h2>¡Contáctanos!</h2>
-				<h4>Te invitamos a compartirnos tu duda, pregunta o solicitud a continuación y con mucho gusto te responderemos.</h4>
+				<h3 class="h3">¡Contáctanos!</h2>
+				<h5 class="h5">Te invitamos a compartirnos tu duda, pregunta o solicitud a continuación y con mucho gusto te responderemos.</h4>
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="row">
 			{% comment "" %}
 			<form action="/contact" method="POST">
 				{% csrf_token %}

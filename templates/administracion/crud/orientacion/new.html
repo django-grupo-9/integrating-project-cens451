@@ -1,4 +1,4 @@
-{% extends '../base_admin.html' %}
+{% extends '../../base_admin.html' %}
 
 {% block titulo %}Nueva orientacion{% endblock%}
 
@@ -15,7 +15,7 @@
     <div class="card-body">
         <form action="{% url 'orientacion_nuevo' %}" method="post" novalidate>
             {% csrf_token %}
-            {% include 'administracion/crud/form.html' %}
+            {% include 'administracion/crud/orientacion/form.html' %}
         </form>
     </div>
 </div>

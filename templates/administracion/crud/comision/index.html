@@ -1,12 +1,12 @@
 {% extends '../../base_admin.html' %}
 
-{% block titulo %}Estudiantes{% endblock%}
+{% block titulo %}Comisiones{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Estudiantes CENS 451</h1>
+<h1 class="mt-4">Comisiones CENS 451</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Estudiantes</li>
+    <li class="breadcrumb-item active">Comisiones</li>
 </ol>
 
 <div class="card">
@@ -14,7 +14,7 @@
         <h3>Filtros</h3>
     </div>
     <div class="card-body">
-        <form action="{% url 'buscar_estudiantes' %}" method="GET">
+        <form action="{% url 'buscar_comision' %}" method="GET">
             <div class="row">
                 <div class="col-3">
                     <div class="md-form mb-0">
@@ -32,29 +32,33 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'estudiantes_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'comision_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <!-- bs5-table-defaul -->
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>
-                    <th>Acciones</th>
+                    <th>Status</th>
+                    <th>Orientacion</th>
+                    <th>Campus</th>
                 </tr>
             </thead>
             <tbody>
-                {% for estudiante in estudiantes %}
+                {% for comision in comisiones %}
                     <tr>
-                        <td>{{estudiante.id_person}}</td>
-                        <td>{{estudiante.nombres}}</td>
-                        <td>{{estudiante.apellidos}}</td>
-                        <td>{{estudiante.dni}}</td>
+                        <td>{{comision.id_comision}}</td>
+                        <td>{{comision.comision}}</td>
+                        <td>{{comision.status}}</td>
                         <td>
-                            <a href="{% url 'estudiantes_editar' estudiante.id_person %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'estudiantes_eliminar' estudiante.id_person %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                            <a href="{% url 'estudiantes_ver' estudiante.id_person %}" title="Ver" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                            {{ comision.orientacion.orientacion }}
+                        </td>
+                        <td>
+                            {{ comision.campus.campus }}
+                        </td>
+                        <td>
+                            <a href="{% url 'comision_editar' comision.id_comision %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'comision_eliminar' comision.id_comision %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

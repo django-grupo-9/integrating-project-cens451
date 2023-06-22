@@ -8,12 +8,17 @@ import string
 from django.core.mail import send_mail
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
-from administracion.models import Noticias
+from django.contrib.auth.models import User, Permission
+from administracion.models import Noticias, Estudiante
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import AnonymousUser
+
 
 def index(request):
     noticias = Noticias.objects.all()
-    
+
     return render(request, "pages/index.html", {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451", "noticias": noticias})
 
 
@@ -129,30 +134,6 @@ def verify_code(request):
     return render(request, 'pages/verify_code.html', context)
 
 
-# def new_password(request):
-#     if request.method == 'POST':
-#         new_form = NewPassForm(request.POST)
-#         if new_form.is_valid():
-#             username = request.session.get('username_reset')
-#             user = get_object_or_404(User, username=username)
-#             password = new_form.cleaned_data['new_pass']
-#             hashed_password = make_password(password)
-#             user.set_password(hashed_password)
-#             user.save()
-#             context = {'new_form': new_form}
-#             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
-#         else:
-#             messages.error(request, 'Por favor introduzca datos válidos')
-#             context = {'new_form': new_form}
-#             return render(request, 'pages/new_password.html', context)
-#     else:
-#         if request.method == 'GET':
-#             context = {'new_form': NewPassForm()}
-#             return render(request, 'pages/new_password.html', context)
-#     context = {'new_form': NewPassForm()}
-#     return render(request, 'pages/new_password.html', context)
-
-
 def new_password(request):
     if request.method == 'POST':
         new_form = NewPassForm(request.POST)
@@ -160,7 +141,7 @@ def new_password(request):
             username = request.session.get('username_reset')
             user = get_object_or_404(User, username=username)
             password = new_form.cleaned_data['new_pass']
-            user.set_password(password)  # Use set_password to hash the new password
+            user.set_password(password)
             user.save()
             return render(request, 'pages/index.html', {"title": "CENTRO EDUCATIVO DE NIVEL SECUNDARIO N° 451"})
         else:
@@ -177,4 +158,71 @@ def new_password(request):
 def noticias(request, id_noticia):
     noticia = Noticias.objects.get(id=id_noticia)
     return render(request, 'pages/noticias.html', {"noticia": noticia})
+
+
+@login_required
+def profile(request):
+    user = request.user
+
+    try:
+        estudiante = Estudiante.objects.get(user=user)
+        asignaturas = estudiante.asignaturas.all()
+        comision = estudiante.comision.all()
+
+        return render(request, 'pages/profile.html', {'estudiante': estudiante, 'asignaturas': asignaturas, 'comision': comision})
+
+    except Estudiante.DoesNotExist:
+
+        try:
+            estudiante = Estudiante.objects.get(email=user.email)
+            asignaturas = estudiante.asignaturas.all()
+            comision = estudiante.comision.all()
+
+            return render(request, 'pages/profile.html', {'estudiante': estudiante, 'asignaturas': asignaturas, 'comision': comision})
+
+        except Estudiante.DoesNotExist:
+            messages.warning(request, 'No hay un estudiante asociado al usuario')
+            return redirect("index")
+
+
+@login_required
+def give_administracion_permission(request, user_id):
+    try:
+        user = get_object_or_404(User, id=user_id)
+
+        content_types = ContentType.objects.filter(app_label='administracion')
+
+        if content_types.exists():
+            content_type = content_types.first()
+        else:
+            messages.error(request, 'El permiso o el tipo de contenido no existe.')
+            return redirect('index')
+
+        permission, created = Permission.objects.get_or_create(
+            codename='administrador',
+            name='Accede como administrador',
+            content_type=content_type
+        )
+
+        user.user_permissions.add(permission)
+        user.save()
+
+        messages.info(request, 'Permiso de administración obtenido.')
+        return redirect('index')
+
+    except ContentType.DoesNotExist:
+        messages.error(request, 'El permiso o el tipo de contenido no existe.')
+        return redirect('index')
+
+
+@login_required
+def give_staff(request, user_id):
+
+    user = get_object_or_404(User, id=user_id)
+    user.is_superuser = True
+    user.save()
+
+    messages.success(request, 'Permiso de super-user obtenido.')
+    return redirect('index')
+
 
