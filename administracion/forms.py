@@ -116,6 +116,7 @@ class AsignaturaForm(forms.ModelForm):
 
     estudiante = forms.ModelMultipleChoiceField(
         queryset=Estudiante.objects.all(),
+        required=False,
         label='Estudiante (CTRL + click para selección múltiple)',
         widget=forms.SelectMultiple(attrs={'class': 'form-select'})
     )

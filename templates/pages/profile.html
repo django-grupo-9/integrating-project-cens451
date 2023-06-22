@@ -46,11 +46,13 @@
                     <p>Apellido/s: <strong>{{ estudiante.apellidos }}</strong></p>
                     <p>DNI: <strong>{{ estudiante.dni }}</strong></p>
                     <p>Correo: <strong>{{ estudiante.email }}</strong></p>
+                    <hr>
                     {% if comision %}
                         {% for comision in comision %}
                             <p>Orientación: <strong>{{ comision.orientacion }}</strong></p>
                             <p>Campus: <strong>{{ comision.campus }}</strong></p>
                             <p>Comisión: <strong>{{ comision }}</strong></p>
+                            <hr>
                         {% endfor %}
                     {% else %}
                     <p>Orientación: <strong>Sin asignar</strong></p>
